@@ -1,0 +1,9 @@
+{
+  "hosting": {
+    "public": "build/web",
+    "site": "slide-puzzle-dev-34815",
+    "cleanUrls": true,
+    "trailingSlash": false,
+    "ignore": [".firebase", "firebase.json", "__/**"]
+  }
+}
