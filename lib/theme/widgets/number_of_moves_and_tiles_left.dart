@@ -41,11 +41,10 @@ class NumberOfMovesAndTilesLeft extends StatelessWidget {
       medium: (BuildContext context, Widget? child) => Center(child: child),
       large: (BuildContext context, Widget? child) => child!,
       child: (ResponsiveLayoutSize currentSize) {
-        const MainAxisAlignment mainAxisAlignment =
-            //  currentSize == ResponsiveLayoutSize.large
-            //     ? MainAxisAlignment.start
-            //     :
-            MainAxisAlignment.end;
+        final MainAxisAlignment mainAxisAlignment =
+            currentSize == ResponsiveLayoutSize.large
+                ? MainAxisAlignment.start
+                : MainAxisAlignment.end;
 
         final TextStyle bodyTextStyle =
             currentSize == ResponsiveLayoutSize.small
@@ -65,7 +64,7 @@ class NumberOfMovesAndTilesLeft extends StatelessWidget {
               textBaseline: TextBaseline.alphabetic,
               children: [
                 AnimatedDefaultTextStyle(
-                  style: PuzzleTextStyle.headline4.copyWith(
+                  style: PuzzleTextStyle.headline5.copyWith(
                     color: textColor,
                   ),
                   duration: PuzzleThemeAnimationDuration.textStyle,
@@ -80,7 +79,7 @@ class NumberOfMovesAndTilesLeft extends StatelessWidget {
                   child: Text('${numberOfMoves.toString()}  '),
                 ),
                 AnimatedDefaultTextStyle(
-                  style: PuzzleTextStyle.headline4.copyWith(
+                  style: PuzzleTextStyle.headline5.copyWith(
                     color: textColor,
                   ),
                   duration: PuzzleThemeAnimationDuration.textStyle,

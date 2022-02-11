@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:spozzle/dashatar/dashatar.dart';
-import 'package:spozzle/l10n/l10n.dart';
-import 'package:spozzle/layout/layout.dart';
-import 'package:spozzle/puzzle/puzzle.dart';
-import 'package:spozzle/theme/theme.dart';
+// import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../l10n/l10n.dart';
+import '../../layout/layout.dart';
+import '../../puzzle/puzzle.dart';
+import '../../theme/theme.dart';
+import '../dashatar.dart';
 
 /// {@template dashatar_start_section}
 /// Displays the start section of the puzzle based on [state].
@@ -21,9 +22,6 @@ class DashatarStartSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final status =
-        context.select((DashatarPuzzleBloc bloc) => bloc.state.status);
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -39,18 +37,6 @@ class DashatarStartSection extends StatelessWidget {
         PuzzleTitle(
           key: puzzleTitleKey,
           title: context.l10n.puzzleChallengeTitle,
-        ),
-        const ResponsiveGap(
-          small: 12,
-          medium: 16,
-          large: 32,
-        ),
-        NumberOfMovesAndTilesLeft(
-          key: numberOfMovesAndTilesLeftKey,
-          numberOfMoves: state.numberOfMoves,
-          numberOfTilesLeft: status == DashatarPuzzleStatus.started
-              ? state.numberOfTilesLeft
-              : state.puzzle.tiles.length - 1,
         ),
         const ResponsiveGap(
           small: 8,

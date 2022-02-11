@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
-import 'package:spozzle/colors/colors.dart';
-import 'package:spozzle/l10n/l10n.dart';
-import 'package:spozzle/layout/layout.dart';
-import 'package:spozzle/models/models.dart';
-import 'package:spozzle/puzzle/puzzle.dart';
-import 'package:spozzle/simple/simple.dart';
-import 'package:spozzle/theme/theme.dart';
-import 'package:spozzle/typography/typography.dart';
+
+import '../colors/colors.dart';
+import '../l10n/l10n.dart';
+import '../layout/layout.dart';
+import '../models/models.dart';
+import '../puzzle/puzzle.dart';
+import '../theme/theme.dart';
+import '../typography/typography.dart';
+import 'simple.dart';
 
 /// {@template simple_puzzle_layout_delegate}
 /// A delegate for computing the layout of the puzzle UI
@@ -21,9 +22,9 @@ class SimplePuzzleLayoutDelegate extends PuzzleLayoutDelegate {
   @override
   Widget startSectionBuilder(PuzzleState state) {
     return ResponsiveLayoutBuilder(
-      small: (_, child) => child!,
-      medium: (_, child) => child!,
-      large: (_, child) => Padding(
+      small: (_, Widget? child) => child!,
+      medium: (_, Widget? child) => child!,
+      large: (_, Widget? child) => Padding(
         padding: const EdgeInsets.only(left: 50, right: 32),
         child: child,
       ),
@@ -40,8 +41,8 @@ class SimplePuzzleLayoutDelegate extends PuzzleLayoutDelegate {
           medium: 48,
         ),
         ResponsiveLayoutBuilder(
-          small: (_, child) => const SimplePuzzleShuffleButton(),
-          medium: (_, child) => const SimplePuzzleShuffleButton(),
+          small: (_, Widget? child) => const SimplePuzzleShuffleButton(),
+          medium: (_, Widget? child) => const SimplePuzzleShuffleButton(),
           large: (_, __) => const SizedBox(),
         ),
         const ResponsiveGap(
@@ -322,7 +323,8 @@ class SimplePuzzleTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
+    final PuzzleTheme theme =
+        context.select((ThemeBloc bloc) => bloc.state.theme);
 
     return TextButton(
       style: TextButton.styleFrom(
@@ -338,7 +340,7 @@ class SimplePuzzleTile extends StatelessWidget {
       ).copyWith(
         foregroundColor: MaterialStateProperty.all(PuzzleColors.white),
         backgroundColor: MaterialStateProperty.resolveWith<Color?>(
-          (states) {
+          (Set<MaterialState> states) {
             if (tile.value == state.lastTappedTile?.value) {
               return theme.pressedColor;
             } else if (states.contains(MaterialState.hovered)) {
