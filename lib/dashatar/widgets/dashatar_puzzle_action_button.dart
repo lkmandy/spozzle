@@ -3,13 +3,15 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:spozzle/audio_control/audio_control.dart';
-import 'package:spozzle/dashatar/dashatar.dart';
-import 'package:spozzle/helpers/helpers.dart';
-import 'package:spozzle/l10n/l10n.dart';
-import 'package:spozzle/puzzle/puzzle.dart';
-import 'package:spozzle/theme/theme.dart';
-import 'package:spozzle/timer/timer.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+
+import '../../audio_control/audio_control.dart';
+import '../../helpers/helpers.dart';
+import '../../l10n/l10n.dart';
+import '../../puzzle/puzzle.dart';
+import '../../theme/theme.dart';
+import '../../timer/timer.dart';
+import '../dashatar.dart';
 
 /// {@template dashatar_puzzle_action_button}
 /// Displays the action button to start or shuffle the puzzle
@@ -47,18 +49,25 @@ class _DashatarPuzzleActionButtonState
 
   @override
   Widget build(BuildContext context) {
-    final theme = context.select((DashatarThemeBloc bloc) => bloc.state.theme);
+    final DashatarTheme theme =
+        context.select((DashatarThemeBloc bloc) => bloc.state.theme);
 
-    final status =
+    final DashatarPuzzleStatus status =
         context.select((DashatarPuzzleBloc bloc) => bloc.state.status);
-    final isLoading = status == DashatarPuzzleStatus.loading;
-    final isStarted = status == DashatarPuzzleStatus.started;
+    final bool isLoading = status == DashatarPuzzleStatus.loading;
+    final bool isStarted = status == DashatarPuzzleStatus.started;
 
-    final text = isStarted
-        ? context.l10n.dashatarRestart
+    final Widget playControl = isStarted
+        ? const Icon(MdiIcons.restart)
         : (isLoading
-            ? context.l10n.dashatarGetReady
-            : context.l10n.dashatarStartGame);
+            ? const SizedBox(
+                height: 15,
+                width: 15,
+                child: CircularProgressIndicator(
+                  color: Colors.white,
+                  strokeWidth: 2.5,
+                ))
+            : const Icon(MdiIcons.play));
 
     return AudioControlListener(
       audioPlayer: _audioPlayer,
@@ -72,7 +81,8 @@ class _DashatarPuzzleActionButtonState
             onPressed: isLoading
                 ? null
                 : () async {
-                    final hasStarted = status == DashatarPuzzleStatus.started;
+                    final bool hasStarted =
+                        status == DashatarPuzzleStatus.started;
 
                     // Reset the timer and the countdown.
                     context.read<TimerBloc>().add(const TimerReset());
@@ -93,7 +103,7 @@ class _DashatarPuzzleActionButtonState
                     unawaited(_audioPlayer.replay());
                   },
             textColor: isLoading ? theme.defaultColor : null,
-            child: Text(text),
+            child: playControl,
           ),
         ),
       ),
