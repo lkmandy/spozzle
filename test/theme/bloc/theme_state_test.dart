@@ -34,8 +34,8 @@ void main() {
 
     group('copyWith', () {
       test('updates themes', () {
-        final themesA = [SimpleTheme(), GreenDashatarTheme()];
-        final themesB = [SimpleTheme(), YellowDashatarTheme()];
+        final themesA = [SimpleTheme(), LittoralDashatarTheme()];
+        final themesB = [SimpleTheme(), NorthDashatarTheme()];
 
         expect(
           ThemeState(
@@ -52,9 +52,9 @@ void main() {
       });
 
       test('updates theme', () {
-        final themes = [SimpleTheme(), YellowDashatarTheme()];
+        final themes = [SimpleTheme(), NorthDashatarTheme()];
         final themeA = SimpleTheme();
-        final themeB = YellowDashatarTheme();
+        final themeB = NorthDashatarTheme();
 
         expect(
           ThemeState(

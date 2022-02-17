@@ -20,7 +20,7 @@ void main() {
     setUp(() {
       themeBloc = MockThemeBloc();
       final themeState = ThemeState(
-        themes: [SimpleTheme(), GreenDashatarTheme()],
+        themes: [SimpleTheme(), LittoralDashatarTheme()],
         theme: SimpleTheme(),
       );
       when(() => themeBloc.state).thenReturn(themeState);
@@ -71,7 +71,7 @@ void main() {
         'with PuzzleTheme.audioControlOnAsset '
         'when the audio is unmuted', (tester) async {
       final themeState = ThemeState(
-        themes: [SimpleTheme(), GreenDashatarTheme()],
+        themes: [SimpleTheme(), LittoralDashatarTheme()],
         theme: SimpleTheme(),
       );
       when(() => themeBloc.state).thenReturn(themeState);
@@ -101,8 +101,8 @@ void main() {
         'with PuzzleTheme.audioControlOffAsset '
         'when the audio is muted', (tester) async {
       final themeState = ThemeState(
-        themes: [SimpleTheme(), GreenDashatarTheme()],
-        theme: GreenDashatarTheme(),
+        themes: [SimpleTheme(), LittoralDashatarTheme()],
+        theme: LittoralDashatarTheme(),
       );
       when(() => themeBloc.state).thenReturn(themeState);
 
@@ -120,7 +120,7 @@ void main() {
           (widget) =>
               widget is Image &&
               (widget.image as AssetImage).assetName ==
-                  GreenDashatarTheme().audioControlOffAsset,
+                  LittoralDashatarTheme().audioControlOffAsset,
         ),
         findsOneWidget,
       );

@@ -18,11 +18,11 @@ void main() {
     setUp(() {
       dashatarThemeBloc = MockDashatarThemeBloc();
       dashatarThemes = [
-        GreenDashatarTheme(),
-        YellowDashatarTheme(),
-        BlueDashatarTheme()
+        LittoralDashatarTheme(),
+        NorthDashatarTheme(),
+        WestDashatarTheme()
       ];
-      dashatarTheme = GreenDashatarTheme();
+      dashatarTheme = LittoralDashatarTheme();
       final dashatarThemeState = DashatarThemeState(
         themes: dashatarThemes,
         theme: dashatarTheme,
@@ -144,7 +144,7 @@ void main() {
         audioControlBloc: audioControlBloc,
       );
 
-      final index = dashatarThemes.indexOf(YellowDashatarTheme());
+      final index = dashatarThemes.indexOf(NorthDashatarTheme());
 
       await tester.tap(find.byKey(Key('dashatar_theme_picker_$index')));
 
@@ -172,7 +172,7 @@ void main() {
         audioControlBloc: audioControlBloc,
       );
 
-      final theme = YellowDashatarTheme();
+      final theme = NorthDashatarTheme();
       final index = dashatarThemes.indexOf(theme);
 
       await tester.tap(find.byKey(Key('dashatar_theme_picker_$index')));

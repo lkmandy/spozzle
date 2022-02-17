@@ -29,9 +29,10 @@ class PuzzlePage extends StatelessWidget {
         BlocProvider(
           create: (_) => DashatarThemeBloc(
             themes: const [
-              BlueDashatarTheme(),
-              GreenDashatarTheme(),
-              YellowDashatarTheme()
+              WestDashatarTheme(),
+              LittoralDashatarTheme(),
+              NorthDashatarTheme(),
+              NorthwestDashatarTheme(),
             ],
           ),
         ),
@@ -161,19 +162,22 @@ class PuzzleHeader extends StatelessWidget {
     return SizedBox(
       height: 96,
       child: ResponsiveLayoutBuilder(
-        small: (context, child) => Stack(
-          children: [
-            const Align(
-              child: PuzzleLogo(),
-            ),
-            Align(
-              alignment: Alignment.centerRight,
-              child: Padding(
-                padding: const EdgeInsets.only(right: 34),
-                child: AudioControl(key: audioControlKey),
+        small: (context, child) => Padding(
+          padding: const EdgeInsets.only(top: 24.0),
+          child: Stack(
+            children: [
+              const Align(
+                child: PuzzleLogo(),
               ),
-            ),
-          ],
+              Align(
+                alignment: Alignment.centerRight,
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 34),
+                  child: AudioControl(key: audioControlKey),
+                ),
+              ),
+            ],
+          ),
         ),
         medium: (context, child) => Padding(
           padding: const EdgeInsets.symmetric(
