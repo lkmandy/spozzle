@@ -1,4 +1,5 @@
-export 'blue_dashatar_theme.dart';
 export 'dashatar_theme.dart';
-export 'green_dashatar_theme.dart';
-export 'yellow_dashatar_theme.dart';
+export 'littoral_dashatar_theme.dart';
+export 'north_dashatar_theme.dart';
+export 'northwest_dashatar_theme.dart';
+export 'west_dashatar_theme.dart';

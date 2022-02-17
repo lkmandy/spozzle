@@ -20,7 +20,7 @@ void main() {
     setUp(() {
       dashatarThemeBloc = MockDashatarThemeBloc();
       when(() => dashatarThemeBloc.state).thenReturn(
-        DashatarThemeState(themes: [GreenDashatarTheme()]),
+        DashatarThemeState(themes: [LittoralDashatarTheme()]),
       );
 
       puzzleBloc = MockPuzzleBloc();
@@ -85,11 +85,11 @@ void main() {
     });
 
     testWidgets('renders successThemeAsset from DashatarTheme', (tester) async {
-      const theme = BlueDashatarTheme();
+      const theme = WestDashatarTheme();
 
       when(() => dashatarThemeBloc.state).thenReturn(
         DashatarThemeState(
-          themes: [GreenDashatarTheme(), theme],
+          themes: [LittoralDashatarTheme(), theme],
           theme: theme,
         ),
       );

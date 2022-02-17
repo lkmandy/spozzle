@@ -34,7 +34,7 @@ void main() {
       themeBloc = MockThemeBloc();
       when(() => themeBloc.state).thenReturn(
         ThemeState(
-          themes: [SimpleTheme(), GreenDashatarTheme()],
+          themes: [SimpleTheme(), LittoralDashatarTheme()],
           theme: SimpleTheme(),
         ),
       );
@@ -204,8 +204,8 @@ void main() {
         'Dashatar puzzle is not started', (tester) async {
       when(() => themeBloc.state).thenReturn(
         ThemeState(
-          themes: [SimpleTheme(), GreenDashatarTheme()],
-          theme: GreenDashatarTheme(),
+          themes: [SimpleTheme(), LittoralDashatarTheme()],
+          theme: LittoralDashatarTheme(),
         ),
       );
 

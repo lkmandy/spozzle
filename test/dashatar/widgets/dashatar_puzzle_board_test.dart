@@ -35,7 +35,7 @@ void main() {
         'shows DashatarShareDialog '
         'when PuzzleStatus is complete', (tester) async {
       final dashatarThemeBloc =
-          DashatarThemeBloc(themes: [GreenDashatarTheme()]);
+          DashatarThemeBloc(themes: [LittoralDashatarTheme()]);
       final timerBloc = MockTimerBloc();
       when(() => timerBloc.state).thenReturn(TimerState());
       final controller = StreamController<PuzzleState>()..add(PuzzleState());
