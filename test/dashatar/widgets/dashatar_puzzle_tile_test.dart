@@ -37,7 +37,7 @@ void main() {
       );
 
       dashatarThemeBloc = MockDashatarThemeBloc();
-      dashatarTheme = GreenDashatarTheme();
+      dashatarTheme = LittoralDashatarTheme();
       final dashatarThemeState = DashatarThemeState(
         themes: [dashatarTheme],
         theme: dashatarTheme,

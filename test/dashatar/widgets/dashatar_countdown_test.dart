@@ -28,7 +28,7 @@ void main() {
       );
 
       dashatarThemeBloc = MockDashatarThemeBloc();
-      final themes = [GreenDashatarTheme()];
+      final themes = [LittoralDashatarTheme()];
       final dashatarThemeState = DashatarThemeState(themes: themes);
       whenListen(
         dashatarThemeBloc,

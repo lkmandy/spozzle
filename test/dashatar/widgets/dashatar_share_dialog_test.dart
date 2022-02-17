@@ -21,7 +21,7 @@ void main() {
     setUp(() {
       dashatarThemeBloc = MockDashatarThemeBloc();
       when(() => dashatarThemeBloc.state).thenReturn(
-        DashatarThemeState(themes: [GreenDashatarTheme()]),
+        DashatarThemeState(themes: [LittoralDashatarTheme()]),
       );
 
       puzzleBloc = MockPuzzleBloc();

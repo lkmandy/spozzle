@@ -116,17 +116,21 @@
             }
         }
     },
-    "dashatarBlueDashLabelText": "Dumbbell Dash",
-    "@dashatarBlueDashLabelText": {
-        "description": "Semantic label for the blue Dash"
+    "dashatarWestDashLabelText": "Dumbbell Dash",
+    "@dashatarWestDashLabelText": {
+        "description": "Semantic label for the West Dash"
     },
-    "dashatarGreenDashLabelText": "Skateboard Dash",
-    "@dashatarGreenDashLabelText": {
-        "description": "Semantic label for the green Dash"
+    "dashatarNorthWestDashLabelText": "Skateboard Dash",
+    "@dashatarNorthWestDashLabelText": {
+        "description": "Semantic label for the NorthWest Dash"
     },
-    "dashatarYellowDashLabelText": "Sandwich Dash",
-    "@dashatarYellowDashLabelText": {
-        "description": "Semantic label for the yellow Dash"
+    "dashatarLittoralDashLabelText": "Skateboard Dash",
+    "@dashatarLittoralDashLabelText": {
+        "description": "Semantic label for the Littoral Dash"
+    },
+    "dashatarNorthDashLabelText": "Sandwich Dash",
+    "@dashatarNorthDashLabelText": {
+        "description": "Semantic label for the North Dash"
     },
     "dashatarSuccessShareYourScoreTitle": "Share your score!",
     "@dashatarSuccessShareYourScoreTitle": {

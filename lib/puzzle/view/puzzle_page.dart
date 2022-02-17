@@ -29,9 +29,10 @@ class PuzzlePage extends StatelessWidget {
         BlocProvider(
           create: (_) => DashatarThemeBloc(
             themes: const [
-              BlueDashatarTheme(),
-              GreenDashatarTheme(),
-              YellowDashatarTheme()
+              WestDashatarTheme(),
+              LittoralDashatarTheme(),
+              NorthDashatarTheme(),
+              NorthwestDashatarTheme(),
             ],
           ),
         ),

@@ -12,8 +12,8 @@ import 'package:spozzle/layout/layout.dart';
 /// Displays the Dashatar theme picker to choose between
 /// [DashatarThemeState.themes].
 ///
-/// By default allows to choose between [BlueDashatarTheme],
-/// [GreenDashatarTheme] or [YellowDashatarTheme].
+/// By default allows to choose between [WestDashatarTheme],
+/// [LittoralDashatarTheme] or [NorthDashatarTheme].
 /// {@endtemplate}
 class DashatarThemePicker extends StatefulWidget {
   /// {@macro dashatar_theme_picker}
@@ -107,10 +107,13 @@ class _DashatarThemePickerState extends State<DashatarThemePicker> {
                           height: size,
                           curve: Curves.easeInOut,
                           duration: const Duration(milliseconds: 350),
-                          child: Image.asset(
-                            theme.themeAsset,
-                            fit: BoxFit.fill,
-                            semanticLabel: theme.semanticsLabel(context),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(8.0),
+                            child: Image.asset(
+                              theme.themeAsset,
+                              fit: BoxFit.fill,
+                              semanticLabel: theme.semanticsLabel(context),
+                            ),
                           ),
                         ),
                       ),

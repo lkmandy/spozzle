@@ -36,7 +36,7 @@ void main() {
       );
 
       dashatarThemeBloc = MockDashatarThemeBloc();
-      final themes = [GreenDashatarTheme()];
+      final themes = [LittoralDashatarTheme()];
       final dashatarThemeState = DashatarThemeState(themes: themes);
       whenListen(
         dashatarThemeBloc,
@@ -45,7 +45,7 @@ void main() {
       );
 
       themeBloc = MockThemeBloc();
-      final theme = GreenDashatarTheme();
+      final theme = LittoralDashatarTheme();
       final themeState = ThemeState(themes: [theme], theme: theme);
       when(() => themeBloc.state).thenReturn(themeState);
 

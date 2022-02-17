@@ -48,11 +48,11 @@ void main() {
             SimpleTheme(),
 
             ///  Name: 'Dashatar'
-            GreenDashatarTheme(),
+            LittoralDashatarTheme(),
           ];
         },
         build: () => ThemeBloc(initialThemes: themes),
-        act: (bloc) => bloc.add(ThemeUpdated(theme: YellowDashatarTheme())),
+        act: (bloc) => bloc.add(ThemeUpdated(theme: NorthDashatarTheme())),
         expect: () => <ThemeState>[
           ThemeState(
             themes: const [
@@ -60,9 +60,9 @@ void main() {
               SimpleTheme(),
 
               ///  Name: 'Dashatar'
-              YellowDashatarTheme(),
+              NorthDashatarTheme(),
             ],
-            theme: YellowDashatarTheme(),
+            theme: NorthDashatarTheme(),
           ),
         ],
       );

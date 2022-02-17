@@ -11,14 +11,14 @@ void main() {
     group('BlueDashatarTheme', () {
       test('supports value comparisons', () {
         expect(
-          BlueDashatarTheme(),
-          equals(BlueDashatarTheme()),
+          WestDashatarTheme(),
+          equals(WestDashatarTheme()),
         );
       });
 
       test('uses DashatarPuzzleLayoutDelegate', () {
         expect(
-          BlueDashatarTheme().layoutDelegate,
+          WestDashatarTheme().layoutDelegate,
           equals(DashatarPuzzleLayoutDelegate()),
         );
       });
@@ -28,7 +28,7 @@ void main() {
         const tileValue = 6;
         when(() => tile.value).thenReturn(tileValue);
         expect(
-          BlueDashatarTheme().dashAssetForTile(tile),
+          WestDashatarTheme().dashAssetForTile(tile),
           equals('assets/images/dashatar/blue/6.png'),
         );
       });
@@ -37,14 +37,14 @@ void main() {
     group('GreenDashatarTheme', () {
       test('supports value comparisons', () {
         expect(
-          GreenDashatarTheme(),
-          equals(GreenDashatarTheme()),
+          LittoralDashatarTheme(),
+          equals(LittoralDashatarTheme()),
         );
       });
 
       test('uses DashatarPuzzleLayoutDelegate', () {
         expect(
-          GreenDashatarTheme().layoutDelegate,
+          LittoralDashatarTheme().layoutDelegate,
           equals(DashatarPuzzleLayoutDelegate()),
         );
       });
@@ -54,7 +54,7 @@ void main() {
         const tileValue = 6;
         when(() => tile.value).thenReturn(tileValue);
         expect(
-          GreenDashatarTheme().dashAssetForTile(tile),
+          LittoralDashatarTheme().dashAssetForTile(tile),
           equals('assets/images/dashatar/green/6.png'),
         );
       });
@@ -63,14 +63,14 @@ void main() {
     group('YellowDashatarTheme', () {
       test('supports value comparisons', () {
         expect(
-          YellowDashatarTheme(),
-          equals(YellowDashatarTheme()),
+          NorthDashatarTheme(),
+          equals(NorthDashatarTheme()),
         );
       });
 
       test('uses DashatarPuzzleLayoutDelegate', () {
         expect(
-          YellowDashatarTheme().layoutDelegate,
+          NorthDashatarTheme().layoutDelegate,
           equals(DashatarPuzzleLayoutDelegate()),
         );
       });
@@ -80,7 +80,7 @@ void main() {
         const tileValue = 6;
         when(() => tile.value).thenReturn(tileValue);
         expect(
-          YellowDashatarTheme().dashAssetForTile(tile),
+          NorthDashatarTheme().dashAssetForTile(tile),
           equals('assets/images/dashatar/yellow/6.png'),
         );
       });

@@ -36,9 +36,9 @@ class _AppState extends State<App> {
     'assets/images/audio_control/simple_on.png',
     'assets/images/audio_control/simple_off.png',
     'assets/images/audio_control/dashatar_on.png',
-    'assets/images/audio_control/green_dashatar_off.png',
-    'assets/images/audio_control/blue_dashatar_off.png',
-    'assets/images/audio_control/yellow_dashatar_off.png',
+    'assets/images/audio_control/littoral_dashatar_off.png',
+    'assets/images/audio_control/west_dashatar_off.png',
+    'assets/images/audio_control/north_dashatar_off.png',
   ];
 
   static final List<String> audioAssets = <String>[
@@ -63,40 +63,54 @@ class _AppState extends State<App> {
     _timer = Timer(const Duration(milliseconds: 20), () {
       for (int i = 1; i <= 15; i++) {
         precacheImage(
-          Image.asset('assets/images/dashatar/green/$i.png').image,
+          Image.asset('assets/images/dashatar/littoral/$i.png').image,
           context,
         );
         precacheImage(
-          Image.asset('assets/images/dashatar/blue/$i.png').image,
+          Image.asset('assets/images/dashatar/northwest/$i.png').image,
           context,
         );
         precacheImage(
-          Image.asset('assets/images/dashatar/yellow/$i.png').image,
+          Image.asset('assets/images/dashatar/west/$i.png').image,
+          context,
+        );
+        precacheImage(
+
+          Image.asset('assets/images/dashatar/north/$i.png').image,
           context,
         );
       }
       precacheImage(
-        Image.asset('assets/images/dashatar/gallery/green.png').image,
+        Image.asset('assets/images/dashatar/gallery/north.png')
+            .image,
         context,
       );
       precacheImage(
-        Image.asset('assets/images/dashatar/success/green.png').image,
+        Image.asset('assets/images/dashatar/success/north.png').image,
         context,
       );
       precacheImage(
-        Image.asset('assets/images/dashatar/gallery/blue.png').image,
+        Image.asset('assets/images/dashatar/gallery/littoral.png').image,
         context,
       );
       precacheImage(
-        Image.asset('assets/images/dashatar/success/blue.png').image,
+        Image.asset('assets/images/dashatar/success/littoral.png').image,
         context,
       );
       precacheImage(
-        Image.asset('assets/images/dashatar/gallery/yellow.png').image,
+        Image.asset('assets/images/dashatar/gallery/west.png').image,
         context,
       );
       precacheImage(
-        Image.asset('assets/images/dashatar/success/yellow.png').image,
+        Image.asset('assets/images/dashatar/success/west.png').image,
+        context,
+      );
+      precacheImage(
+        Image.asset('assets/images/dashatar/gallery/northwest.png').image,
+        context,
+      );
+      precacheImage(
+        Image.asset('assets/images/dashatar/success/northwest.png').image,
         context,
       );
       precacheImage(
