@@ -22,7 +22,7 @@ class Assets {
   static const String fontsGoogleSans-Regular = 'assets/fonts/GoogleSans-Regular.ttf';
   static const String galleryLittoral = 'assets/images/dashatar/gallery/littoral.png';
   static const String galleryNorth = 'assets/images/dashatar/gallery/north.png';
-  static const String galleryNorthwestpng = 'assets/images/dashatar/gallery/northwest.png';
+  static const String galleryNorthwest = 'assets/images/dashatar/gallery/northwest.png';
   static const String galleryWest = 'assets/images/dashatar/gallery/west.png';
   static const String imagesFacebookIcon = 'assets/images/facebook_icon.png';
   static const String imagesLogoSpozzleColor = 'assets/images/logo_spozzle_color.png';
