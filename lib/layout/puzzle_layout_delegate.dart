@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:spozzle/models/models.dart';
-import 'package:spozzle/puzzle/puzzle.dart';
+import '../models/models.dart';
+import '../puzzle/puzzle.dart';
 
 /// {@template puzzle_layout_delegate}
 /// A delegate for computing the layout of the puzzle UI.
@@ -41,7 +41,7 @@ abstract class PuzzleLayoutDelegate extends Equatable {
   ///
   /// The board should display the list of [tiles],
   /// each built with [tileBuilder].
-  Widget boardBuilder(int size, List<Widget> tiles);
+  Widget boardBuilder(int size, List<Widget> tiles, {PuzzleState? state});
 
   /// A widget builder for the puzzle tile associated
   /// with [tile] and based on the puzzle [state].

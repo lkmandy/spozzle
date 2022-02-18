@@ -7,10 +7,17 @@ import '../../puzzle/puzzle.dart';
 import '../../theme/widgets/number_of_moves_and_tiles_left.dart';
 import '../dashatar.dart';
 
+// ignore: avoid_classes_with_only_static_members
 /// {@template dashatar_puzzle_layout_delegate}
 /// A delegate for computing the layout of the puzzle UI
 /// that uses a [DashatarTheme].
 /// {@endtemplate}
+class BoardSize {
+  static double small = 312;
+  static double medium = 424;
+  static double large = 472;
+}
+
 class DashatarPuzzleLayoutDelegate extends PuzzleLayoutDelegate {
   /// {@macro dashatar_puzzle_layout_delegate}
   const DashatarPuzzleLayoutDelegate();
@@ -38,8 +45,12 @@ class DashatarPuzzleLayoutDelegate extends PuzzleLayoutDelegate {
           medium: 32,
         ),
         ResponsiveLayoutBuilder(
-          small: (_, Widget? child) => ControlAndPuzzleStatus(state: state),
-          medium: (_, Widget? child) => ControlAndPuzzleStatus(state: state),
+          small: (_, Widget? child) => SizedBox(
+              width: BoardSize.small,
+              child: ControlAndPuzzleStatus(state: state)),
+          medium: (_, Widget? child) => SizedBox(
+              width: BoardSize.medium,
+              child: ControlAndPuzzleStatus(state: state)),
           large: (_, __) => const SizedBox(),
         ),
         const ResponsiveGap(
@@ -77,7 +88,7 @@ class DashatarPuzzleLayoutDelegate extends PuzzleLayoutDelegate {
   }
 
   @override
-  Widget boardBuilder(int size, List<Widget> tiles) {
+  Widget boardBuilder(int size, List<Widget> tiles, {PuzzleState? state}) {
     return Stack(
       children: [
         Positioned(
@@ -99,7 +110,14 @@ class DashatarPuzzleLayoutDelegate extends PuzzleLayoutDelegate {
             ),
             DashatarPuzzleBoard(tiles: tiles),
             const ResponsiveGap(
-              large: 96,
+              large: 34,
+            ),
+            ResponsiveLayoutBuilder(
+              small: (_, Widget? child) => const SizedBox(),
+              medium: (_, Widget? child) => const SizedBox(),
+              large: (_, Widget? child) => SizedBox(
+                  width: BoardSize.large,
+                  child: ControlAndPuzzleStatus(state: state!)),
             ),
           ],
         ),
@@ -137,14 +155,14 @@ class ControlAndPuzzleStatus extends StatelessWidget {
     final DashatarPuzzleStatus status =
         context.select((DashatarPuzzleBloc bloc) => bloc.state.status);
     return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         const DashatarPuzzleActionButton(),
-        const ResponsiveGap(
-          small: 12,
-          medium: 16,
-          large: 32,
-        ),
+        // const ResponsiveGap(
+        //   small: 12,
+        //   medium: 16,
+        //   large: 32,
+        // ),
         NumberOfMovesAndTilesLeft(
           key: numberOfMovesAndTilesLeftKey,
           numberOfMoves: state.numberOfMoves,

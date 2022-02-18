@@ -6,8 +6,8 @@ class Language {
   const Language(this.id, this.flag, this.name, this.languageCode);
   static List<Language> languageList() {
     return <Language>[
-      const Language(1, '🇫🇷', 'French', 'fr'),
-      const Language(2, '🇺🇸', 'English', 'en'),
+      const Language(0, '🇫🇷', 'French', 'fr'),
+      const Language(1, '🇺🇸', 'English', 'en'),
     ];
   }
 }

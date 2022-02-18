@@ -91,7 +91,7 @@ class SimplePuzzleLayoutDelegate extends PuzzleLayoutDelegate {
   }
 
   @override
-  Widget boardBuilder(int size, List<Widget> tiles) {
+  Widget boardBuilder(int size, List<Widget> tiles, {PuzzleState? state}) {
     return Column(
       children: [
         const ResponsiveGap(

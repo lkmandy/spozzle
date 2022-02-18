@@ -34,7 +34,8 @@ class PuzzlePage extends StatelessWidget {
             themes: const [
               BlueDashatarTheme(),
               GreenDashatarTheme(),
-              YellowDashatarTheme()
+              YellowDashatarTheme(),
+              GreenDashatarTheme(),
             ],
           ),
         ),
@@ -129,8 +130,6 @@ class _Puzzle extends StatelessWidget {
       builder: (BuildContext context, BoxConstraints constraints) {
         return Stack(
           children: [
-            // if (theme is SimpleTheme)
-            //   theme.layoutDelegate.backgroundBuilder(state),
             SingleChildScrollView(
               child: ConstrainedBox(
                 constraints: BoxConstraints(
@@ -166,70 +165,88 @@ class PuzzleHeader extends StatelessWidget {
     return SizedBox(
       height: 96,
       child: ResponsiveLayoutBuilder(
-        small: (BuildContext context, Widget? child) => Stack(
-          children: [
-            const Align(
-              child: PuzzleLogo(),
-            ),
-            Align(
-              alignment: Alignment.centerRight,
-              child: Padding(
-                padding: const EdgeInsets.only(right: 34),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                      child: Row(
-                        children: context
-                            .select((LanguageControlBloc bloc) =>
-                                bloc.state.languages)
-                            .map<Widget>((Language element) {
-                          return Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 8.0),
-                            child: SizedBox(
-                              width: 30,
-                              child: TextButton(
-                                  onPressed: () {}, child: Text(element.flag)),
-                            ),
-                          );
-                        }).toList()
-                          ..reversed,
-                      ),
-                    ),
-                    AudioControl(key: audioControlKey),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
-        medium: (BuildContext context, Widget? child) => Padding(
-          padding: const EdgeInsets.symmetric(
+        small: (BuildContext context, Widget? child) => const Header(),
+        medium: (BuildContext context, Widget? child) => const Padding(
+          padding: EdgeInsets.symmetric(
             horizontal: 50,
           ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
-              PuzzleLogo(),
-              PuzzleMenu(),
-            ],
-          ),
+          child: Header(),
+          //  Row(
+          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //   children: const [
+          //     PuzzleLogo(),
+          //     PuzzleMenu(),
+          //   ],
+          // ),
         ),
-        large: (BuildContext context, Widget? child) => Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 50,
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
-              PuzzleLogo(),
-              PuzzleMenu(),
-            ],
-          ),
-        ),
+        large: (BuildContext context, Widget? child) => const Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: 50,
+            ),
+            child: Header(
+              withName: false,
+            )),
       ),
+    );
+  }
+}
+
+class Header extends StatelessWidget {
+  const Header({
+    Key? key,
+    this.withName = true,
+  }) : super(key: key);
+  final bool withName;
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        const Align(
+          alignment: Alignment.centerLeft,
+          child: PuzzleLogo(),
+        ),
+        if (withName)
+          const Align(
+            child: PuzzleName(),
+          ),
+        Align(
+          alignment: Alignment.centerRight,
+          child: Padding(
+            padding: const EdgeInsets.only(right: 34),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  child: Row(
+                    children: context
+                        .select(
+                            (LanguageControlBloc bloc) => bloc.state.languages)
+                        .map<Widget>((Language element) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        child: SizedBox(
+                          width: 30,
+                          child: TextButton(
+                              onPressed: () {
+                                context.read<LanguageControlBloc>().add(
+                                    LanguageControlChange(
+                                        languageIndex: element.id));
+                              },
+                              child: Text(element.flag)),
+                        ),
+                      );
+                    }).toList()
+                      ..reversed,
+                  ),
+                ),
+                AudioControl(key: audioControlKey),
+              ],
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
@@ -271,7 +288,6 @@ class PuzzleSections extends StatelessWidget {
       small: (BuildContext context, Widget? child) => Column(
         children: [
           theme.layoutDelegate.startSectionBuilder(state),
-          const PuzzleMenu(),
           const PuzzleBoard(),
           theme.layoutDelegate.endSectionBuilder(state),
         ],
@@ -313,6 +329,7 @@ class PuzzleBoard extends StatelessWidget {
         context.select((ThemeBloc bloc) => bloc.state.theme);
     final Puzzle puzzle =
         context.select((PuzzleBloc bloc) => bloc.state.puzzle);
+    final PuzzleState state = context.select((PuzzleBloc bloc) => bloc.state);
 
     final int size = puzzle.getDimension();
     if (size == 0) return const CircularProgressIndicator();
@@ -334,6 +351,7 @@ class PuzzleBoard extends StatelessWidget {
                 ),
               )
               .toList(),
+          state: state,
         ),
       ),
     );
@@ -371,35 +389,20 @@ class PuzzleMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<PuzzleTheme> themes =
-        context.select((ThemeBloc bloc) => bloc.state.themes);
-
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        ...List.generate(
-          themes.length,
-          (int index) => PuzzleMenuItem(
-            theme: themes[index],
-            themeIndex: index,
-          ),
-        ),
-        ResponsiveLayoutBuilder(
-          small: (_, Widget? child) => const SizedBox(),
-          medium: (_, Widget? child) => child!,
-          large: (_, Widget? child) => child!,
-          child: (ResponsiveLayoutSize currentSize) {
-            return Row(
-              children: [
-                const Gap(44),
-                AudioControl(
-                  key: audioControlKey,
-                )
-              ],
-            );
-          },
-        ),
-      ],
+    return ResponsiveLayoutBuilder(
+      small: (_, Widget? child) => const SizedBox(),
+      medium: (_, Widget? child) => child!,
+      large: (_, Widget? child) => child!,
+      child: (ResponsiveLayoutSize currentSize) {
+        return Row(
+          children: [
+            const Gap(44),
+            AudioControl(
+              key: audioControlKey,
+            )
+          ],
+        );
+      },
     );
   }
 }
