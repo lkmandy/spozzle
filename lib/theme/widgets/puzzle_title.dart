@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:spozzle/layout/layout.dart';
-import 'package:spozzle/theme/theme.dart';
-import 'package:spozzle/typography/typography.dart';
+
+import '../../layout/layout.dart';
+import '../../typography/typography.dart';
+import '../theme.dart';
 
 /// {@template puzzle_title}
 /// Displays the title of the puzzle in the given color.
@@ -23,11 +24,12 @@ class PuzzleTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
-    final titleColor = color ?? theme.titleColor;
+    final PuzzleTheme theme =
+        context.select((ThemeBloc bloc) => bloc.state.theme);
+    final Color titleColor = color ?? theme.titleColor;
 
     return ResponsiveLayoutBuilder(
-      small: (context, child) => Center(
+      small: (BuildContext context, Widget? child) => Center(
         child: SizedBox(
           width: 300,
           child: Center(
@@ -35,20 +37,20 @@ class PuzzleTitle extends StatelessWidget {
           ),
         ),
       ),
-      medium: (context, child) => Center(
+      medium: (BuildContext context, Widget? child) => Center(
         child: child,
       ),
-      large: (context, child) => SizedBox(
+      large: (BuildContext context, Widget? child) => SizedBox(
         width: 300,
         child: child,
       ),
-      child: (currentSize) {
-        final textStyle = (currentSize == ResponsiveLayoutSize.large
+      child: (ResponsiveLayoutSize currentSize) {
+        final TextStyle textStyle = (currentSize == ResponsiveLayoutSize.large
                 ? PuzzleTextStyle.headline2
                 : PuzzleTextStyle.headline3)
             .copyWith(color: titleColor);
 
-        final textAlign = currentSize == ResponsiveLayoutSize.small
+        final TextAlign textAlign = currentSize == ResponsiveLayoutSize.small
             ? TextAlign.center
             : TextAlign.left;
 

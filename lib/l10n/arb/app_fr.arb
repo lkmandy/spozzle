@@ -1,0 +1,147 @@
+{
+  "@@locale": "fr",
+  "puzzleChangeTooltip": "Le changement de thème réinitialisera votre score",
+  "@puzzleChangeTooltip": {
+    "description": "Affiché en tant qu'info-bulle pour les boutons de menu du puzzle"
+  },
+  "puzzleRestartTooltip": "Recommencer le puzzle réinitialisera votre score.",
+  "@puzzleRestartTooltip": {
+    "description": "Affiché en tant qu'info-bulle pour le bouton de redémarrage du puzzle"
+  },
+  "puzzleChallengeTitle": "Puzzle Challenge",
+  "@puzzleChallengeTitle": {
+    "description": "Montré comme le titre du puzzle"
+  },
+  "puzzleChallengeName": "Dash en Afrique",
+  "@puzzleChallengeName": {
+    "description": "Indiqué comme le nom du puzzle"
+  },
+  "puzzleNumberOfMoves": "Déplacements",
+  "@puzzleNumberOfMoves": {
+    "description": "Indique le nombre de coups effectués sur le puzzle actuel."
+  },
+  "puzzleNumberOfTilesLeft": "Pièce",
+  "@puzzleNumberOfTilesLeft": {
+    "description": "Indique le nombre de pièces de puzzle qui ne sont pas dans la bonne position"
+  },
+  "puzzleShuffle": "Shuffle",
+  "@puzzleShuffle": {
+    "description": "Montré sur le bouton qui mélange le puzzle"
+  },
+  "puzzleCompleted": "Bien joué. Félicitations !",
+  "@puzzleCompleted": {
+    "description": "Représentation de l'état de réussite lorsque le puzzle est terminé."
+  },
+  "dashatarStartGame": "Début du jeu",
+  "@dashatarStartGame": {
+    "description": "Montré avant le début du puzzle"
+  },
+  "dashatarGetReady": "Préparez-vous...",
+  "@dashatarStartPuzzle": {
+    "description": "Affiché lorsque le puzzle est en cours de chargement"
+  },
+  "dashatarRestart": "Redémarrer",
+  "@dashatarRestart": {
+    "description": "S'affiche après le démarrage du puzzle et peut être relancé."
+  },
+  "dashatarCountdownGo": "GO!",
+  "@dashatarCountdownGo": {
+    "description": "S'affiche lorsque le compte à rebours vient de se terminer et que le puzzle est sur le point de commencer."
+  },
+  "dashatarSuccessCompleted": "Défi du puzzle terminé",
+  "@dashatarSuccessCompleted": {
+    "description": "Montré comme un titre dans l'état de succès Dashatar"
+  },
+  "dashatarSuccessWellDone": "Bien joué.\nFélicitations!",
+  "@dashatarSuccessWellDone": {
+    "description": "Montré comme un sous-titre dans l'état de succès de Dashatar"
+  },
+  "dashatarSuccessScore": "Score",
+  "@dashatarSuccessScore": {
+    "description": "Montré comme un titre de score dans l'état de succès de Dashatar"
+  },
+  "dashatarSuccessNumberOfMoves": "{numberOfMoves} Déplacements",
+  "@dashatarSuccessNumberOfMoves": {
+    "description": "Représenté par le nombre de coups dans l'état de réussite de Dashatar.",
+    "placeholders": {
+      "numberOfMoves": {
+        "type": "String",
+        "example": "5"
+      }
+    }
+  },
+  "puzzleTileLabelText": "Valeur: {value}, position: {x}, {y}",
+  "@puzzleTileLabelText": {
+    "description": "Étiquette sémantique pour la tuile du puzzle",
+    "placeholders": {
+      "value": {
+        "type": "String",
+        "example": "5"
+      },
+      "x": {
+        "type": "String",
+        "example": "1"
+      },
+      "y": {
+        "type": "String",
+        "example": "0"
+      }
+    }
+  },
+  "puzzleNumberOfMovesAndTilesLeftLabelText": "Déplacements: {numberOfMoves}, Pièces: {tilesLeft}",
+  "@puzzleNumberOfMovesAndTilesLeftLabelText": {
+    "description": "Étiquette sémantique pour la tuile du puzzle",
+    "placeholders": {
+      "numberOfMoves": {
+        "type": "String",
+        "example": "30"
+      },
+      "tilesLeft": {
+        "type": "String",
+        "example": "10"
+      }
+    }
+  },
+  "dashatarPuzzleDurationLabelText": "{hours} heures {minutes} minutes {seconds} secondes",
+  "@dashatarPuzzleDurationLabelText": {
+    "description": "Étiquette sémantique pour la minuterie Dashatar",
+    "placeholders": {
+      "hours": {
+        "type": "String",
+        "example": "2"
+      },
+      "minutes": {
+        "type": "String",
+        "example": "6"
+      },
+      "seconds": {
+        "type": "String",
+        "example": "24"
+      }
+    }
+  },
+  "dashatarBlueDashLabelText": "Dumbbell Dash",
+  "@dashatarBlueDashLabelText": {
+    "description": "Étiquette sémantique pour le Dash bleu"
+  },
+  "dashatarGreenDashLabelText": "Skateboard Dash",
+  "@dashatarGreenDashLabelText": {
+    "description": "Étiquette sémantique pour le Dash vert"
+  },
+  "dashatarYellowDashLabelText": "Sandwich Dash",
+  "@dashatarYellowDashLabelText": {
+    "description": "Étiquette sémantique pour le Dash jaune"
+  },
+  "dashatarSuccessShareYourScoreTitle": "Partagez votre score!",
+  "@dashatarSuccessShareYourScoreTitle": {
+    "description": "Représenté comme un titre de partage dans l'état de réussite de Dashatar"
+  },
+  "dashatarSuccessShareYourScoreMessage": "Partagez ce puzzle pour défier vos amis et assurez-vous de vérifier le Flutter Puzzle Hack.",
+  "@dashatarSuccessShareYourScoreMessage": {
+    "description": "Affiché sous forme de message de partage dans l'état de réussite de Dashatar"
+  },
+  "dashatarSuccessShareText": "Je viens de résoudre le #FlutterPuzzleHack! Vérifiez-le ↓",
+  "@dashatarSuccessShareText": {
+    "description": "Le texte à partager pour ce défi Flutter Puzzle, affiché dans l'état de réussite de Dashatar"
+  }
+}

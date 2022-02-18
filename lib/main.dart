@@ -5,9 +5,19 @@
 // license that can be found in the LICENSE file or at
 // https://opensource.org/licenses/MIT.
 
-import 'package:spozzle/app/app.dart';
-import 'package:spozzle/bootstrap.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'app/app.dart';
+import 'bootstrap.dart';
+import 'language_control/language.dart';
+
+import 'language_control/language_control.dart';
 
 void main() {
-  bootstrap(() =>  const App());
+  bootstrap(() => BlocProvider<LanguageControlBloc>(
+        create: (BuildContext context) => LanguageControlBloc(
+          languages: Language.languageList(),
+        ),
+        child: const App(),
+      ));
 }

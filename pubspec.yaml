@@ -23,6 +23,7 @@ dependencies:
   just_audio: ^0.9.18
   universal_platform: ^1.0.0+1
   url_launcher: ^6.0.17
+  material_design_icons_flutter: ^5.0.6595
 
 dev_dependencies:
   bloc_test: ^9.0.1

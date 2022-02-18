@@ -2,8 +2,9 @@
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:spozzle/simple/simple.dart';
-import 'package:spozzle/theme/theme.dart';
+import '../../dashatar/dashatar.dart';
+import '../../simple/simple.dart';
+import '../theme.dart';
 
 part 'theme_event.dart';
 part 'theme_state.dart';
@@ -20,11 +21,11 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
   }
 
   void _onThemeUpdated(ThemeUpdated event, Emitter<ThemeState> emit) {
-    final themeIndex =
-        state.themes.indexWhere((theme) => theme.name == event.theme.name);
+    final int themeIndex = state.themes
+        .indexWhere((PuzzleTheme theme) => theme.name == event.theme.name);
 
     if (themeIndex != -1) {
-      final newThemes = [...state.themes];
+      final List<PuzzleTheme> newThemes = [...state.themes];
       newThemes[themeIndex] = event.theme;
       emit(
         state.copyWith(
