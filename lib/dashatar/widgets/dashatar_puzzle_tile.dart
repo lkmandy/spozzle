@@ -142,20 +142,23 @@ class DashatarPuzzleTileState extends State<DashatarPuzzleTile>
             child: ScaleTransition(
               key: Key('dashatar_puzzle_tile_scale_${widget.tile.value}'),
               scale: _scale,
-              child: IconButton(
-                padding: EdgeInsets.zero,
-                onPressed: canPress
-                    ? () {
-                        context.read<PuzzleBloc>().add(TileTapped(widget.tile));
-                        unawaited(_audioPlayer?.replay());
-                      }
-                    : null,
-                icon: Image.asset(
-                  theme.dashAssetForTile(widget.tile),
-                  semanticLabel: context.l10n.puzzleTileLabelText(
-                    widget.tile.value.toString(),
-                    widget.tile.currentPosition.x.toString(),
-                    widget.tile.currentPosition.y.toString(),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(8.0),
+                child: IconButton(
+                  padding: EdgeInsets.zero,
+                  onPressed: canPress
+                      ? () {
+                          context.read<PuzzleBloc>().add(TileTapped(widget.tile));
+                          unawaited(_audioPlayer?.replay());
+                        }
+                      : null,
+                  icon: Image.asset(
+                    theme.dashAssetForTile(widget.tile),
+                    semanticLabel: context.l10n.puzzleTileLabelText(
+                      widget.tile.value.toString(),
+                      widget.tile.currentPosition.x.toString(),
+                      widget.tile.currentPosition.y.toString(),
+                    ),
                   ),
                 ),
               ),

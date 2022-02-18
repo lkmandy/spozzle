@@ -41,9 +41,11 @@ flutter:
     - assets/images/audio_control/
     - assets/images/dashatar/gallery/
     - assets/images/dashatar/success/
-    - assets/images/dashatar/green/
-    - assets/images/dashatar/blue/
-    - assets/images/dashatar/yellow/
+    - assets/images/dashatar/littoral/
+    - assets/images/dashatar/west/
+    - assets/images/dashatar/north/
+    - assets/images/dashatar/northwest/
+
   fonts:
     - family: GoogleSans
       fonts:

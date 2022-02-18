@@ -56,7 +56,7 @@ void main() {
           (widget) =>
               widget is Image &&
               (widget.image as AssetImage).assetName ==
-                  'assets/images/logo_flutter_color.png',
+                  'assets/images/logo_spozzle_color.png',
         ),
         findsOneWidget,
       );
@@ -76,7 +76,7 @@ void main() {
           (widget) =>
               widget is Image &&
               (widget.image as AssetImage).assetName ==
-                  'assets/images/logo_flutter_white.png',
+                  'assets/images/logo_spozzle_white.png',
         ),
         findsOneWidget,
       );

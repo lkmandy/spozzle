@@ -13,8 +13,8 @@ import '../dashatar.dart';
 /// Displays the Dashatar theme picker to choose between
 /// [DashatarThemeState.themes].
 ///
-/// By default allows to choose between [BlueDashatarTheme],
-/// [GreenDashatarTheme] or [YellowDashatarTheme].
+/// By default allows to choose between [WestDashatarTheme],
+/// [LittoralDashatarTheme] or [NorthDashatarTheme].
 /// {@endtemplate}
 class DashatarThemePicker extends StatefulWidget {
   /// {@macro dashatar_theme_picker}
@@ -143,45 +143,23 @@ class _DashatarThemePickerState extends State<DashatarThemePicker> {
                                         DashatarThemeChanged(
                                             themeIndex: index));
 
-                                    // Play the audio of the current Dashatar theme.
-                                    await _audioPlayer
-                                        .setAsset(theme.audioAsset);
-                                    unawaited(_audioPlayer.play());
-                                  },
-                                  child: AnimatedContainer(
-                                    width: size,
-                                    height: size,
-                                    curve: Curves.easeInOut,
-                                    duration: const Duration(milliseconds: 350),
-                                    child: Image.asset(
-                                      theme.themeAsset,
-                                      fit: BoxFit.fill,
-                                      semanticLabel:
-                                          theme.semanticsLabel(context),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            );
-                          },
-                        ).sublist(initialIndex, endIndex + 1),
-                        SizedBox(
-                          width: 70,
-                          child: endIndex + 1 != themeState.themes.length
-                              ? IconButton(
-                                  icon: const Icon(
-                                    Icons.chevron_right,
-                                    color: Colors.white,
-                                  ),
-                                  onPressed: () {
-                                    if (endIndex + 1 < themeState.themes.length)
-                                      setState(() {
-                                        initialIndex += 1;
-                                        endIndex += 1;
-                                      });
-                                  },
-                                )
-                              : Container(),
+                          // Play the audio of the current Dashatar theme.
+                          await _audioPlayer.setAsset(theme.audioAsset);
+                          unawaited(_audioPlayer.play());
+                        },
+                        child: AnimatedContainer(
+                          width: size,
+                          height: size,
+                          curve: Curves.easeInOut,
+                          duration: const Duration(milliseconds: 350),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(8.0),
+                            child: Image.asset(
+                              theme.themeAsset,
+                              fit: BoxFit.fill,
+                              semanticLabel: theme.semanticsLabel(context),
+                            ),
+                          ),
                         ),
                       ]),
                 ),
