@@ -13,5 +13,5 @@ class DashatarThemeChanged extends DashatarThemeEvent {
   final int themeIndex;
 
   @override
-  List<Object> get props => [themeIndex];
+  List<Object> get props => <int>[themeIndex];
 }

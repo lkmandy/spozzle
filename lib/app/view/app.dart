@@ -12,9 +12,11 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/src/provider.dart';
 
 import '../../helpers/helpers.dart';
 import '../../l10n/l10n.dart';
+import '../../language_control/language_control.dart';
 import '../../puzzle/puzzle.dart';
 
 class App extends StatefulWidget {
@@ -178,10 +180,25 @@ class _AppState extends State<App> {
           accentColor: const Color(0xFF13B9FF),
         ),
       ),
+      locale: Locale(
+        context.select(
+          (LanguageControlBloc bloc) => bloc.state.language.languageCode,
+        ),
+      ),
       localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
       ],
+      localeResolutionCallback:
+          (Locale? locale, Iterable<Locale> supportedLocales) {
+        for (final Locale supportedLocale in supportedLocales) {
+          if (supportedLocale.languageCode == locale!.languageCode &&
+              supportedLocale.countryCode == locale.countryCode) {
+            return supportedLocale;
+          }
+        }
+        return supportedLocales.first;
+      },
       supportedLocales: AppLocalizations.supportedLocales,
       home: const PuzzlePage(),
     );
