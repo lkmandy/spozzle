@@ -121,10 +121,10 @@ class _DashatarThemePickerState extends State<DashatarThemePicker> {
                           themeState.themes.length,
                           (int index) {
                             final DashatarTheme theme =
-                                themeState.themes[index];
+                            themeState.themes[index];
                             final bool isActiveTheme = theme == activeTheme;
                             final double padding =
-                                index > 0 ? (isSmallSize ? 4.0 : 8.0) : 0.0;
+                            index > 0 ? (isSmallSize ? 4.0 : 8.0) : 0.0;
                             final double size = inactiveSize;
 
                             return Padding(
@@ -143,25 +143,29 @@ class _DashatarThemePickerState extends State<DashatarThemePicker> {
                                         DashatarThemeChanged(
                                             themeIndex: index));
 
-                          // Play the audio of the current Dashatar theme.
-                          await _audioPlayer.setAsset(theme.audioAsset);
-                          unawaited(_audioPlayer.play());
-                        },
-                        child: AnimatedContainer(
-                          width: size,
-                          height: size,
-                          curve: Curves.easeInOut,
-                          duration: const Duration(milliseconds: 350),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(8.0),
-                            child: Image.asset(
-                              theme.themeAsset,
-                              fit: BoxFit.fill,
-                              semanticLabel: theme.semanticsLabel(context),
-                            ),
-                          ),
-                        ),
-                      ]),
+                                    // Play the audio of the current Dashatar theme.
+                                    await _audioPlayer.setAsset(
+                                        theme.audioAsset);
+                                    unawaited(_audioPlayer.play());
+                                  },
+                                  child: AnimatedContainer(
+                                    width: size,
+                                    height: size,
+                                    curve: Curves.easeInOut,
+                                    duration: const Duration(milliseconds: 350),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(8.0),
+                                      child: Image.asset(
+                                        theme.themeAsset,
+                                        fit: BoxFit.fill,
+                                        semanticLabel: theme.semanticsLabel(
+                                            context),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),);
+                          },), ],)
                 ),
               ),
             ],

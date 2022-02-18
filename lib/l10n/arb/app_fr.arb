@@ -120,16 +120,20 @@
       }
     }
   },
-  "dashatarBlueDashLabelText": "Dumbbell Dash",
-  "@dashatarBlueDashLabelText": {
+  "dashatarWestDashLabelText": "Dumbbell Dash",
+  "@dashatarWestDashLabelText": {
     "description": "Étiquette sémantique pour le Dash bleu"
   },
-  "dashatarGreenDashLabelText": "Skateboard Dash",
-  "@dashatarGreenDashLabelText": {
+  "dashatarLittoralDashLabelText": "Skateboard Dash",
+  "@dashatarLittoralDashLabelText": {
     "description": "Étiquette sémantique pour le Dash vert"
   },
-  "dashatarYellowDashLabelText": "Sandwich Dash",
-  "@dashatarYellowDashLabelText": {
+  "dashatarNorthDashLabelText": "Sandwich Dash",
+  "@dashatarNorthDashLabelText": {
+    "description": "Étiquette sémantique pour le Dash jaune"
+  },
+  "dashatarNorthwestDashLabelText": "Skateboard Dash",
+  "@dashatarNorthwestDashLabelText": {
     "description": "Étiquette sémantique pour le Dash jaune"
   },
   "dashatarSuccessShareYourScoreTitle": "Partagez votre score!",

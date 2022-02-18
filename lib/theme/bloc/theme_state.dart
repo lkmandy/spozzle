@@ -6,7 +6,7 @@ class ThemeState extends Equatable {
   const ThemeState({
     required this.themes,
     // this.theme = const SimpleTheme(),
-    this.theme = const GreenDashatarTheme(),
+    this.theme = const LittoralDashatarTheme(),
   });
 
   /// The list of all available themes.

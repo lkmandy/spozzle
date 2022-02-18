@@ -12,7 +12,7 @@ class NorthwestDashatarTheme extends DashatarTheme {
 
   @override
   String semanticsLabel(BuildContext context) =>
-      context.l10n.dashatarNorthWestDashLabelText;
+      context.l10n.dashatarNorthwestDashLabelText;
 
   @override
   Color get backgroundColor => PuzzleColors.primary1;
