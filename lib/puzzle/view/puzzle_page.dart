@@ -165,25 +165,9 @@ class PuzzleHeader extends StatelessWidget {
     return SizedBox(
       height: 96,
       child: ResponsiveLayoutBuilder(
-        small: (context, child) => Padding(
-          padding: const EdgeInsets.only(top: 24.0),
-          child: Stack(
-            children: [
-              const Align(
-                child: PuzzleLogo(),
-              ),
-              Align(
-                alignment: Alignment.centerRight,
-                child: Padding(
-                  padding: const EdgeInsets.only(right: 34),
-                  child: AudioControl(key: audioControlKey),
-                ),
-              ),
-            ],
-          ),
-        ),
-        medium: (context, child) => Padding(
-          padding: const EdgeInsets.symmetric(
+        small: (BuildContext context, Widget? child) => const Header(),
+        medium: (BuildContext context, Widget? child) => const Padding(
+          padding: EdgeInsets.symmetric(
             horizontal: 50,
           ),
           child: Header(),
@@ -216,53 +200,56 @@ class Header extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        const Align(
-          alignment: Alignment.centerLeft,
-          child: PuzzleLogo(),
-        ),
-        if (withName)
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      child: Stack(
+        children: [
           const Align(
-            child: PuzzleName(),
+            alignment: Alignment.centerLeft,
+            child: PuzzleLogo(),
           ),
-        Align(
-          alignment: Alignment.centerRight,
-          child: Padding(
-            padding: const EdgeInsets.only(right: 34),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                  child: Row(
-                    children: context
-                        .select(
-                            (LanguageControlBloc bloc) => bloc.state.languages)
-                        .map<Widget>((Language element) {
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                        child: SizedBox(
-                          width: 30,
-                          child: TextButton(
-                              onPressed: () {
-                                context.read<LanguageControlBloc>().add(
-                                    LanguageControlChange(
-                                        languageIndex: element.id));
-                              },
-                              child: Text(element.flag)),
-                        ),
-                      );
-                    }).toList()
-                      ..reversed,
+          if (withName)
+            const Align(
+              child: PuzzleName(),
+            ),
+          Align(
+            alignment: Alignment.centerRight,
+            child: Padding(
+              padding: const EdgeInsets.only(right: 34),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                    child: Row(
+                      children: context
+                          .select((LanguageControlBloc bloc) =>
+                              bloc.state.languages)
+                          .map<Widget>((Language element) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                          child: SizedBox(
+                            width: 30,
+                            child: TextButton(
+                                onPressed: () {
+                                  context.read<LanguageControlBloc>().add(
+                                      LanguageControlChange(
+                                          languageIndex: element.id));
+                                },
+                                child: Text(element.flag)),
+                          ),
+                        );
+                      }).toList()
+                        ..reversed,
+                    ),
                   ),
-                ),
-                AudioControl(key: audioControlKey),
-              ],
+                  AudioControl(key: audioControlKey),
+                ],
+              ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
