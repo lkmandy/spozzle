@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:flutter/material.dart';
 import 'package:spozzle/colors/colors.dart';
 import 'package:spozzle/layout/layout.dart';
 import 'package:spozzle/simple/simple.dart';
@@ -26,6 +27,9 @@ class SimpleTheme extends PuzzleTheme {
 
   @override
   Color get backgroundColor => PuzzleColors.white;
+
+  @override
+  AssetImage get backgroundPattern => const AssetImage('assets/images/dashatar/background_pattern/west.jpeg');
 
   @override
   Color get defaultColor => PuzzleColors.primary5;

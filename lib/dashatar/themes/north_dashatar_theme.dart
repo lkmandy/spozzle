@@ -18,6 +18,9 @@ class NorthDashatarTheme extends DashatarTheme {
   Color get backgroundColor => PuzzleColors.yellowPrimary;
 
   @override
+  AssetImage get backgroundPattern => const AssetImage('assets/images/dashatar/background_pattern/west.jpeg');
+
+  @override
   Color get defaultColor => PuzzleColors.yellow90;
 
   @override
@@ -40,7 +43,7 @@ class NorthDashatarTheme extends DashatarTheme {
       'assets/images/audio_control/north_dashatar_off.png';
 
   @override
-  String get audioAsset => 'assets/audio/sandwich.mp3';
+  String get audioAsset => 'assets/audio/north.mp3';
 
   @override
   String get dashAssetsDirectory => 'assets/images/dashatar/north';

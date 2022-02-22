@@ -84,7 +84,8 @@ class PuzzleView extends StatelessWidget {
     return Scaffold(
       body: AnimatedContainer(
         duration: PuzzleThemeAnimationDuration.backgroundColorChange,
-        decoration: BoxDecoration(color: theme.backgroundColor),
+        //decoration: BoxDecoration(color: theme.backgroundColor),
+        decoration: BoxDecoration(image: DecorationImage(image: theme.backgroundPattern, fit: BoxFit.fill),),
         child: BlocListener<DashatarThemeBloc, DashatarThemeState>(
           listener: (BuildContext context, DashatarThemeState state) {
             final DashatarTheme dashatarTheme =
