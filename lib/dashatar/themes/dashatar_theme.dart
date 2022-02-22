@@ -91,6 +91,7 @@ abstract class DashatarTheme extends PuzzleTheme {
         nameColor,
         titleColor,
         backgroundColor,
+        backgroundPattern,
         defaultColor,
         buttonColor,
         hoverColor,

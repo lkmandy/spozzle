@@ -10,11 +10,11 @@ class Assets {
   static const String audioControlSimpleOff = 'assets/images/audio_control/simple_off.png';
   static const String audioControlSimpleOn = 'assets/images/audio_control/simple_on.png';
   static const String audioControlWestDashatarOff = 'assets/images/audio_control/west_dashatar_off.png';
-  static const String audioDumbbell = 'assets/audio/dumbbell.mp3';
-  static const String audioSandwich = 'assets/audio/sandwich.mp3';
-  static const String audioShuffle = 'assets/audio/shuffle.mp3';
-  static const String audioSkateboard = 'assets/audio/skateboard.mp3';
-  static const String audioSuccess = 'assets/audio/success.mp3';
+  static const String audioDumbbell = 'assets/audio/littoral.mp3';
+  static const String audioSandwich = 'assets/audio/west.mp3';
+  static const String audioShuffle = 'assets/audio/shuffle_board.mp3';
+  static const String audioSkateboard = 'assets/audio/north.mp3';
+  static const String audioSuccess = 'assets/audio/victory.mp3';
   static const String audioTileMove = 'assets/audio/tile_move.mp3';
   static const String fontsGoogleSans-Bold = 'assets/fonts/GoogleSans-Bold.ttf';
   static const String fontsGoogleSans-BoldItalic = 'assets/fonts/GoogleSans-BoldItalic.ttf';

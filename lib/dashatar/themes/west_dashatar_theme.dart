@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:spozzle/colors/colors.dart';
-import 'package:spozzle/dashatar/dashatar.dart';
-import 'package:spozzle/l10n/l10n.dart';
+
+import '../../colors/colors.dart';
+import '../../l10n/l10n.dart';
+import '../dashatar.dart';
 
 /// {@template blue_dashatar_theme}
 /// The blue dashatar puzzle theme.
@@ -16,6 +17,9 @@ class WestDashatarTheme extends DashatarTheme {
 
   @override
   Color get backgroundColor => PuzzleColors.bluePrimary;
+
+  @override
+  AssetImage get backgroundPattern => const AssetImage('assets/images/dashatar/background_pattern/west.jpeg');
 
   @override
   Color get defaultColor => PuzzleColors.blue90;
@@ -40,7 +44,7 @@ class WestDashatarTheme extends DashatarTheme {
       'assets/images/audio_control/west_dashatar_off.png';
 
   @override
-  String get audioAsset => 'assets/audio/dumbbell.mp3';
+  String get audioAsset => 'assets/audio/west.mp3';
 
   @override
   String get dashAssetsDirectory => 'assets/images/dashatar/west';

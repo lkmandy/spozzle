@@ -18,6 +18,9 @@ class LittoralDashatarTheme extends DashatarTheme {
   Color get backgroundColor => PuzzleColors.greenPrimary;
 
   @override
+  AssetImage get backgroundPattern => const AssetImage('assets/images/dashatar/background_pattern/west.jpeg');
+
+  @override
   Color get defaultColor => PuzzleColors.green90;
 
   @override
@@ -40,7 +43,7 @@ class LittoralDashatarTheme extends DashatarTheme {
       'assets/images/audio_control/littoral_dashatar_off.png';
 
   @override
-  String get audioAsset => 'assets/audio/skateboard.mp3';
+  String get audioAsset => 'assets/audio/littoral.mp3';
 
   @override
   String get dashAssetsDirectory => 'assets/images/dashatar/littoral';

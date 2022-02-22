@@ -37,7 +37,7 @@ class _DashatarShareDialogState extends State<DashatarShareDialog>
     super.initState();
 
     _successAudioPlayer = widget._audioPlayerFactory()
-      ..setAsset('assets/audio/success.mp3');
+      ..setAsset('assets/audio/victory.mp3');
     unawaited(_successAudioPlayer.play());
 
     _clickAudioPlayer = widget._audioPlayerFactory()

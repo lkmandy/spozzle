@@ -108,7 +108,7 @@ void main() {
         audioControlBloc: audioControlBloc,
       );
 
-      verify(() => audioPlayer.setAsset('assets/audio/shuffle.mp3')).called(1);
+      verify(() => audioPlayer.setAsset('assets/audio/shuffle_board.mp3')).called(1);
       verify(audioPlayer.play).called(1);
     });
 

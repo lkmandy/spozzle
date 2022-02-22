@@ -44,12 +44,13 @@ class _AppState extends State<App> {
   ];
 
   static final List<String> audioAssets = <String>[
-    'assets/audio/shuffle.mp3',
+    'assets/audio/shuffle_board.mp3',
     'assets/audio/click.mp3',
-    'assets/audio/dumbbell.mp3',
-    'assets/audio/sandwich.mp3',
-    'assets/audio/skateboard.mp3',
-    'assets/audio/success.mp3',
+    'assets/audio/littoral.mp3',
+    'assets/audio/west.mp3',
+    'assets/audio/north.mp3',
+    'assets/audio/northwest.mp3',
+    'assets/audio/victory.mp3',
     'assets/audio/tile_move.mp3',
   ];
 
@@ -149,6 +150,10 @@ class _AppState extends State<App> {
       );
       precacheImage(
         Image.asset('assets/images/facebook_icon.png').image,
+        context,
+      );
+      precacheImage(
+        Image.asset('assets/images/dashatar/background_pattern/west.jpeg').image,
         context,
       );
 
