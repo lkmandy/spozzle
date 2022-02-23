@@ -59,30 +59,42 @@ abstract class PuzzleColors {
   /// White 2 (opacity 40%)
   static const Color white2 = Color(0x66FFFFFF);
 
-  /// Green primary
-  static const Color greenPrimary = Color(0xFF00504C);
+  ///  Northwest Dashatar Colors
+  ///Green primary
+  static const Color greenPrimary = Color(0xFF26543E);
 
   /// Green 90
-  static const Color green90 = Color(0xFF71F7EF);
+  static const Color green90 = Color(0xFF90D0BD);
 
   /// Green 50
-  static const Color green50 = Color(0xFF00857F);
+  static const Color green50 = Color(0xFF388165);
 
+  ///  Littoral Dashatar Colors
+  /// Purple primary
+  static const Color purplePrimary = Color(0xFF4D3673);
+
+  /// Purple 90
+  static const Color purple90 = Color(0xFFB496C4);
+
+  /// Purple 50
+  static const Color purple50 = Color(0xFF674089);
+
+  /// Pink primary
+  static const Color pinkPrimary = Color(0xFF950059);
+
+  /// Pink 90
+  static const Color pink90 = Color(0xFFF08EB7);
+
+  /// Pink 50
+  static const Color pink50 = Color(0xFFBF0D63);
+
+  ///  West Dashatar Colors
   /// Blue primary
-  static const Color bluePrimary = Color(0xFF003064);
+  static const Color bluePrimary = Color(0xFF262C5F);
 
   /// Blue 90
-  static const Color blue90 = Color(0xFF75BFFF);
+  static const Color blue90 = Color(0xFFA0ABCA);
 
   /// Blue 50
-  static const Color blue50 = Color(0xFF027DFD);
-
-  /// Yellow primary
-  static const Color yellowPrimary = Color(0xFF676000);
-
-  /// Yellow 90
-  static const Color yellow90 = Color(0xFFFFF475);
-
-  /// Yellow 50
-  static const Color yellow50 = Color(0xFF9E9400);
+  static const Color blue50 = Color(0xFF5C71B0);
 }

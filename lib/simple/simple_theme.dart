@@ -29,7 +29,7 @@ class SimpleTheme extends PuzzleTheme {
   Color get backgroundColor => PuzzleColors.white;
 
   @override
-  AssetImage get backgroundPattern => const AssetImage('assets/images/dashatar/background_pattern/west.jpeg');
+  String get backgroundPattern => 'assets/images/dashatar/background_pattern/west.jpeg';
 
   @override
   Color get defaultColor => PuzzleColors.primary5;

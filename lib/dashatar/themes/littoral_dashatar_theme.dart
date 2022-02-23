@@ -3,11 +3,11 @@ import 'package:spozzle/colors/colors.dart';
 import 'package:spozzle/dashatar/dashatar.dart';
 import 'package:spozzle/l10n/l10n.dart';
 
-/// {@template green_dashatar_theme}
-/// The green dashatar puzzle theme.
+/// {@template purple_dashatar_theme}
+/// The purple dashatar puzzle theme.
 /// {@endtemplate}
 class LittoralDashatarTheme extends DashatarTheme {
-  /// {@macro green_dashatar_theme}
+  /// {@macro purple_dashatar_theme}
   const LittoralDashatarTheme() : super();
 
   @override
@@ -15,22 +15,22 @@ class LittoralDashatarTheme extends DashatarTheme {
       context.l10n.dashatarLittoralDashLabelText;
 
   @override
-  Color get backgroundColor => PuzzleColors.greenPrimary;
+  Color get backgroundColor => PuzzleColors.purplePrimary;
 
   @override
-  AssetImage get backgroundPattern => const AssetImage('assets/images/dashatar/background_pattern/west.jpeg');
+  String get backgroundPattern => 'assets/images/dashatar/background_pattern/littoral_bg.png';
 
   @override
-  Color get defaultColor => PuzzleColors.green90;
+  Color get defaultColor => PuzzleColors.purple90;
 
   @override
-  Color get buttonColor => PuzzleColors.green50;
+  Color get buttonColor => PuzzleColors.purple50;
 
   @override
-  Color get menuInactiveColor => PuzzleColors.green50;
+  Color get menuInactiveColor => PuzzleColors.purple50;
 
   @override
-  Color get countdownColor => PuzzleColors.green50;
+  Color get countdownColor => PuzzleColors.purple50;
 
   @override
   String get themeAsset => 'assets/images/dashatar/gallery/littoral.png';

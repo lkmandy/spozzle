@@ -43,13 +43,20 @@ class _AppState extends State<App> {
     'assets/images/audio_control/north_dashatar_off.png',
   ];
 
+  static final List<String> backgroundPatterns = <String>[
+    'assets/images/dashatar/background_pattern/north_bg.png',
+    'assets/images/dashatar/background_pattern/littoral_bg.png',
+    'assets/images/dashatar/background_pattern/northwest_bg.png',
+    'assets/images/dashatar/background_pattern/west_bg.png',
+  ];
+
   static final List<String> audioAssets = <String>[
     'assets/audio/shuffle_board.mp3',
     'assets/audio/click.mp3',
     'assets/audio/littoral.mp3',
     'assets/audio/west.mp3',
-    'assets/audio/north.mp3',
     'assets/audio/northwest.mp3',
+    'assets/audio/north.mp3',
     'assets/audio/victory.mp3',
     'assets/audio/tile_move.mp3',
   ];
@@ -78,14 +85,12 @@ class _AppState extends State<App> {
           context,
         );
         precacheImage(
-
           Image.asset('assets/images/dashatar/north/$i.png').image,
           context,
         );
       }
       precacheImage(
-        Image.asset('assets/images/dashatar/gallery/north.png')
-            .image,
+        Image.asset('assets/images/dashatar/gallery/north.png').image,
         context,
       );
       precacheImage(
@@ -152,14 +157,17 @@ class _AppState extends State<App> {
         Image.asset('assets/images/facebook_icon.png').image,
         context,
       );
-      precacheImage(
-        Image.asset('assets/images/dashatar/background_pattern/west.jpeg').image,
-        context,
-      );
 
       for (final String audioControlAsset in audioControlAssets) {
         precacheImage(
           Image.asset(audioControlAsset).image,
+          context,
+        );
+      }
+
+      for (final String pattern in backgroundPatterns) {
+        precacheImage(
+          Image.asset(pattern).image,
           context,
         );
       }
@@ -194,9 +202,9 @@ class _AppState extends State<App> {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        appBarTheme: const AppBarTheme(color: Color(0xFF13B9FF)),
+        appBarTheme: const AppBarTheme(color: Colors.blueGrey),
         colorScheme: ColorScheme.fromSwatch(
-          accentColor: const Color(0xFF13B9FF),
+          accentColor: const Color(0xFF37474F),
         ),
       ),
       locale: Locale(

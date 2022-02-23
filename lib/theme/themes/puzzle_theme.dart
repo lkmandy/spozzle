@@ -26,7 +26,7 @@ abstract class PuzzleTheme extends Equatable {
   Color get backgroundColor;
 
   /// The background pattern of this theme.
-  AssetImage get backgroundPattern;
+  String get backgroundPattern;
 
   /// The default color of this theme.
   ///

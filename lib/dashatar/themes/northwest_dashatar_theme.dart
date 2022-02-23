@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-
-import '../../colors/colors.dart';
-import '../../l10n/l10n.dart';
-import '../dashatar.dart';
+import 'package:spozzle/colors/colors.dart';
+import 'package:spozzle/dashatar/dashatar.dart';
+import 'package:spozzle/l10n/l10n.dart';
 
 /// {@template green_dashatar_theme}
-/// The northwest dashatar puzzle theme.
+/// The green dashatar puzzle theme.
 /// {@endtemplate}
 class NorthwestDashatarTheme extends DashatarTheme {
   /// {@macro green_dashatar_theme}
@@ -16,20 +15,22 @@ class NorthwestDashatarTheme extends DashatarTheme {
       context.l10n.dashatarNorthwestDashLabelText;
 
   @override
-  Color get backgroundColor => PuzzleColors.primary1;
+  Color get backgroundColor => PuzzleColors.greenPrimary;
 
   @override
-  Color get defaultColor => PuzzleColors.primary7;
-  AssetImage get backgroundPattern => const AssetImage('assets/images/dashatar/background_pattern/west.jpeg');
+  String get backgroundPattern => 'assets/images/dashatar/background_pattern/northwest_bg.png';
 
   @override
-  Color get buttonColor => PuzzleColors.primary3;
+  Color get defaultColor => PuzzleColors.green90;
 
   @override
-  Color get menuInactiveColor => PuzzleColors.primary4;
+  Color get buttonColor => PuzzleColors.green50;
 
   @override
-  Color get countdownColor => PuzzleColors.primary5;
+  Color get menuInactiveColor => PuzzleColors.green50;
+
+  @override
+  Color get countdownColor => PuzzleColors.green50;
 
   @override
   String get themeAsset => 'assets/images/dashatar/gallery/northwest.png';
@@ -43,7 +44,7 @@ class NorthwestDashatarTheme extends DashatarTheme {
       'assets/images/audio_control/northwest_dashatar_off.png';
 
   @override
-  String get audioAsset => 'assets/audio/northwest.mp3';
+  String get audioAsset => 'assets/audio/north.mp3';
 
   @override
   String get dashAssetsDirectory => 'assets/images/dashatar/northwest';

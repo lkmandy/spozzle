@@ -19,7 +19,7 @@ class WestDashatarTheme extends DashatarTheme {
   Color get backgroundColor => PuzzleColors.bluePrimary;
 
   @override
-  AssetImage get backgroundPattern => const AssetImage('assets/images/dashatar/background_pattern/west.jpeg');
+  String get backgroundPattern => 'assets/images/dashatar/background_pattern/west_bg.png';
 
   @override
   Color get defaultColor => PuzzleColors.blue90;

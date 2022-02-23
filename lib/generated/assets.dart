@@ -13,7 +13,7 @@ class Assets {
   static const String audioDumbbell = 'assets/audio/littoral.mp3';
   static const String audioSandwich = 'assets/audio/west.mp3';
   static const String audioShuffle = 'assets/audio/shuffle_board.mp3';
-  static const String audioSkateboard = 'assets/audio/north.mp3';
+  static const String audioSkateboard = 'assets/audio/northwest.mp3';
   static const String audioSuccess = 'assets/audio/victory.mp3';
   static const String audioTileMove = 'assets/audio/tile_move.mp3';
   static const String fontsGoogleSans-Bold = 'assets/fonts/GoogleSans-Bold.ttf';
@@ -22,7 +22,7 @@ class Assets {
   static const String fontsGoogleSans-Regular = 'assets/fonts/GoogleSans-Regular.ttf';
   static const String galleryLittoral = 'assets/images/dashatar/gallery/littoral.png';
   static const String galleryNorth = 'assets/images/dashatar/gallery/north.png';
-  static const String galleryNorthwest = 'assets/images/dashatar/gallery/northwest.png';
+  static const String galleryNorthwest = 'assets/images/dashatar/gallery/northwest_bg.png';
   static const String galleryWest = 'assets/images/dashatar/gallery/west.png';
   static const String imagesFacebookIcon = 'assets/images/facebook_icon.png';
   static const String imagesLogoSpozzleColor = 'assets/images/logo_spozzle_color.png';
@@ -80,7 +80,7 @@ class Assets {
   static const String northwest9 = 'assets/images/dashatar/northwest/9.png';
   static const String successLittoral = 'assets/images/dashatar/success/littoral.png';
   static const String successNorth = 'assets/images/dashatar/success/north.png';
-  static const String successNorthwest = 'assets/images/dashatar/success/northwest.png';
+  static const String successNorthwest = 'assets/images/dashatar/success/northwest_bg.png';
   static const String successWest = 'assets/images/dashatar/success/west.png';
   static const String west1 = 'assets/images/dashatar/west/1.png';
   static const String west10 = 'assets/images/dashatar/west/10.png';

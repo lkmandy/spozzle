@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 
@@ -30,14 +31,17 @@ class PuzzlePage extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (_) => DashatarThemeBloc(
+          create: (_) {
+            final dashatarThemeBloc = DashatarThemeBloc(
             themes: const [
-              WestDashatarTheme(),
-              LittoralDashatarTheme(),
-              NorthDashatarTheme(),
               NorthwestDashatarTheme(),
+              NorthDashatarTheme(),
+              LittoralDashatarTheme(),
+              WestDashatarTheme(),
             ],
-          ),
+          );
+            return dashatarThemeBloc;
+          },
         ),
         BlocProvider(
           create: (_) => DashatarPuzzleBloc(
@@ -84,8 +88,7 @@ class PuzzleView extends StatelessWidget {
     return Scaffold(
       body: AnimatedContainer(
         duration: PuzzleThemeAnimationDuration.backgroundColorChange,
-        //decoration: BoxDecoration(color: theme.backgroundColor),
-        decoration: BoxDecoration(image: DecorationImage(image: theme.backgroundPattern, fit: BoxFit.fill),),
+        decoration: BoxDecoration(image: DecorationImage(image: AssetImage(theme.backgroundPattern), fit: BoxFit.cover),),
         child: BlocListener<DashatarThemeBloc, DashatarThemeState>(
           listener: (BuildContext context, DashatarThemeState state) {
             final DashatarTheme dashatarTheme =
