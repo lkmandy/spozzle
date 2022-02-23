@@ -3,14 +3,15 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:spozzle/audio_control/audio_control.dart';
-import 'package:spozzle/dashatar/dashatar.dart';
-import 'package:spozzle/helpers/helpers.dart';
-import 'package:spozzle/l10n/l10n.dart';
-import 'package:spozzle/layout/layout.dart';
-import 'package:spozzle/models/models.dart';
-import 'package:spozzle/puzzle/puzzle.dart';
-import 'package:spozzle/theme/themes/themes.dart';
+import '../../audio_control/audio_control.dart';
+import '../dashatar.dart';
+import '../../helpers/helpers.dart';
+import '../../l10n/l10n.dart';
+import '../../layout/layout.dart';
+import '../../models/models.dart';
+import '../../puzzle/puzzle.dart';
+import '../../theme/themes/themes.dart';
+import '../../timer/timer.dart';
 
 abstract class _TileSize {
   static double small = 75;
@@ -88,20 +89,21 @@ class DashatarPuzzleTileState extends State<DashatarPuzzleTile>
 
   @override
   Widget build(BuildContext context) {
-    final size = widget.state.puzzle.getDimension();
-    final theme = context.select((DashatarThemeBloc bloc) => bloc.state.theme);
-    final status =
+    final int size = widget.state.puzzle.getDimension();
+    final DashatarTheme theme =
+        context.select((DashatarThemeBloc bloc) => bloc.state.theme);
+    final DashatarPuzzleStatus status =
         context.select((DashatarPuzzleBloc bloc) => bloc.state.status);
-    final hasStarted = status == DashatarPuzzleStatus.started;
-    final puzzleIncomplete =
+    final bool hasStarted = status == DashatarPuzzleStatus.started;
+    final bool puzzleIncomplete =
         context.select((PuzzleBloc bloc) => bloc.state.puzzleStatus) ==
             PuzzleStatus.incomplete;
 
-    final movementDuration = status == DashatarPuzzleStatus.loading
+    final Duration movementDuration = status == DashatarPuzzleStatus.loading
         ? const Duration(milliseconds: 800)
         : const Duration(milliseconds: 370);
 
-    final canPress = hasStarted && puzzleIncomplete;
+    final bool canPress = hasStarted && puzzleIncomplete;
 
     return AudioControlListener(
       audioPlayer: _audioPlayer,
@@ -113,17 +115,17 @@ class DashatarPuzzleTileState extends State<DashatarPuzzleTile>
         duration: movementDuration,
         curve: Curves.easeInOut,
         child: ResponsiveLayoutBuilder(
-          small: (_, child) => SizedBox.square(
+          small: (_, Widget? child) => SizedBox.square(
             key: Key('dashatar_puzzle_tile_small_${widget.tile.value}'),
             dimension: _TileSize.small,
             child: child,
           ),
-          medium: (_, child) => SizedBox.square(
+          medium: (_, Widget? child) => SizedBox.square(
             key: Key('dashatar_puzzle_tile_medium_${widget.tile.value}'),
             dimension: _TileSize.medium,
             child: child,
           ),
-          large: (_, child) => SizedBox.square(
+          large: (_, Widget? child) => SizedBox.square(
             key: Key('dashatar_puzzle_tile_large_${widget.tile.value}'),
             dimension: _TileSize.large,
             child: child,
@@ -148,8 +150,13 @@ class DashatarPuzzleTileState extends State<DashatarPuzzleTile>
                   padding: EdgeInsets.zero,
                   onPressed: canPress
                       ? () {
-                          context.read<PuzzleBloc>().add(TileTapped(widget.tile));
+                          context
+                              .read<PuzzleBloc>()
+                              .add(TileTapped(widget.tile));
                           unawaited(_audioPlayer?.replay());
+                          if (!context.read<TimerBloc>().state.isRunning) {
+                            context.read<TimerBloc>().add(const TimerResumed());
+                          }
                         }
                       : null,
                   icon: Image.asset(

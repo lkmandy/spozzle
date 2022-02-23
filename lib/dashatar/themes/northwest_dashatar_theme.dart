@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:spozzle/colors/colors.dart';
-import 'package:spozzle/dashatar/dashatar.dart';
-import 'package:spozzle/l10n/l10n.dart';
+
+import '../../colors/colors.dart';
+import '../../l10n/l10n.dart';
+import '../dashatar.dart';
 
 /// {@template green_dashatar_theme}
 /// The northwest dashatar puzzle theme.
@@ -18,7 +19,7 @@ class NorthwestDashatarTheme extends DashatarTheme {
   Color get backgroundColor => PuzzleColors.primary1;
 
   @override
-  Color get defaultColor => PuzzleColors.primary2;
+  Color get defaultColor => PuzzleColors.primary7;
 
   @override
   Color get buttonColor => PuzzleColors.primary3;
@@ -33,7 +34,8 @@ class NorthwestDashatarTheme extends DashatarTheme {
   String get themeAsset => 'assets/images/dashatar/gallery/northwest.png';
 
   @override
-  String get successThemeAsset => 'assets/images/dashatar/success/northwest.png';
+  String get successThemeAsset =>
+      'assets/images/dashatar/success/northwest.png';
 
   @override
   String get audioControlOffAsset =>

@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
-import 'package:spozzle/colors/colors.dart';
-import 'package:spozzle/l10n/l10n.dart';
-import 'package:spozzle/layout/layout.dart';
-import 'package:spozzle/theme/theme.dart';
-import 'package:spozzle/timer/timer.dart';
-import 'package:spozzle/typography/typography.dart';
+import '../../colors/colors.dart';
+import '../../l10n/l10n.dart';
+import '../../layout/layout.dart';
+import '../../theme/theme.dart';
+import '../../timer/timer.dart';
+import '../../typography/typography.dart';
 
 /// {@template dashatar_timer}
 /// Displays how many seconds elapsed since starting the puzzle.
 /// {@endtemplate}
-class DashatarTimer extends StatelessWidget {
+class DashatarTimer extends StatefulWidget {
   /// {@macro dashatar_timer}
   const DashatarTimer({
     Key? key,
@@ -35,31 +35,74 @@ class DashatarTimer extends StatelessWidget {
   final MainAxisAlignment? mainAxisAlignment;
 
   @override
+  State<DashatarTimer> createState() => _DashatarTimerState();
+}
+
+class _DashatarTimerState extends State<DashatarTimer>
+    with TickerProviderStateMixin {
+  AnimationController? _animationController;
+  bool isPlaying = true;
+
+  @override
+  void initState() {
+    _animationController = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 450));
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final secondsElapsed =
+    final int secondsElapsed =
         context.select((TimerBloc bloc) => bloc.state.secondsElapsed);
 
     return ResponsiveLayoutBuilder(
-      small: (_, child) => child!,
-      medium: (_, child) => child!,
-      large: (_, child) => child!,
-      child: (currentSize) {
-        final currentTextStyle = textStyle ??
+      small: (_, Widget? child) => child!,
+      medium: (_, Widget? child) => child!,
+      large: (_, Widget? child) => child!,
+      child: (ResponsiveLayoutSize currentSize) {
+        final TextStyle currentTextStyle = widget.textStyle ??
             (currentSize == ResponsiveLayoutSize.small
                 ? PuzzleTextStyle.headline4
                 : PuzzleTextStyle.headline3);
 
-        final currentIconSize = iconSize ??
+        final Size currentIconSize = widget.iconSize ??
             (currentSize == ResponsiveLayoutSize.small
                 ? const Size(28, 28)
                 : const Size(32, 32));
 
-        final timeElapsed = Duration(seconds: secondsElapsed);
+        final Duration timeElapsed = Duration(seconds: secondsElapsed);
 
         return Row(
           key: const Key('dashatar_timer'),
-          mainAxisAlignment: mainAxisAlignment ?? MainAxisAlignment.center,
+          mainAxisAlignment:
+              widget.mainAxisAlignment ?? MainAxisAlignment.center,
           children: [
+            if (context.read<TimerBloc>().state.isRunning || secondsElapsed > 0)
+              BlocListener<TimerBloc, TimerState>(
+                listener: (BuildContext context, TimerState state) {
+                  if (context.read<TimerBloc>().state.isRunning) {
+                    _animationController!.reverse();
+                  } else {
+                    _animationController!.forward();
+                  }
+                },
+                child: IconButton(
+                  onPressed: () {
+                    if (context.read<TimerBloc>().state.isRunning) {
+                      _animationController!.forward();
+                      context.read<TimerBloc>().add(const TimerStopped());
+                    } else {
+                      context.read<TimerBloc>().add(const TimerResumed());
+                      _animationController!.reverse();
+                    }
+                  },
+                  icon: AnimatedIcon(
+                    icon: AnimatedIcons.pause_play,
+                    progress: _animationController!,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
             AnimatedDefaultTextStyle(
               style: currentTextStyle.copyWith(
                 color: PuzzleColors.white,
@@ -71,7 +114,7 @@ class DashatarTimer extends StatelessWidget {
                 semanticsLabel: _getDurationLabel(timeElapsed, context),
               ),
             ),
-            Gap(iconPadding ?? 8),
+            Gap(widget.iconPadding ?? 8),
             Image.asset(
               'assets/images/timer_icon.png',
               key: const Key('dashatar_timer_icon'),
@@ -86,8 +129,8 @@ class DashatarTimer extends StatelessWidget {
 
   String _formatDuration(Duration duration) {
     String twoDigits(int n) => n.toString().padLeft(2, '0');
-    final twoDigitMinutes = twoDigits(duration.inMinutes.remainder(60));
-    final twoDigitSeconds = twoDigits(duration.inSeconds.remainder(60));
+    final String twoDigitMinutes = twoDigits(duration.inMinutes.remainder(60));
+    final String twoDigitSeconds = twoDigits(duration.inSeconds.remainder(60));
     return '${twoDigits(duration.inHours)}:$twoDigitMinutes:$twoDigitSeconds';
   }
 
