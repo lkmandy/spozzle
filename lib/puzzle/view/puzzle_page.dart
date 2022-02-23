@@ -32,14 +32,14 @@ class PuzzlePage extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (_) {
-            final dashatarThemeBloc = DashatarThemeBloc(
-            themes: const [
-              NorthwestDashatarTheme(),
-              NorthDashatarTheme(),
-              LittoralDashatarTheme(),
-              WestDashatarTheme(),
-            ],
-          );
+            final DashatarThemeBloc dashatarThemeBloc = DashatarThemeBloc(
+              themes: const [
+                NorthwestDashatarTheme(),
+                NorthDashatarTheme(),
+                LittoralDashatarTheme(),
+                WestDashatarTheme(),
+              ],
+            );
             return dashatarThemeBloc;
           },
         ),
@@ -88,7 +88,10 @@ class PuzzleView extends StatelessWidget {
     return Scaffold(
       body: AnimatedContainer(
         duration: PuzzleThemeAnimationDuration.backgroundColorChange,
-        decoration: BoxDecoration(image: DecorationImage(image: AssetImage(theme.backgroundPattern), fit: BoxFit.cover),),
+        decoration: BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage(theme.backgroundPattern), fit: BoxFit.cover),
+        ),
         child: BlocListener<DashatarThemeBloc, DashatarThemeState>(
           listener: (BuildContext context, DashatarThemeState state) {
             final DashatarTheme dashatarTheme =
@@ -169,43 +172,21 @@ class PuzzleHeader extends StatelessWidget {
     return SizedBox(
       height: 96,
       child: ResponsiveLayoutBuilder(
-        small: (context, child) => Padding(
-          padding: const EdgeInsets.only(top: 24.0),
-          child: Stack(
-            children: [
-              const Align(
-                child: PuzzleLogo(),
-              ),
-              Align(
-                alignment: Alignment.centerRight,
-                child: Padding(
-                  padding: const EdgeInsets.only(right: 34),
-                  child: AudioControl(key: audioControlKey),
-                ),
-              ),
-            ],
-          ),
-        ),
-        medium: (context, child) => Padding(
-          padding: const EdgeInsets.symmetric(
+        small: (BuildContext context, Widget? child) => const Header(),
+        medium: (BuildContext context, Widget? child) => const Padding(
+          padding: EdgeInsets.symmetric(
             horizontal: 50,
           ),
           child: Header(),
-          //  Row(
-          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //   children: const [
-          //     PuzzleLogo(),
-          //     PuzzleMenu(),
-          //   ],
-          // ),
         ),
         large: (BuildContext context, Widget? child) => const Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: 50,
-            ),
-            child: Header(
-              withName: false,
-            )),
+          padding: EdgeInsets.symmetric(
+            horizontal: 50,
+          ),
+          child: Header(
+            withName: false,
+          ),
+        ),
       ),
     );
   }
