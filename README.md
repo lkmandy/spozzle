@@ -1,6 +1,6 @@
 # Spozzle
 
-TODO: Put an image for the spozzle app here
+![](/art/west.png)
 ---
 
 ## Getting Started 🚀

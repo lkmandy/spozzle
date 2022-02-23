@@ -25,6 +25,9 @@ abstract class PuzzleTheme extends Equatable {
   /// The background color of this theme.
   Color get backgroundColor;
 
+  /// The background pattern of this theme.
+  AssetImage get backgroundPattern;
+
   /// The default color of this theme.
   ///
   /// Applied to the text color of the score and

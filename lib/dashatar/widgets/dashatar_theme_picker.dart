@@ -28,8 +28,6 @@ class DashatarThemePicker extends StatefulWidget {
   static const double _activeThemeSmallSize = 85.0;
   static const double _inactiveThemeNormalSize = 96.0;
   static const double _inactiveThemeSmallSize = 50.0;
-  static const double _borderRadiusSmallSize = 4;
-  static const double _borderRadiusNormalSize = 10;
 
   final AudioPlayerFactory _audioPlayerFactory;
 
@@ -74,9 +72,6 @@ class _DashatarThemePickerState extends State<DashatarThemePicker> {
           final double inactiveSize = isSmallSize
               ? DashatarThemePicker._inactiveThemeSmallSize
               : DashatarThemePicker._inactiveThemeNormalSize;
-          final double borderRadius = isSmallSize
-              ? DashatarThemePicker._borderRadiusSmallSize
-              : DashatarThemePicker._borderRadiusNormalSize;
 
           return Stack(
             alignment: Alignment.center,
@@ -87,14 +82,11 @@ class _DashatarThemePickerState extends State<DashatarThemePicker> {
                   height: activeSize,
                   curve: Curves.easeInOut,
                   duration: const Duration(milliseconds: 350),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(borderRadius),
-                    child: Image.asset(
-                      activeTheme.themeAsset,
-                      fit: BoxFit.fill,
-                      semanticLabel: activeTheme.semanticsLabel(context),
-                      opacity: const AlwaysStoppedAnimation<double>(0.5),
-                    ),
+                  child: Image.asset(
+                    activeTheme.themeAsset,
+                    fit: BoxFit.fill,
+                    semanticLabel: activeTheme.semanticsLabel(context),
+                    opacity: const AlwaysStoppedAnimation<double>(0.3),
                   ),
                 ),
               ),
@@ -129,10 +121,10 @@ class _DashatarThemePickerState extends State<DashatarThemePicker> {
                           themeState.themes.length,
                           (int index) {
                             final DashatarTheme theme =
-                                themeState.themes[index];
+                            themeState.themes[index];
                             final bool isActiveTheme = theme == activeTheme;
                             final double padding =
-                                index > 0 ? (isSmallSize ? 4.0 : 8.0) : 0.0;
+                            index > 0 ? (isSmallSize ? 4.0 : 8.0) : 0.0;
                             final double size = inactiveSize;
 
                             return Padding(
@@ -152,8 +144,8 @@ class _DashatarThemePickerState extends State<DashatarThemePicker> {
                                             themeIndex: index));
 
                                     // Play the audio of the current Dashatar theme.
-                                    await _audioPlayer
-                                        .setAsset(theme.audioAsset);
+                                    await _audioPlayer.setAsset(
+                                        theme.audioAsset);
                                     unawaited(_audioPlayer.play());
                                   },
                                   child: AnimatedContainer(
@@ -161,46 +153,19 @@ class _DashatarThemePickerState extends State<DashatarThemePicker> {
                                     height: size,
                                     curve: Curves.easeInOut,
                                     duration: const Duration(milliseconds: 350),
-                                    decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(borderRadius),
-                                        border:
-                                            Border.all(color: Colors.black26)),
                                     child: ClipRRect(
-                                      borderRadius:
-                                          BorderRadius.circular(borderRadius),
+                                      borderRadius: BorderRadius.circular(8.0),
                                       child: Image.asset(
                                         theme.themeAsset,
                                         fit: BoxFit.fill,
-                                        semanticLabel:
-                                            theme.semanticsLabel(context),
+                                        semanticLabel: theme.semanticsLabel(
+                                            context),
                                       ),
                                     ),
                                   ),
                                 ),
-                              ),
-                            );
-                          },
-                        ).sublist(initialIndex, endIndex + 1),
-                        SizedBox(
-                          width: 70,
-                          child: endIndex + 1 != themeState.themes.length
-                              ? IconButton(
-                                  icon: const Icon(
-                                    Icons.chevron_right,
-                                    color: Colors.white,
-                                  ),
-                                  onPressed: () {
-                                    if (endIndex + 1 < themeState.themes.length)
-                                      setState(() {
-                                        initialIndex += 1;
-                                        endIndex += 1;
-                                      });
-                                  },
-                                )
-                              : Container(),
-                        ),
-                      ]),
+                              ),);
+                          },), ],)
                 ),
               ),
             ],

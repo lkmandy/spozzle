@@ -3,7 +3,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import '../../dashatar/dashatar.dart';
-import '../../simple/simple.dart';
 import '../theme.dart';
 
 part 'theme_event.dart';

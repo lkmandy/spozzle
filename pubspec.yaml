@@ -42,6 +42,7 @@ flutter:
     - assets/images/dashatar/gallery/
     - assets/images/dashatar/success/
     - assets/images/dashatar/littoral/
+    - assets/images/dashatar/background_pattern/
     - assets/images/dashatar/west/
     - assets/images/dashatar/north/
     - assets/images/dashatar/northwest/
