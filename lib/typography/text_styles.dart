@@ -131,8 +131,9 @@ class PuzzleTextStyle {
   }
 
   static const TextStyle _baseTextStyle = TextStyle(
-    fontFamily: 'GoogleSans',
+    fontFamily: 'Hakuna',
     color: PuzzleColors.black,
+    letterSpacing: 2,
     fontWeight: PuzzleFontWeight.regular,
   );
 

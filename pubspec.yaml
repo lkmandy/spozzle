@@ -60,3 +60,8 @@ flutter:
         - asset: assets/fonts/GoogleSans-Italic.ttf
           weight: 400
           style: italic
+          
+    - family: Hakuna
+      fonts:
+        - asset: assets/fonts/HakunaRegular.ttf
+          weight: 400

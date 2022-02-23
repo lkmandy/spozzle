@@ -4,7 +4,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:spozzle/models/models.dart';
+import '../../models/models.dart';
 
 part 'timer_event.dart';
 part 'timer_state.dart';
@@ -14,6 +14,7 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
       : _ticker = ticker,
         super(const TimerState()) {
     on<TimerStarted>(_onTimerStarted);
+    on<TimerResumed>(_onTimerResumed);
     on<TimerTicked>(_onTimerTicked);
     on<TimerStopped>(_onTimerStopped);
     on<TimerReset>(_onTimerReset);
@@ -33,7 +34,12 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
     _tickerSubscription?.cancel();
     _tickerSubscription = _ticker
         .tick()
-        .listen((secondsElapsed) => add(TimerTicked(secondsElapsed)));
+        .listen((int secondsElapsed) => add(TimerTicked(secondsElapsed)));
+    emit(state.copyWith(isRunning: true));
+  }
+
+  void _onTimerResumed(TimerResumed event, Emitter<TimerState> emit) {
+    _tickerSubscription?.resume();
     emit(state.copyWith(isRunning: true));
   }
 
