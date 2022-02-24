@@ -8,7 +8,7 @@
   "@puzzleRestartTooltip": {
     "description": "Affiché en tant qu'info-bulle pour le bouton de redémarrage du puzzle"
   },
-  "puzzleChallengeTitle": "Puzzle Challenge",
+  "puzzleChallengeTitle": "Défi de Jeu",
   "@puzzleChallengeTitle": {
     "description": "Montré comme le titre du puzzle"
   },
