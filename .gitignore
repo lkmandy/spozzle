@@ -100,6 +100,11 @@ unlinked_spec.ds
 # Coverage
 coverage/
 
+# Firebase Hosting
+.firebaserc
+firebase-debug.log
+.firebase/hosting.YnVpbGQvd2Vi.cache
+
 # Submodules
 !pubspec.lock
 packages/**/pubspec.lock
