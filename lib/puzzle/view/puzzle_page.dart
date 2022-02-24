@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
-
+import 'package:line_icons/line_icons.dart';
 import '../../audio_control/audio_control.dart';
 import '../../dashatar/dashatar.dart';
 import '../../l10n/l10n.dart';
@@ -172,7 +171,10 @@ class PuzzleHeader extends StatelessWidget {
     return SizedBox(
       height: 96,
       child: ResponsiveLayoutBuilder(
-        small: (BuildContext context, Widget? child) => const Header(),
+        small: (BuildContext context, Widget? child) => const Padding(
+          padding: EdgeInsets.fromLTRB(24.0, 40.0,  16.0, 0.0),
+          child: Header(),
+        ),
         medium: (BuildContext context, Widget? child) => const Padding(
           padding: EdgeInsets.symmetric(
             horizontal: 50,
@@ -192,7 +194,7 @@ class PuzzleHeader extends StatelessWidget {
   }
 }
 
-class Header extends StatelessWidget {
+class Header extends StatefulWidget {
   const Header({
     Key? key,
     this.withName = true,
@@ -200,16 +202,30 @@ class Header extends StatelessWidget {
   final bool withName;
 
   @override
+  State<Header> createState() => _HeaderState();
+}
+
+class _HeaderState extends State<Header> {
+  void _changeLanguage(Language lang) {
+    context
+        .read<LanguageControlBloc>()
+        .add(LanguageControlChange(languageIndex: lang.id));
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final DashatarTheme theme =
+    context.select((DashatarThemeBloc bloc) => bloc.state.theme);
+
     return Stack(
       children: [
         const Align(
           alignment: Alignment.centerLeft,
           child: PuzzleLogo(),
         ),
-        if (withName)
+        if (widget.withName)
           const Align(
-            child: PuzzleName(),
+            child: PuzzleName(color: Colors.white54),
           ),
         Align(
           alignment: Alignment.centerRight,
@@ -218,31 +234,40 @@ class Header extends StatelessWidget {
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                  child: Row(
-                    children: context
-                        .select(
-                            (LanguageControlBloc bloc) => bloc.state.languages)
-                        .map<Widget>((Language element) {
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                        child: SizedBox(
-                          width: 30,
-                          child: TextButton(
-                              onPressed: () {
-                                context.read<LanguageControlBloc>().add(
-                                    LanguageControlChange(
-                                        languageIndex: element.id));
-                              },
-                              child: Text(element.flag)),
-                        ),
-                      );
-                    }).toList()
-                      ..reversed,
+                DropdownButton(
+                  dropdownColor: theme.buttonColor,
+                  onChanged: (Language? language) {
+                    _changeLanguage(language!);
+                  },
+                  icon: const Icon(
+                    LineIcons.language,
+                    color: Colors.white54,
+                    size: 24.0,
                   ),
+                  underline: const SizedBox(),
+                  items: context
+                      .select(
+                          (LanguageControlBloc bloc) => bloc.state.languages)
+                      .map<DropdownMenuItem<Language>>((Language lang) =>
+                          DropdownMenuItem(
+                            enabled: true,
+                            value: lang,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: <Widget>[
+                                Text(lang.flag,),
+                                Text(lang.name, style: const TextStyle(color: Colors.white70),),
+                              ],
+                            ),
+                          ))
+                      .toList()
+                    ..reversed,
                 ),
-                AudioControl(key: audioControlKey),
+
+                Padding(
+                  padding: const EdgeInsets.only(left: 16.0),
+                  child: AudioControl(key: audioControlKey),
+                ),
               ],
             ),
           ),

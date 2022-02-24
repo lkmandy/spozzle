@@ -3,7 +3,7 @@ part of 'language_control_bloc.dart';
 class LanguageControlState extends Equatable {
   const LanguageControlState({
     required this.languages,
-    this.language = const Language(2, '🇺🇸', 'English', 'en'),
+    this.language = const Language(0, '🇺🇸', 'English', 'en'),
   });
 
   /// The list of all available [Language]s.

@@ -60,6 +60,7 @@ class PuzzleTitle extends StatelessWidget {
           child: Text(
             title,
             textAlign: textAlign,
+            style: const TextStyle(color: Colors.white70),
           ),
         );
       },

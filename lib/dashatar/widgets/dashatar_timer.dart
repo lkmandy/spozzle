@@ -7,6 +7,8 @@ import '../../layout/layout.dart';
 import '../../theme/theme.dart';
 import '../../timer/timer.dart';
 import '../../typography/typography.dart';
+import '../bloc/dashatar_theme_bloc.dart';
+import '../themes/dashatar_theme.dart';
 
 /// {@template dashatar_timer}
 /// Displays how many seconds elapsed since starting the puzzle.
@@ -55,6 +57,9 @@ class _DashatarTimerState extends State<DashatarTimer>
     final int secondsElapsed =
         context.select((TimerBloc bloc) => bloc.state.secondsElapsed);
 
+    final DashatarTheme theme =
+    context.select((DashatarThemeBloc bloc) => bloc.state.theme);
+
     return ResponsiveLayoutBuilder(
       small: (_, Widget? child) => child!,
       medium: (_, Widget? child) => child!,
@@ -86,22 +91,30 @@ class _DashatarTimerState extends State<DashatarTimer>
                     _animationController!.forward();
                   }
                 },
-                child: IconButton(
-                  onPressed: () {
-                    if (context.read<TimerBloc>().state.isRunning) {
-                      _animationController!.forward();
-                      context.read<TimerBloc>().add(const TimerStopped());
-                    } else {
-                      context.read<TimerBloc>().add(const TimerResumed());
-                      _animationController!.reverse();
-                    }
-                  },
-                  icon: AnimatedIcon(
-                    icon: AnimatedIcons.pause_play,
-                    progress: _animationController!,
-                    color: Colors.white,
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 16.0),
+                  child: CircleAvatar(
+                    radius: 20,
+                    backgroundColor: theme.buttonColor,
+                      child: IconButton(
+                        onPressed: () {
+                          if (context.read<TimerBloc>().state.isRunning) {
+                            _animationController!.forward();
+                            context.read<TimerBloc>().add(const TimerStopped());
+                          } else {
+                            context.read<TimerBloc>().add(const TimerResumed());
+                            _animationController!.reverse();
+                          }
+                        },
+                        icon: AnimatedIcon(
+                          icon: AnimatedIcons.pause_play,
+                          progress: _animationController!,
+                          color: theme.defaultColor,
+                          size: 24.0,
+                        ),
+                      ),
+                    ),
                   ),
-                ),
               ),
             AnimatedDefaultTextStyle(
               style: currentTextStyle.copyWith(
