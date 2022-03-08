@@ -150,7 +150,7 @@
   "@dashatarSuccessShareYourScoreMessage": {
     "description": "Affiché sous forme de message de partage dans l'état de réussite de Dashatar"
   },
-  "dashatarSuccessShareText": "Je viens de résoudre le #Spozzle Slide Challenge! Vérifiez-le ↓",
+  "dashatarSuccessShareText": "Je viens de résoudre le #Spozzle Slide Challenge! Vérifiez-le ",
   "@dashatarSuccessShareText": {
     "description": "Le texte à partager pour ce défi Flutter Puzzle, affiché dans l'état de réussite de Dashatar"
   }

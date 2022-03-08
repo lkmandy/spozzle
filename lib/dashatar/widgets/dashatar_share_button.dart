@@ -1,15 +1,13 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:spozzle/audio_control/audio_control.dart';
 import 'package:spozzle/helpers/helpers.dart';
 import 'package:spozzle/l10n/l10n.dart';
-import 'package:spozzle/typography/typography.dart';
 
 /// The url to share for this Flutter Puzzle challenge.
-const _shareUrl = 'https://flutterhack.devpost.com/';
+const _shareUrl = 'https://spozzle.web.app/#/';
 
 /// {@template dashatar_twitter_button}
 /// Displays a button that shares the Flutter Puzzle challenge
@@ -20,9 +18,9 @@ class DashatarTwitterButton extends StatelessWidget {
   const DashatarTwitterButton({Key? key}) : super(key: key);
 
   String _twitterShareUrl(BuildContext context) {
-    final shareText = context.l10n.dashatarSuccessShareText;
+    final shareText = '${context.l10n.dashatarSuccessShareText} ${_shareUrl} \n#FlutterPuzzleHack #Flutter #Dart';
     final encodedShareText = Uri.encodeComponent(shareText);
-    return 'https://twitter.com/intent/tweet?url=$_shareUrl&text=$encodedShareText';
+    return 'https://twitter.com/intent/tweet?text=$encodedShareText';
   }
 
   @override
@@ -36,6 +34,35 @@ class DashatarTwitterButton extends StatelessWidget {
       ),
       color: const Color(0xFF13B9FD),
       onPressed: () => openLink(_twitterShareUrl(context)),
+    );
+  }
+}
+
+/// {@template dashatar_whatsapp_button}
+/// Displays a button that shares the Flutter Puzzle challenge
+/// on Whatsapp when tapped.
+/// {@endtemplate}
+class DashatarWhatsAppButton extends StatelessWidget {
+  /// {@macro dashatar_whatsapp_button}
+  const DashatarWhatsAppButton({Key? key}) : super(key: key);
+
+  String _whatsAppShareUrl(BuildContext context) {
+    final shareText = '${context.l10n.dashatarSuccessShareText} ${_shareUrl} \n#FlutterPuzzleHack #Flutter #Dart';
+    final encodedShareText = Uri.encodeComponent(shareText);
+    return 'https://wa.me/?text=$encodedShareText';
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return DashatarShareButton(
+      title: 'WhatsApp',
+      icon: Image.asset(
+        'assets/images/whatsapp_icon.png',
+        width: 13.13,
+        height: 10.67,
+      ),
+      color: const Color(0xFF25D366),
+      onPressed: () => openLink(_whatsAppShareUrl(context)),
     );
   }
 }
@@ -128,14 +155,14 @@ class _DashatarShareButtonState extends State<DashatarShareButton> {
         height: 56,
         decoration: BoxDecoration(
           border: Border.all(color: widget.color),
-          borderRadius: BorderRadius.circular(32),
+          borderRadius: BorderRadius.circular(12),
         ),
         child: TextButton(
           style: TextButton.styleFrom(
             padding: EdgeInsets.zero,
             primary: widget.color,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(32),
+              borderRadius: BorderRadius.circular(12),
             ),
             backgroundColor: Colors.transparent,
           ),
@@ -145,9 +172,9 @@ class _DashatarShareButtonState extends State<DashatarShareButton> {
           },
           child: Row(
             children: [
-              const Gap(12),
+              //const Gap(12),
               ClipRRect(
-                borderRadius: BorderRadius.circular(32),
+                borderRadius: BorderRadius.circular(12),
                 child: Container(
                   alignment: Alignment.center,
                   width: 32,
@@ -156,14 +183,14 @@ class _DashatarShareButtonState extends State<DashatarShareButton> {
                   child: widget.icon,
                 ),
               ),
-              const Gap(10),
-              Text(
-                widget.title,
-                style: PuzzleTextStyle.headline5.copyWith(
-                  color: widget.color,
-                ),
-              ),
-              const Gap(24),
+              // const Gap(10),
+              // Text(
+              //   widget.title,
+              //   style: PuzzleTextStyle.headline5.copyWith(
+              //     color: widget.color,
+              //   ),
+              // ),
+              // const Gap(24),
             ],
           ),
         ),

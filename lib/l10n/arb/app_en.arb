@@ -150,7 +150,7 @@
   "@dashatarSuccessShareYourScoreMessage": {
     "description": "Shown as a share message in the Dashatar success state"
   },
-  "dashatarSuccessShareText": "Just solved the #Spozzle Slide Challenge! Check it out ↓",
+  "dashatarSuccessShareText": "Just solved the #Spozzle Slide Challenge! Check it out ",
   "@dashatarSuccessShareText": {
     "description": "The text to share for this Flutter Puzzle challenge, shown in the Dashatar success state"
   }

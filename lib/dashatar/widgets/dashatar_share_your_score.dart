@@ -103,6 +103,8 @@ class DashatarShareYourScore extends StatelessWidget {
                   children: const [
                     DashatarTwitterButton(),
                     Gap(16),
+                    DashatarWhatsAppButton(),
+                    Gap(16),
                     DashatarFacebookButton(),
                   ],
                 ),

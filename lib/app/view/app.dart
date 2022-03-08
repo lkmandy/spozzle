@@ -154,6 +154,10 @@ class _AppState extends State<App> {
         context,
       );
       precacheImage(
+        Image.asset('assets/images/whatsapp_icon.png').image,
+        context,
+      );
+      precacheImage(
         Image.asset('assets/images/facebook_icon.png').image,
         context,
       );
