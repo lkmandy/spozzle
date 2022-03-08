@@ -1,3 +1,4 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spozzle/colors/colors.dart';
@@ -9,6 +10,9 @@ import 'package:spozzle/theme/themes/themes.dart';
 import 'package:spozzle/theme/widgets/widgets.dart';
 import 'package:spozzle/typography/typography.dart';
 
+import '../../models/models.dart';
+import '../../timer/bloc/timer_bloc.dart';
+
 /// {@template dashatar_score}
 /// Displays the score of the solved Dashatar puzzle.
 /// {@endtemplate}
@@ -16,54 +20,65 @@ class DashatarScore extends StatelessWidget {
   /// {@macro dashatar_score}
   const DashatarScore({Key? key}) : super(key: key);
 
-  static const _smallImageOffset = Offset(124, 36);
-  static const _mediumImageOffset = Offset(215, -47);
-  static const _largeImageOffset = Offset(215, -47);
+  static const Offset _smallImageOffset = Offset(124, 36);
+  static const Offset _mediumImageOffset = Offset(215, -47);
+  static const Offset _largeImageOffset = Offset(215, -47);
+  static const String score ='Score: ';
+  static const String moves ='Moves: ';
 
   @override
   Widget build(BuildContext context) {
-    final theme = context.select((DashatarThemeBloc bloc) => bloc.state.theme);
-    final state = context.watch<PuzzleBloc>().state;
+    final DashatarTheme theme =
+        context.select((DashatarThemeBloc bloc) => bloc.state.theme);
+    final PuzzleState state = context.watch<PuzzleBloc>().state;
     final l10n = context.l10n;
 
+    final int secondsElapsed =
+    context.select((TimerBloc bloc) => bloc.state.secondsElapsed);
+
+
+
     return ResponsiveLayoutBuilder(
-      small: (_, child) => child!,
-      medium: (_, child) => child!,
-      large: (_, child) => child!,
-      child: (currentSize) {
-        final height =
+      small: (_, Widget? child) => child!,
+      medium: (_, Widget? child) => child!,
+      large: (_, Widget? child) => child!,
+      child: (ResponsiveLayoutSize currentSize) {
+        final double height =
             currentSize == ResponsiveLayoutSize.small ? 374.0 : 355.0;
 
-        final imageOffset = currentSize == ResponsiveLayoutSize.large
+        final Offset imageOffset = currentSize == ResponsiveLayoutSize.large
             ? _largeImageOffset
             : (currentSize == ResponsiveLayoutSize.medium
                 ? _mediumImageOffset
                 : _smallImageOffset);
 
-        final imageHeight =
+        final double imageHeight =
             currentSize == ResponsiveLayoutSize.small ? 374.0 : 437.0;
 
-        final completedTextWidth =
+        final double completedTextWidth =
             currentSize == ResponsiveLayoutSize.small ? 160.0 : double.infinity;
 
-        final wellDoneTextStyle = currentSize == ResponsiveLayoutSize.small
-            ? PuzzleTextStyle.headline4Soft
-            : PuzzleTextStyle.headline3;
+        final TextStyle wellDoneTextStyle =
+            currentSize == ResponsiveLayoutSize.small
+                ? PuzzleTextStyle.headline4Soft
+                : PuzzleTextStyle.headline3;
 
-        final timerTextStyle = currentSize == ResponsiveLayoutSize.small
-            ? PuzzleTextStyle.headline5
-            : PuzzleTextStyle.headline4;
+        final TextStyle timerTextStyle =
+            currentSize == ResponsiveLayoutSize.small
+                ? PuzzleTextStyle.headline5
+                : PuzzleTextStyle.headline4;
 
-        final timerIconSize = currentSize == ResponsiveLayoutSize.small
+        final Size timerIconSize = currentSize == ResponsiveLayoutSize.small
             ? const Size(21, 21)
             : const Size(28, 28);
 
-        final timerIconPadding =
+        final double timerIconPadding =
             currentSize == ResponsiveLayoutSize.small ? 4.0 : 6.0;
 
-        final numberOfMovesTextStyle = currentSize == ResponsiveLayoutSize.small
-            ? PuzzleTextStyle.headline5
-            : PuzzleTextStyle.headline4;
+        final TextStyle numberOfMovesTextStyle =
+            currentSize == ResponsiveLayoutSize.small
+                ? PuzzleTextStyle.headline5
+                : PuzzleTextStyle.headline4;
 
         return ClipRRect(
           key: const Key('dashatar_score'),
@@ -71,7 +86,12 @@ class DashatarScore extends StatelessWidget {
           child: Container(
             width: double.infinity,
             height: height,
-            color: theme.backgroundColor,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage(theme.backgroundPattern),
+                fit: BoxFit.fill,
+              ),
+            ),
             child: Stack(
               children: [
                 Positioned(
@@ -99,12 +119,17 @@ class DashatarScore extends StatelessWidget {
                       SizedBox(
                         key: const Key('dashatar_score_completed'),
                         width: completedTextWidth,
-                        child: AnimatedDefaultTextStyle(
-                          style: PuzzleTextStyle.headline5.copyWith(
-                            color: theme.defaultColor,
-                          ),
-                          duration: PuzzleThemeAnimationDuration.textStyle,
-                          child: Text(l10n.dashatarSuccessCompleted),
+                        child: AnimatedTextKit(
+                          totalRepeatCount: 4,
+                          pause:  const Duration(milliseconds: 2000),
+                          animatedTexts: [
+                            TypewriterAnimatedText(
+                              l10n.dashatarSuccessCompleted,
+                              textStyle: PuzzleTextStyle.headline5.copyWith(
+                                color: theme.defaultColor,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                       const ResponsiveGap(
@@ -112,14 +137,21 @@ class DashatarScore extends StatelessWidget {
                         medium: 16,
                         large: 16,
                       ),
-                      AnimatedDefaultTextStyle(
-                        key: const Key('dashatar_score_well_done'),
-                        style: wellDoneTextStyle.copyWith(
-                          color: PuzzleColors.white,
-                        ),
-                        duration: PuzzleThemeAnimationDuration.textStyle,
-                        child: Text(l10n.dashatarSuccessWellDone),
+
+                    AnimatedTextKit(
+                      key: const Key('dashatar_score_well_done'),
+                      totalRepeatCount: 4,
+                        pause:  const Duration(milliseconds: 2000),
+                        animatedTexts: [
+                          TypewriterAnimatedText(
+                            l10n.dashatarSuccessWellDone,
+                            textStyle: wellDoneTextStyle.copyWith(
+                              color: PuzzleColors.white,
+                            ),
+                          ),
+                        ],
                       ),
+
                       const ResponsiveGap(
                         small: 24,
                         medium: 32,
@@ -127,22 +159,18 @@ class DashatarScore extends StatelessWidget {
                       ),
                       AnimatedDefaultTextStyle(
                         key: const Key('dashatar_score_score'),
-                        style: PuzzleTextStyle.headline5.copyWith(
+                        style: timerTextStyle.copyWith(
                           color: theme.defaultColor,
                         ),
                         duration: PuzzleThemeAnimationDuration.textStyle,
-                        child: Text(l10n.dashatarSuccessScore),
+                        child:
+                        Text(l10n.dashatarSuccessScore(intToTimeLeft(secondsElapsed)),
+                        ),
                       ),
                       const ResponsiveGap(
                         small: 8,
                         medium: 9,
                         large: 9,
-                      ),
-                      DashatarTimer(
-                        textStyle: timerTextStyle,
-                        iconSize: timerIconSize,
-                        iconPadding: timerIconPadding,
-                        mainAxisAlignment: MainAxisAlignment.start,
                       ),
                       const ResponsiveGap(
                         small: 2,
@@ -152,7 +180,7 @@ class DashatarScore extends StatelessWidget {
                       AnimatedDefaultTextStyle(
                         key: const Key('dashatar_score_number_of_moves'),
                         style: numberOfMovesTextStyle.copyWith(
-                          color: PuzzleColors.white,
+                          color: theme.defaultColor,
                         ),
                         duration: PuzzleThemeAnimationDuration.textStyle,
                         child: Text(
@@ -170,5 +198,27 @@ class DashatarScore extends StatelessWidget {
         );
       },
     );
+  }
+
+  String intToTimeLeft(int value) {
+    int h, m, s;
+
+    h = value ~/ 3600;
+
+    m = ((value - h * 3600)) ~/ 60;
+
+    s = value - (h * 3600) - (m * 60);
+
+    String hourLeft = h.toString().length < 2 ? "0" + h.toString() : h.toString();
+
+    String minuteLeft =
+    m.toString().length < 2 ? "0" + m.toString() : m.toString();
+
+    String secondsLeft =
+    s.toString().length < 2 ? "0" + s.toString() : s.toString();
+
+    String result = "$hourLeft:$minuteLeft:$secondsLeft";
+
+    return result;
   }
 }
