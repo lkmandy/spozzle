@@ -44,23 +44,29 @@
   "@dashatarRestart": {
     "description": "S'affiche après le démarrage du puzzle et peut être relancé."
   },
-  "dashatarCountdownGo": "GO!",
+  "dashatarCountdownGo": "VA!",
   "@dashatarCountdownGo": {
     "description": "S'affiche lorsque le compte à rebours vient de se terminer et que le puzzle est sur le point de commencer."
   },
-  "dashatarSuccessCompleted": "Défi du puzzle terminé",
+  "dashatarSuccessCompleted": "C'est la fin...",
   "@dashatarSuccessCompleted": {
     "description": "Montré comme un titre dans l'état de succès Dashatar"
   },
-  "dashatarSuccessWellDone": "Bien joué.\nFélicitations!",
+  "dashatarSuccessWellDone": "Tu es un Génie.\nBon Travail!!",
   "@dashatarSuccessWellDone": {
     "description": "Montré comme un sous-titre dans l'état de succès de Dashatar"
   },
-  "dashatarSuccessScore": "Score",
+  "dashatarSuccessScore": "But: {timeElapsed}",
   "@dashatarSuccessScore": {
-    "description": "Montré comme un titre de score dans l'état de succès de Dashatar"
+    "description": "Montré comme un titre de score dans l'état de succès de Dashatar",
+    "placeholders": {
+      "timeElapsed": {
+        "type": "String",
+        "example": "5"
+      }
+    }
   },
-  "dashatarSuccessNumberOfMoves": "{numberOfMoves} Déplacements",
+  "dashatarSuccessNumberOfMoves": "Coups: {numberOfMoves}",
   "@dashatarSuccessNumberOfMoves": {
     "description": "Représenté par le nombre de coups dans l'état de réussite de Dashatar.",
     "placeholders": {
@@ -140,11 +146,11 @@
   "@dashatarSuccessShareYourScoreTitle": {
     "description": "Représenté comme un titre de partage dans l'état de réussite de Dashatar"
   },
-  "dashatarSuccessShareYourScoreMessage": "Partagez ce puzzle pour défier vos amis et assurez-vous de vérifier le Flutter Puzzle Hack.",
+  "dashatarSuccessShareYourScoreMessage": "Invitez vos amis à profiter de l'expérience amusante aussi!!",
   "@dashatarSuccessShareYourScoreMessage": {
     "description": "Affiché sous forme de message de partage dans l'état de réussite de Dashatar"
   },
-  "dashatarSuccessShareText": "Je viens de résoudre le #FlutterPuzzleHack! Vérifiez-le ↓",
+  "dashatarSuccessShareText": "Je viens de résoudre le #Spozzle Slide Challenge! Vérifiez-le ↓",
   "@dashatarSuccessShareText": {
     "description": "Le texte à partager pour ce défi Flutter Puzzle, affiché dans l'état de réussite de Dashatar"
   }

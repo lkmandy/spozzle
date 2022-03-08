@@ -48,19 +48,25 @@
   "@dashatarCountdownGo": {
     "description": "Shown when the countdown has just finished and the puzzle is about to start"
   },
-  "dashatarSuccessCompleted": "Puzzle challenge completed",
+  "dashatarSuccessCompleted": "It's a wrap...",
   "@dashatarSuccessCompleted": {
     "description": "Shown as a title in the Dashatar success state"
   },
-  "dashatarSuccessWellDone": "Well done.\nCongrats!",
+  "dashatarSuccessWellDone": "You're a Genius.\nGreat Job!!",
   "@dashatarSuccessWellDone": {
     "description": "Shown as a subtitle in the Dashatar success state"
   },
-  "dashatarSuccessScore": "Score",
+  "dashatarSuccessScore": "Score: {timeElapsed}",
   "@dashatarSuccessScore": {
-    "description": "Shown as a score title in the Dashatar success state"
+    "description": "Shown as a score title in the Dashatar success state",
+    "placeholders": {
+      "timeElapsed": {
+        "type": "String",
+        "example": "5"
+      }
+    }
   },
-  "dashatarSuccessNumberOfMoves": "{numberOfMoves} Moves",
+  "dashatarSuccessNumberOfMoves": "Moves: {numberOfMoves}",
   "@dashatarSuccessNumberOfMoves": {
     "description": "Shown as a number of moves in the Dashatar success state",
     "placeholders": {
@@ -140,11 +146,11 @@
   "@dashatarSuccessShareYourScoreTitle": {
     "description": "Shown as a share title in the Dashatar success state"
   },
-  "dashatarSuccessShareYourScoreMessage": "Share this puzzle to challenge your friends and be sure to check out the Flutter Puzzle Hack.",
+  "dashatarSuccessShareYourScoreMessage": "Invite your friends to enjoy the fun experience too!!",
   "@dashatarSuccessShareYourScoreMessage": {
     "description": "Shown as a share message in the Dashatar success state"
   },
-  "dashatarSuccessShareText": "Just solved the #FlutterPuzzleHack! Check it out ↓",
+  "dashatarSuccessShareText": "Just solved the #Spozzle Slide Challenge! Check it out ↓",
   "@dashatarSuccessShareText": {
     "description": "The text to share for this Flutter Puzzle challenge, shown in the Dashatar success state"
   }
