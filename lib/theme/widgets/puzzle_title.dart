@@ -47,7 +47,7 @@ class PuzzleTitle extends StatelessWidget {
       child: (ResponsiveLayoutSize currentSize) {
         final TextStyle textStyle = (currentSize == ResponsiveLayoutSize.large
                 ? PuzzleTextStyle.headline2
-                : PuzzleTextStyle.headline3)
+                : PuzzleTextStyle.headline4)
             .copyWith(color: titleColor);
 
         final TextAlign textAlign = currentSize == ResponsiveLayoutSize.small

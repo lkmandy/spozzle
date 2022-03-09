@@ -1,13 +1,18 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import '../../colors/colors.dart';
 import '../../l10n/l10n.dart';
 import '../../layout/layout.dart';
+import '../../puzzle/bloc/puzzle_bloc.dart';
+import '../../puzzle/puzzle.dart';
 import '../../theme/theme.dart';
 import '../../timer/timer.dart';
 import '../../typography/typography.dart';
 import '../bloc/dashatar_theme_bloc.dart';
+import '../dashatar.dart';
 import '../themes/dashatar_theme.dart';
 
 /// {@template dashatar_timer}
@@ -58,7 +63,7 @@ class _DashatarTimerState extends State<DashatarTimer>
         context.select((TimerBloc bloc) => bloc.state.secondsElapsed);
 
     final DashatarTheme theme =
-    context.select((DashatarThemeBloc bloc) => bloc.state.theme);
+        context.select((DashatarThemeBloc bloc) => bloc.state.theme);
 
     return ResponsiveLayoutBuilder(
       small: (_, Widget? child) => child!,
@@ -77,25 +82,194 @@ class _DashatarTimerState extends State<DashatarTimer>
 
         final Duration timeElapsed = Duration(seconds: secondsElapsed);
 
-        return Row(
-          key: const Key('dashatar_timer'),
-          mainAxisAlignment:
-              widget.mainAxisAlignment ?? MainAxisAlignment.center,
-          children: [
-            if (context.read<TimerBloc>().state.isRunning || secondsElapsed > 0)
-              BlocListener<TimerBloc, TimerState>(
-                listener: (BuildContext context, TimerState state) {
-                  if (context.read<TimerBloc>().state.isRunning) {
-                    _animationController!.reverse();
-                  } else {
-                    _animationController!.forward();
-                  }
-                },
-                child: Padding(
-                  padding: const EdgeInsets.only(right: 16.0),
-                  child: CircleAvatar(
-                    radius: 20,
-                    backgroundColor: theme.buttonColor,
+        return ResponsiveLayoutBuilder(
+          small: (BuildContext context, Widget? child) => Row(
+            key: const Key('dashatar_timer'),
+            mainAxisAlignment:
+                widget.mainAxisAlignment ?? MainAxisAlignment.center,
+            children: [
+              if (context.read<TimerBloc>().state.isRunning &&
+                  secondsElapsed > 0)
+                BlocListener<TimerBloc, TimerState>(
+                  listener: (BuildContext context, TimerState state) {
+                    if (context.read<TimerBloc>().state.isRunning) {
+                      _animationController!.reverse();
+                    } else {
+                      _animationController!.forward();
+                    }
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 8.0),
+                    child: Container(
+                      height: 30,
+                      width: 30,
+                      decoration: BoxDecoration(color: theme.buttonColor, shape: BoxShape.circle) ,
+                      child: IconButton(
+                        onPressed: () {
+                          if (context.read<TimerBloc>().state.isRunning) {
+                            _animationController!.forward();
+                            context.read<TimerBloc>().add(const TimerStopped());
+                          } else {
+                            context.read<TimerBloc>().add(const TimerResumed());
+                            _animationController!.reverse();
+                          }
+                        },
+                        icon: AnimatedIcon(
+                          icon: AnimatedIcons.pause_play,
+                          progress: _animationController!,
+                          color: theme.defaultColor,
+                          size: 14.0,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              if (context.read<TimerBloc>().state.isRunning &&
+                  secondsElapsed > 0)
+                BlocListener<PuzzleBloc, PuzzleState>(
+                  listener: (BuildContext context, PuzzleState state) {},
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 16.0),
+                    child: Container(
+                      height: 30,
+                      width: 30,
+                      decoration: BoxDecoration(color: theme.buttonColor, shape: BoxShape.circle) ,
+                      child: IconButton(
+                        disabledColor: theme.defaultColor,
+                        onPressed: () {},
+                        icon: const Icon(
+                          Icons.stop,
+                          color: Colors.red,
+                          size: 14.0,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              AnimatedDefaultTextStyle(
+                style: currentTextStyle.copyWith(
+                  color: PuzzleColors.white,
+                ),
+                duration: PuzzleThemeAnimationDuration.textStyle,
+                child: Text(
+                  _formatDuration(timeElapsed),
+                  key: ValueKey(secondsElapsed),
+                  semanticsLabel: _getDurationLabel(timeElapsed, context),
+                ),
+              ),
+              Gap(widget.iconPadding ?? 8),
+              Image.asset(
+                'assets/images/timer_icon.png',
+                key: const Key('dashatar_timer_icon'),
+                width: currentIconSize.width,
+                height: currentIconSize.height,
+              ),
+            ],
+          ),
+          medium: (BuildContext context, Widget? child) => Row(
+            key: const Key('dashatar_timer'),
+            mainAxisAlignment:
+                widget.mainAxisAlignment ?? MainAxisAlignment.center,
+            children: [
+              if (context.read<TimerBloc>().state.isRunning &&
+                  secondsElapsed > 0)
+                BlocListener<TimerBloc, TimerState>(
+                  listener: (BuildContext context, TimerState state) {
+                    if (context.read<TimerBloc>().state.isRunning) {
+                      _animationController!.reverse();
+                    } else {
+                      _animationController!.forward();
+                    }
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 8.0),
+                    child: Container(
+                      height: 40,
+                      width: 40,
+                      decoration: BoxDecoration(color: theme.buttonColor, shape: BoxShape.circle) ,
+                      child: IconButton(
+                        onPressed: () {
+                          if (context.read<TimerBloc>().state.isRunning) {
+                            _animationController!.forward();
+                            context.read<TimerBloc>().add(const TimerStopped());
+                          } else {
+                            context.read<TimerBloc>().add(const TimerResumed());
+                            _animationController!.reverse();
+                          }
+                        },
+                        icon: AnimatedIcon(
+                          icon: AnimatedIcons.pause_play,
+                          progress: _animationController!,
+                          color: theme.defaultColor,
+                          size: 20.0,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              if (context.read<TimerBloc>().state.isRunning &&
+                  secondsElapsed > 0)
+                BlocListener<PuzzleBloc, PuzzleState>(
+                  listener: (BuildContext context, PuzzleState state) {},
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 16.0),
+                    child: Container(
+                      height: 40,
+                      width: 40,
+                      decoration: BoxDecoration(color: theme.buttonColor, shape: BoxShape.circle) ,
+                      child: IconButton(
+                        disabledColor: theme.defaultColor,
+                        onPressed: () {},
+                        icon: const Icon(
+                          Icons.stop,
+                          color: Colors.red,
+                          size: 20.0,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              AnimatedDefaultTextStyle(
+                style: currentTextStyle.copyWith(
+                  color: PuzzleColors.white,
+                ),
+                duration: PuzzleThemeAnimationDuration.textStyle,
+                child: Text(
+                  _formatDuration(timeElapsed),
+                  key: ValueKey(secondsElapsed),
+                  semanticsLabel: _getDurationLabel(timeElapsed, context),
+                ),
+              ),
+              Gap(widget.iconPadding ?? 8),
+              Image.asset(
+                'assets/images/timer_icon.png',
+                key: const Key('dashatar_timer_icon'),
+                width: currentIconSize.width,
+                height: currentIconSize.height,
+              ),
+            ],
+          ),
+          large: (BuildContext context, Widget? child) => Row(
+            key: const Key('dashatar_timer'),
+            mainAxisAlignment:
+                widget.mainAxisAlignment ?? MainAxisAlignment.center,
+            children: [
+              if (context.read<TimerBloc>().state.isRunning &&
+                  secondsElapsed > 0)
+                BlocListener<TimerBloc, TimerState>(
+                  listener: (BuildContext context, TimerState state) {
+                    if (context.read<TimerBloc>().state.isRunning) {
+                      _animationController!.reverse();
+                    } else {
+                      _animationController!.forward();
+                    }
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 8.0),
+                    child: Container(
+                      height: 50,
+                      width: 50,
+                      decoration: BoxDecoration(color: theme.buttonColor, shape: BoxShape.circle) ,
                       child: IconButton(
                         onPressed: () {
                           if (context.read<TimerBloc>().state.isRunning) {
@@ -115,26 +289,49 @@ class _DashatarTimerState extends State<DashatarTimer>
                       ),
                     ),
                   ),
+                ),
+              if (context.read<TimerBloc>().state.isRunning &&
+                  secondsElapsed > 0)
+                BlocListener<PuzzleBloc, PuzzleState>(
+                  listener: (BuildContext context, PuzzleState state) {},
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 16.0),
+                    child: Container(
+                      height: 50,
+                      width: 50,
+                      decoration: BoxDecoration(color: theme.buttonColor, shape: BoxShape.circle) ,
+                      child: IconButton(
+                        disabledColor: theme.defaultColor,
+                        onPressed: () {},
+                        icon: const Icon(
+                          Icons.stop,
+                          color: Colors.red,
+                          size: 24.0,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              AnimatedDefaultTextStyle(
+                style: currentTextStyle.copyWith(
+                  color: PuzzleColors.white,
+                ),
+                duration: PuzzleThemeAnimationDuration.textStyle,
+                child: Text(
+                  _formatDuration(timeElapsed),
+                  key: ValueKey(secondsElapsed),
+                  semanticsLabel: _getDurationLabel(timeElapsed, context),
+                ),
               ),
-            AnimatedDefaultTextStyle(
-              style: currentTextStyle.copyWith(
-                color: PuzzleColors.white,
+              Gap(widget.iconPadding ?? 8),
+              Image.asset(
+                'assets/images/timer_icon.png',
+                key: const Key('dashatar_timer_icon'),
+                width: currentIconSize.width,
+                height: currentIconSize.height,
               ),
-              duration: PuzzleThemeAnimationDuration.textStyle,
-              child: Text(
-                _formatDuration(timeElapsed),
-                key: ValueKey(secondsElapsed),
-                semanticsLabel: _getDurationLabel(timeElapsed, context),
-              ),
-            ),
-            Gap(widget.iconPadding ?? 8),
-            Image.asset(
-              'assets/images/timer_icon.png',
-              key: const Key('dashatar_timer_icon'),
-              width: currentIconSize.width,
-              height: currentIconSize.height,
-            ),
-          ],
+            ],
+          ),
         );
       },
     );

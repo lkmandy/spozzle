@@ -225,12 +225,13 @@ class _HeaderState extends State<Header> {
         ),
         if (widget.withName)
           const Align(
+            alignment: Alignment.topCenter,
             child: PuzzleName(color: Colors.white54),
           ),
         Align(
           alignment: Alignment.centerRight,
           child: Padding(
-            padding: const EdgeInsets.only(right: 34),
+            padding: const EdgeInsets.only(right: 12),
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -265,7 +266,7 @@ class _HeaderState extends State<Header> {
                 ),
 
                 Padding(
-                  padding: const EdgeInsets.only(left: 16.0),
+                  padding: const EdgeInsets.only(left: 14.0),
                   child: AudioControl(key: audioControlKey),
                 ),
               ],
