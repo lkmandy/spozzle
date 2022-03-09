@@ -23,8 +23,6 @@ class DashatarScore extends StatelessWidget {
   static const Offset _smallImageOffset = Offset(124, 36);
   static const Offset _mediumImageOffset = Offset(215, -47);
   static const Offset _largeImageOffset = Offset(215, -47);
-  static const String score ='Score: ';
-  static const String moves ='Moves: ';
 
   @override
   Widget build(BuildContext context) {
@@ -35,8 +33,6 @@ class DashatarScore extends StatelessWidget {
 
     final int secondsElapsed =
     context.select((TimerBloc bloc) => bloc.state.secondsElapsed);
-
-
 
     return ResponsiveLayoutBuilder(
       small: (_, Widget? child) => child!,
