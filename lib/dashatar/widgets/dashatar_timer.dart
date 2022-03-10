@@ -3,7 +3,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
+import '../../audio_control/bloc/audio_control_bloc.dart';
 import '../../colors/colors.dart';
+import '../../helpers/modal_helper.dart';
 import '../../l10n/l10n.dart';
 import '../../layout/layout.dart';
 import '../../puzzle/bloc/puzzle_bloc.dart';
@@ -103,7 +105,8 @@ class _DashatarTimerState extends State<DashatarTimer>
                     child: Container(
                       height: 30,
                       width: 30,
-                      decoration: BoxDecoration(color: theme.buttonColor, shape: BoxShape.circle) ,
+                      decoration: BoxDecoration(
+                          color: theme.buttonColor, shape: BoxShape.circle),
                       child: IconButton(
                         onPressed: () {
                           if (context.read<TimerBloc>().state.isRunning) {
@@ -133,10 +136,13 @@ class _DashatarTimerState extends State<DashatarTimer>
                     child: Container(
                       height: 30,
                       width: 30,
-                      decoration: BoxDecoration(color: theme.buttonColor, shape: BoxShape.circle) ,
+                      decoration: BoxDecoration(
+                          color: theme.buttonColor, shape: BoxShape.circle),
                       child: IconButton(
                         disabledColor: theme.defaultColor,
-                        onPressed: () {},
+                        onPressed: () async {
+                          await buildTimer(context);
+                        },
                         icon: const Icon(
                           Icons.stop,
                           color: Colors.red,
@@ -186,7 +192,8 @@ class _DashatarTimerState extends State<DashatarTimer>
                     child: Container(
                       height: 40,
                       width: 40,
-                      decoration: BoxDecoration(color: theme.buttonColor, shape: BoxShape.circle) ,
+                      decoration: BoxDecoration(
+                          color: theme.buttonColor, shape: BoxShape.circle),
                       child: IconButton(
                         onPressed: () {
                           if (context.read<TimerBloc>().state.isRunning) {
@@ -216,10 +223,13 @@ class _DashatarTimerState extends State<DashatarTimer>
                     child: Container(
                       height: 40,
                       width: 40,
-                      decoration: BoxDecoration(color: theme.buttonColor, shape: BoxShape.circle) ,
+                      decoration: BoxDecoration(
+                          color: theme.buttonColor, shape: BoxShape.circle),
                       child: IconButton(
                         disabledColor: theme.defaultColor,
-                        onPressed: () {},
+                        onPressed: () async {
+                          await buildTimer(context);
+                        },
                         icon: const Icon(
                           Icons.stop,
                           color: Colors.red,
@@ -269,7 +279,8 @@ class _DashatarTimerState extends State<DashatarTimer>
                     child: Container(
                       height: 50,
                       width: 50,
-                      decoration: BoxDecoration(color: theme.buttonColor, shape: BoxShape.circle) ,
+                      decoration: BoxDecoration(
+                          color: theme.buttonColor, shape: BoxShape.circle),
                       child: IconButton(
                         onPressed: () {
                           if (context.read<TimerBloc>().state.isRunning) {
@@ -299,10 +310,13 @@ class _DashatarTimerState extends State<DashatarTimer>
                     child: Container(
                       height: 50,
                       width: 50,
-                      decoration: BoxDecoration(color: theme.buttonColor, shape: BoxShape.circle) ,
+                      decoration: BoxDecoration(
+                          color: theme.buttonColor, shape: BoxShape.circle),
                       child: IconButton(
                         disabledColor: theme.defaultColor,
-                        onPressed: () {},
+                        onPressed: () async {
+                          await buildTimer(context);
+                        },
                         icon: const Icon(
                           Icons.stop,
                           color: Colors.red,
@@ -335,6 +349,31 @@ class _DashatarTimerState extends State<DashatarTimer>
         );
       },
     );
+  }
+
+  Future<Timer> buildTimer(BuildContext context) async {
+    return Timer(const Duration(milliseconds: 370), () async {
+      await showAppDialog<void>(
+        context: context,
+        child: MultiBlocProvider(
+          providers: [
+            BlocProvider.value(
+              value: context.read<DashatarThemeBloc>(),
+            ),
+            BlocProvider.value(
+              value: context.read<PuzzleBloc>(),
+            ),
+            BlocProvider.value(
+              value: context.read<TimerBloc>(),
+            ),
+            BlocProvider.value(
+              value: context.read<AudioControlBloc>(),
+            ),
+          ],
+          child: const DashatarShareDialog(),
+        ),
+      );
+    });
   }
 
   String _formatDuration(Duration duration) {
