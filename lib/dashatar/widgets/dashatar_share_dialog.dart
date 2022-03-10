@@ -1,12 +1,16 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:spozzle/audio_control/audio_control.dart';
 import 'package:spozzle/colors/colors.dart';
 import 'package:spozzle/dashatar/dashatar.dart';
 import 'package:spozzle/helpers/helpers.dart';
 import 'package:spozzle/layout/layout.dart';
+
+import '../../puzzle/puzzle.dart';
+import '../../timer/bloc/timer_bloc.dart';
 
 /// {@template dashatar_share_dialog}
 /// Displays a Dashatar share dialog with a score of the completed puzzle
@@ -93,9 +97,10 @@ class _DashatarShareDialogState extends State<DashatarShareDialog>
             return Stack(
               key: const Key('dashatar_share_dialog'),
               children: [
-                SingleChildScrollView(
+            SingleChildScrollView(
                   child: LayoutBuilder(
                     builder: (context, constraints) {
+                      context.read<TimerBloc>().add(const TimerStopped());
                       return SizedBox(
                         width: constraints.maxWidth,
                         child: Padding(
@@ -148,7 +153,11 @@ class _DashatarShareDialogState extends State<DashatarShareDialog>
                     ),
                     onPressed: () {
                       unawaited(_clickAudioPlayer.play());
-                      Navigator.of(context).pop();
+                      context.read<TimerBloc>().add(const TimerReset());
+                      Navigator.push (
+                        context,
+                        MaterialPageRoute(builder: (context) => PuzzlePage()),
+                      );
                     },
                   ),
                 ),
