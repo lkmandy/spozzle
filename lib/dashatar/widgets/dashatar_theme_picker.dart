@@ -10,7 +10,9 @@ import 'package:just_audio/just_audio.dart';
 import '../../audio_control/audio_control.dart';
 import '../../helpers/helpers.dart';
 import '../../layout/layout.dart';
+import '../../timer/bloc/timer_bloc.dart';
 import '../dashatar.dart';
+import '../../l10n/l10n.dart';
 
 /// {@template dashatar_theme_picker}
 /// Displays the Dashatar theme picker to choose between
@@ -65,7 +67,6 @@ class _DashatarThemePickerState extends State<DashatarThemePicker> {
   Widget build(BuildContext context) {
     final DashatarThemeState themeState =
         context.watch<DashatarThemeBloc>().state;
-    final DashatarTheme activeTheme = themeState.theme;
 
     return AudioControlListener(
       audioPlayer: _audioPlayer,
@@ -88,116 +89,99 @@ class _DashatarThemePickerState extends State<DashatarThemePicker> {
                 ? DashatarThemePicker._inactiveThemeSmallSize
                 : DashatarThemePicker._inactiveThemeNormalSize;
 
-            return Center(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  IconButton(
-                    color: Colors.white54,
-                    iconSize: 32,
-                    icon: Icon(Icons.keyboard_arrow_left),
-                    onPressed: () async {
-                      if (index > 0)
-                        setState(() {
-                          index--;
-                        });
-                      _sliderController.previousPage();
-                      context
-                          .read<DashatarThemeBloc>()
-                          .add(DashatarThemeChanged(themeIndex: index));
+              return Center(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    IconButton(
+                      color: Colors.white54,
+                      iconSize: 32,
+                      icon: Icon(Icons.keyboard_arrow_left),
+                      onPressed: () async {
+                        if (index > 0)
+                          setState(() {
+                            index--;
+                          });
+                        _sliderController.previousPage();
+                        context
+                            .read<DashatarThemeBloc>()
+                            .add(DashatarThemeChanged(themeIndex: index));
 
-                      // Play the audio of the current Dashatar theme.
-                      await _audioPlayer.setAsset(themeState.theme.audioAsset);
-                      unawaited(_audioPlayer.play());
-                    },
-                  ),
-                  SizedBox(
-                    key: const Key('dashatar_theme_picker'),
-                    height: activeSize,
-                    width: activeSize * 1.3,
-                    child: CarouselSlider.builder(
-                        controller: _sliderController,
-                        slideBuilder: (int index) {
-                          themeState.themes.length;
-                          final DashatarTheme theme = themeState.themes[index];
-                          final bool isActiveTheme = theme == activeTheme;
-                          final double padding =
-                              index > 0 ? (isSmallSize ? 4.0 : 8.0) : 0.0;
-                          final double size = inactiveSize;
+                        // Play the audio of the current Dashatar theme.
+                        await _audioPlayer
+                            .setAsset(themeState.theme.audioAsset);
+                        unawaited(_audioPlayer.play());
+                      },
+                    ),
+                    SizedBox(
+                      key: const Key('dashatar_theme_picker'),
+                      height: activeSize,
+                      width: activeSize * 1.3,
+                      child: CarouselSlider.builder(
+                          controller: _sliderController,
+                          slideBuilder: (int index) {
+                            themeState.themes.length;
+                            final DashatarTheme theme =
+                                themeState.themes[index];
+                            final double padding =
+                                index > 0 ? (isSmallSize ? 4.0 : 8.0) : 0.0;
 
-                          return Padding(
-                            padding: EdgeInsets.only(left: padding),
-                            child: MouseRegion(
-                              cursor: SystemMouseCursors.click,
-                              child: GestureDetector(
-                                key: Key('dashatar_theme_picker_$index'),
-                                onTap: () async {
-                                  if (isActiveTheme) {
-                                    return;
-                                  }
-                                  // Update the current Dashatar theme.
-                                  context.read<DashatarThemeBloc>().add(
-                                      DashatarThemeChanged(themeIndex: index));
-
-                                  // Play the audio of the current Dashatar theme.
-                                  await _audioPlayer.setAsset(theme.audioAsset);
-                                  unawaited(_audioPlayer.play());
-                                },
-                                child: Container(
-                                  alignment: Alignment.center,
-                                  decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                        image:
-                                            AssetImage(theme.backgroundPattern),
-                                        fit: BoxFit.cover),
-                                  ),
-                                  child: ClipRRect(
-                                    borderRadius:
-                                        BorderRadius.circular(borderRadius),
-                                    child: Image.asset(
-                                      theme.themeAsset,
-                                      fit: BoxFit.fill,
-                                      semanticLabel:
-                                          theme.semanticsLabel(context),
-                                    ),
+                            return Padding(
+                              padding: EdgeInsets.only(left: padding),
+                              child: Container(
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                      image: AssetImage(
+                                          theme.backgroundPattern),
+                                      fit: BoxFit.cover),
+                                ),
+                                child: ClipRRect(
+                                  borderRadius:
+                                      BorderRadius.circular(borderRadius),
+                                  child: Image.asset(
+                                    theme.themeAsset,
+                                    fit: BoxFit.fill,
+                                    semanticLabel:
+                                        theme.semanticsLabel(context),
                                   ),
                                 ),
                               ),
-                            ),
-                          );
-                        },
-                        slideTransform: CubeTransform(),
-                        slideIndicator: CircularSlideIndicator(
-                          indicatorRadius: 5.0,
-                            padding: EdgeInsets.only(bottom: 4.0),
-                            alignment: Alignment.bottomCenter,
-                            indicatorBorderColor: themeState.theme.buttonColor,
-                            currentIndicatorColor:
-                                themeState.theme.buttonColor),
-                        itemCount: themeState.themes.length),
-                  ),
-                  IconButton(
-                    color: Colors.white54,
-                    iconSize: 32,
-                    icon: Icon(Icons.keyboard_arrow_right),
-                    onPressed: () async {
-                      if (index < endIndex)
-                        setState(() {
-                          index++;
-                        });
-                      _sliderController.nextPage();
+                            );
+                          },
+                          slideTransform: CubeTransform(),
+                          slideIndicator: CircularSlideIndicator(
+                              indicatorRadius: 5.0,
+                              padding: EdgeInsets.only(bottom: 4.0),
+                              alignment: Alignment.bottomCenter,
+                              indicatorBorderColor:
+                                  themeState.theme.buttonColor,
+                              currentIndicatorColor:
+                                  themeState.theme.buttonColor),
+                          itemCount: themeState.themes.length),
+                    ),
+                    IconButton(
+                      color: Colors.white54,
+                      iconSize: 32,
+                      icon: Icon(Icons.keyboard_arrow_right),
+                      onPressed: () async {
+                        if (index < endIndex)
+                          setState(() {
+                            index++;
+                          });
+                        _sliderController.nextPage();
+                        context
+                            .read<DashatarThemeBloc>()
+                            .add(DashatarThemeChanged(themeIndex: index));
 
-                      context
-                          .read<DashatarThemeBloc>()
-                          .add(DashatarThemeChanged(themeIndex: index));
-
-                      // Play the audio of the current Dashatar theme.
-                      await _audioPlayer.setAsset(themeState.theme.audioAsset);
-                      unawaited(_audioPlayer.play());
-                    },
-                  ),
-                ],
-              ),
+                        // Play the audio of the current Dashatar theme.
+                        await _audioPlayer
+                            .setAsset(themeState.theme.audioAsset);
+                        unawaited(_audioPlayer.play());
+                      },
+                    ),
+                  ],
+                ),
             );
           }),
     );
