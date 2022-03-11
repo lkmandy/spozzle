@@ -3,7 +3,7 @@ import 'dart:ui';
 
 import 'package:collection/collection.dart';
 import 'package:equatable/equatable.dart';
-import 'package:spozzle/models/models.dart';
+import 'models.dart';
 
 // A 3x3 puzzle board visualization:
 //
@@ -49,15 +49,15 @@ class Puzzle extends Equatable {
 
   /// Gets the single whitespace tile object in the puzzle.
   Tile getWhitespaceTile() {
-    return tiles.singleWhere((tile) => tile.isWhitespace);
+    return tiles.singleWhere((Tile tile) => tile.isWhitespace);
   }
 
   /// Gets the tile relative to the whitespace tile in the puzzle
   /// defined by [relativeOffset].
   Tile? getTileRelativeToWhitespaceTile(Offset relativeOffset) {
-    final whitespaceTile = getWhitespaceTile();
+    final Tile whitespaceTile = getWhitespaceTile();
     return tiles.singleWhereOrNull(
-      (tile) =>
+      (Tile tile) =>
           tile.currentPosition.x ==
               whitespaceTile.currentPosition.x + relativeOffset.dx &&
           tile.currentPosition.y ==
@@ -67,9 +67,9 @@ class Puzzle extends Equatable {
 
   /// Gets the number of tiles that are currently in their correct position.
   int getNumberOfCorrectTiles() {
-    final whitespaceTile = getWhitespaceTile();
-    var numberOfCorrectTiles = 0;
-    for (final tile in tiles) {
+    final Tile whitespaceTile = getWhitespaceTile();
+    int numberOfCorrectTiles = 0;
+    for (final Tile tile in tiles) {
       if (tile != whitespaceTile) {
         if (tile.currentPosition == tile.correctPosition) {
           numberOfCorrectTiles++;
@@ -81,13 +81,14 @@ class Puzzle extends Equatable {
 
   /// Determines if the puzzle is completed.
   bool isComplete() {
-    return (tiles.length - 1) - getNumberOfCorrectTiles() == 0;
+    // return (tiles.length - 1) - getNumberOfCorrectTiles() == 0;
+    return true;
   }
 
   /// Determines if the tapped tile can move in the direction of the whitespace
   /// tile.
   bool isTileMovable(Tile tile) {
-    final whitespaceTile = getWhitespaceTile();
+    final Tile whitespaceTile = getWhitespaceTile();
     if (tile == whitespaceTile) {
       return false;
     }
@@ -100,22 +101,62 @@ class Puzzle extends Equatable {
     return true;
   }
 
+  bool canSwipeUp(Tile tile) {
+    final Tile whitespaceTile = getWhitespaceTile();
+    if (isTileMovable(tile) &&
+        whitespaceTile.currentPosition.y < tile.currentPosition.y) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  bool canSwipeDown(Tile tile) {
+    final Tile whitespaceTile = getWhitespaceTile();
+    if (isTileMovable(tile) &&
+        whitespaceTile.currentPosition.y > tile.currentPosition.y) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  bool canSwipeleft(Tile tile) {
+    final Tile whitespaceTile = getWhitespaceTile();
+    if (isTileMovable(tile) &&
+        whitespaceTile.currentPosition.x < tile.currentPosition.x) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  bool canSwipeRight(Tile tile) {
+    final Tile whitespaceTile = getWhitespaceTile();
+    if (isTileMovable(tile) &&
+        whitespaceTile.currentPosition.x > tile.currentPosition.x) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   /// Determines if the puzzle is solvable.
   bool isSolvable() {
-    final size = getDimension();
-    final height = tiles.length ~/ size;
+    final int size = getDimension();
+    final int height = tiles.length ~/ size;
     assert(
       size * height == tiles.length,
       'tiles must be equal to size * height',
     );
-    final inversions = countInversions();
+    final int inversions = countInversions();
 
     if (size.isOdd) {
       return inversions.isEven;
     }
 
-    final whitespace = tiles.singleWhere((tile) => tile.isWhitespace);
-    final whitespaceRow = whitespace.currentPosition.y;
+    final Tile whitespace = tiles.singleWhere((Tile tile) => tile.isWhitespace);
+    final int whitespaceRow = whitespace.currentPosition.y;
 
     if (((height - whitespaceRow) + 1).isOdd) {
       return inversions.isEven;
@@ -129,15 +170,15 @@ class Puzzle extends Equatable {
   /// An inversion is when a tile of a lower value is in a greater position than
   /// a tile of a higher value.
   int countInversions() {
-    var count = 0;
-    for (var a = 0; a < tiles.length; a++) {
-      final tileA = tiles[a];
+    int count = 0;
+    for (int a = 0; a < tiles.length; a++) {
+      final Tile tileA = tiles[a];
       if (tileA.isWhitespace) {
         continue;
       }
 
-      for (var b = a + 1; b < tiles.length; b++) {
-        final tileB = tiles[b];
+      for (int b = a + 1; b < tiles.length; b++) {
+        final Tile tileB = tiles[b];
         if (_isInversion(tileA, tileB)) {
           count++;
         }
@@ -164,15 +205,17 @@ class Puzzle extends Equatable {
   // Recursively stores a list of all tiles that need to be moved and passes the
   // list to _swapTiles to individually swap them.
   Puzzle moveTiles(Tile tile, List<Tile> tilesToSwap) {
-    final whitespaceTile = getWhitespaceTile();
-    final deltaX = whitespaceTile.currentPosition.x - tile.currentPosition.x;
-    final deltaY = whitespaceTile.currentPosition.y - tile.currentPosition.y;
+    final Tile whitespaceTile = getWhitespaceTile();
+    final int deltaX =
+        whitespaceTile.currentPosition.x - tile.currentPosition.x;
+    final int deltaY =
+        whitespaceTile.currentPosition.y - tile.currentPosition.y;
 
     if ((deltaX.abs() + deltaY.abs()) > 1) {
-      final shiftPointX = tile.currentPosition.x + deltaX.sign;
-      final shiftPointY = tile.currentPosition.y + deltaY.sign;
-      final tileToSwapWith = tiles.singleWhere(
-        (tile) =>
+      final int shiftPointX = tile.currentPosition.x + deltaX.sign;
+      final int shiftPointY = tile.currentPosition.y + deltaY.sign;
+      final Tile tileToSwapWith = tiles.singleWhere(
+        (Tile tile) =>
             tile.currentPosition.x == shiftPointX &&
             tile.currentPosition.y == shiftPointY,
       );
@@ -187,11 +230,11 @@ class Puzzle extends Equatable {
   /// Returns puzzle with new tile arrangement after individually swapping each
   /// tile in tilesToSwap with the whitespace.
   Puzzle _swapTiles(List<Tile> tilesToSwap) {
-    for (final tileToSwap in tilesToSwap.reversed) {
-      final tileIndex = tiles.indexOf(tileToSwap);
-      final tile = tiles[tileIndex];
-      final whitespaceTile = getWhitespaceTile();
-      final whitespaceTileIndex = tiles.indexOf(whitespaceTile);
+    for (final Tile tileToSwap in tilesToSwap.reversed) {
+      final int tileIndex = tiles.indexOf(tileToSwap);
+      final Tile tile = tiles[tileIndex];
+      final Tile whitespaceTile = getWhitespaceTile();
+      final int whitespaceTileIndex = tiles.indexOf(whitespaceTile);
 
       // Swap current board positions of the moving tile and the whitespace.
       tiles[tileIndex] = tile.copyWith(
@@ -207,8 +250,8 @@ class Puzzle extends Equatable {
 
   /// Sorts puzzle tiles so they are in order of their current position.
   Puzzle sort() {
-    final sortedTiles = tiles.toList()
-      ..sort((tileA, tileB) {
+    final List<Tile> sortedTiles = tiles.toList()
+      ..sort((Tile tileA, Tile tileB) {
         return tileA.currentPosition.compareTo(tileB.currentPosition);
       });
     return Puzzle(tiles: sortedTiles);

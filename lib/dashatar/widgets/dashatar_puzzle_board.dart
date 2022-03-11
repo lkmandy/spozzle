@@ -2,12 +2,13 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:spozzle/audio_control/audio_control.dart';
-import 'package:spozzle/dashatar/dashatar.dart';
-import 'package:spozzle/helpers/helpers.dart';
-import 'package:spozzle/layout/layout.dart';
-import 'package:spozzle/puzzle/puzzle.dart';
-import 'package:spozzle/timer/timer.dart';
+
+import '../../audio_control/audio_control.dart';
+import '../../helpers/helpers.dart';
+import '../../layout/layout.dart';
+import '../../puzzle/puzzle.dart';
+import '../../timer/timer.dart';
+import '../dashatar.dart';
 
 abstract class _BoardSize {
   static double small = 312;
@@ -44,7 +45,7 @@ class _DashatarPuzzleBoardState extends State<DashatarPuzzleBoard> {
   @override
   Widget build(BuildContext context) {
     return BlocListener<PuzzleBloc, PuzzleState>(
-      listener: (context, state) async {
+      listener: (BuildContext context, PuzzleState state) async {
         if (state.puzzleStatus == PuzzleStatus.complete) {
           _completePuzzleTimer =
               Timer(const Duration(milliseconds: 370), () async {
@@ -72,22 +73,40 @@ class _DashatarPuzzleBoardState extends State<DashatarPuzzleBoard> {
         }
       },
       child: ResponsiveLayoutBuilder(
-        small: (_, child) => SizedBox.square(
+        small: (_, Widget? child) => SizedBox.square(
           key: const Key('dashatar_puzzle_board_small'),
           dimension: _BoardSize.small,
           child: child,
         ),
-        medium: (_, child) => SizedBox.square(
+        medium: (_, Widget? child) => SizedBox.square(
           key: const Key('dashatar_puzzle_board_medium'),
           dimension: _BoardSize.medium,
           child: child,
         ),
-        large: (_, child) => SizedBox.square(
+        large: (_, Widget? child) => SizedBox.square(
           key: const Key('dashatar_puzzle_board_large'),
           dimension: _BoardSize.large,
           child: child,
         ),
-        child: (_) => Stack(children: widget.tiles),
+        child: (_) => GestureDetector(
+          onVerticalDragEnd: (DragEndDetails details) {
+            if (details.velocity.pixelsPerSecond.dy < -250) {
+              // Swipe up
+            } else if (details.velocity.pixelsPerSecond.dy > 250) {
+              // Swipe down
+            }
+          },
+          onHorizontalDragEnd: (DragEndDetails details) {
+            if (details.velocity.pixelsPerSecond.dx < -1000) {
+              // swipe left
+            } else if (details.velocity.pixelsPerSecond.dx > 1000) {
+              // swipe right  
+            }
+          },
+          child: Stack(
+            children: widget.tiles,
+          ),
+        ),
       ),
     );
   }
