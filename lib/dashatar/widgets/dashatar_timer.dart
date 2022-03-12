@@ -127,31 +127,6 @@ class _DashatarTimerState extends State<DashatarTimer>
                     ),
                   ),
                 ),
-              if (context.read<TimerBloc>().state.isRunning &&
-                  secondsElapsed > 0)
-                BlocListener<PuzzleBloc, PuzzleState>(
-                  listener: (BuildContext context, PuzzleState state) {},
-                  child: Padding(
-                    padding: const EdgeInsets.only(right: 16.0),
-                    child: Container(
-                      height: 30,
-                      width: 30,
-                      decoration: BoxDecoration(
-                          color: theme.buttonColor, shape: BoxShape.circle),
-                      child: IconButton(
-                        disabledColor: theme.defaultColor,
-                        onPressed: () async {
-                          await buildTimer(context);
-                        },
-                        icon: const Icon(
-                          Icons.stop,
-                          color: Colors.red,
-                          size: 14.0,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
               AnimatedDefaultTextStyle(
                 style: currentTextStyle.copyWith(
                   color: PuzzleColors.white,
@@ -214,31 +189,6 @@ class _DashatarTimerState extends State<DashatarTimer>
                     ),
                   ),
                 ),
-              if (context.read<TimerBloc>().state.isRunning &&
-                  secondsElapsed > 0)
-                BlocListener<PuzzleBloc, PuzzleState>(
-                  listener: (BuildContext context, PuzzleState state) {},
-                  child: Padding(
-                    padding: const EdgeInsets.only(right: 16.0),
-                    child: Container(
-                      height: 40,
-                      width: 40,
-                      decoration: BoxDecoration(
-                          color: theme.buttonColor, shape: BoxShape.circle),
-                      child: IconButton(
-                        disabledColor: theme.defaultColor,
-                        onPressed: () async {
-                          await buildTimer(context);
-                        },
-                        icon: const Icon(
-                          Icons.stop,
-                          color: Colors.red,
-                          size: 20.0,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
               AnimatedDefaultTextStyle(
                 style: currentTextStyle.copyWith(
                   color: PuzzleColors.white,
@@ -295,31 +245,6 @@ class _DashatarTimerState extends State<DashatarTimer>
                           icon: AnimatedIcons.pause_play,
                           progress: _animationController!,
                           color: theme.defaultColor,
-                          size: 24.0,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              if (context.read<TimerBloc>().state.isRunning &&
-                  secondsElapsed > 0)
-                BlocListener<PuzzleBloc, PuzzleState>(
-                  listener: (BuildContext context, PuzzleState state) {},
-                  child: Padding(
-                    padding: const EdgeInsets.only(right: 16.0),
-                    child: Container(
-                      height: 50,
-                      width: 50,
-                      decoration: BoxDecoration(
-                          color: theme.buttonColor, shape: BoxShape.circle),
-                      child: IconButton(
-                        disabledColor: theme.defaultColor,
-                        onPressed: () async {
-                          await buildTimer(context);
-                        },
-                        icon: const Icon(
-                          Icons.stop,
-                          color: Colors.red,
                           size: 24.0,
                         ),
                       ),
