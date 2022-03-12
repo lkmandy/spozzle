@@ -30,3 +30,19 @@ class TileTapped extends PuzzleEvent {
 class PuzzleReset extends PuzzleEvent {
   const PuzzleReset();
 }
+
+class SwipeUp extends PuzzleEvent {
+  const SwipeUp();
+}
+
+class SwipeDown extends PuzzleEvent {
+  const SwipeDown();
+}
+
+class SwipeLeft extends PuzzleEvent {
+  const SwipeLeft();
+}
+
+class SwipeRight extends PuzzleEvent {
+  const SwipeRight();
+}

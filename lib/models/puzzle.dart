@@ -81,8 +81,8 @@ class Puzzle extends Equatable {
 
   /// Determines if the puzzle is completed.
   bool isComplete() {
-    // return (tiles.length - 1) - getNumberOfCorrectTiles() == 0;
-    return true;
+    return (tiles.length - 1) - getNumberOfCorrectTiles() == 0;
+    // return true;
   }
 
   /// Determines if the tapped tile can move in the direction of the whitespace
@@ -101,40 +101,41 @@ class Puzzle extends Equatable {
     return true;
   }
 
-  bool canSwipeUp(Tile tile) {
-    final Tile whitespaceTile = getWhitespaceTile();
-    if (isTileMovable(tile) &&
-        whitespaceTile.currentPosition.y < tile.currentPosition.y) {
+  bool canSwipeUp() {
+    final Tile? downTile = getTileRelativeToWhitespaceTile(const Offset(0, 1));
+    if (downTile != null) print('${downTile.value} downTile');
+    if (downTile != null && isTileMovable(downTile)) {
       return true;
     } else {
       return false;
     }
   }
 
-  bool canSwipeDown(Tile tile) {
-    final Tile whitespaceTile = getWhitespaceTile();
-    if (isTileMovable(tile) &&
-        whitespaceTile.currentPosition.y > tile.currentPosition.y) {
+  bool canSwipeDown() {
+    final Tile? upTile = getTileRelativeToWhitespaceTile(const Offset(0, -1));
+    if (upTile != null) print('${upTile.value} upTile');
+    print('upTile');
+    if (upTile != null && isTileMovable(upTile)) {
       return true;
     } else {
       return false;
     }
   }
 
-  bool canSwipeleft(Tile tile) {
-    final Tile whitespaceTile = getWhitespaceTile();
-    if (isTileMovable(tile) &&
-        whitespaceTile.currentPosition.x < tile.currentPosition.x) {
+  bool canSwipeleft() {
+    final Tile? rightTile = getTileRelativeToWhitespaceTile(const Offset(1, 0));
+    if (rightTile != null) print('${rightTile.value} rightTile');
+    if (rightTile != null && isTileMovable(rightTile)) {
       return true;
     } else {
       return false;
     }
   }
 
-  bool canSwipeRight(Tile tile) {
-    final Tile whitespaceTile = getWhitespaceTile();
-    if (isTileMovable(tile) &&
-        whitespaceTile.currentPosition.x > tile.currentPosition.x) {
+  bool canSwipeRight() {
+    final Tile? leftTile = getTileRelativeToWhitespaceTile(const Offset(-1, 0));
+    if (leftTile != null) print('${leftTile.value} leftTile');
+    if (leftTile != null && isTileMovable(leftTile)) {
       return true;
     } else {
       return false;

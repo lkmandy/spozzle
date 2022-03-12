@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:just_audio/just_audio.dart';
 
 import '../../audio_control/audio_control.dart';
 import '../../helpers/helpers.dart';
@@ -24,10 +25,13 @@ class DashatarPuzzleBoard extends StatefulWidget {
   const DashatarPuzzleBoard({
     Key? key,
     required this.tiles,
-  }) : super(key: key);
+    AudioPlayerFactory? audioPlayer,
+  })  : _audioPlayerFactory = audioPlayer ?? getAudioPlayer,
+        super(key: key);
 
   /// The tiles to be displayed on the board.
   final List<Widget> tiles;
+  final AudioPlayerFactory _audioPlayerFactory;
 
   @override
   State<DashatarPuzzleBoard> createState() => _DashatarPuzzleBoardState();
@@ -35,15 +39,36 @@ class DashatarPuzzleBoard extends StatefulWidget {
 
 class _DashatarPuzzleBoardState extends State<DashatarPuzzleBoard> {
   Timer? _completePuzzleTimer;
+  AudioPlayer? _audioPlayer;
+
+  late final Timer _timer;
+
+  @override
+  void initState() {
+    _timer = Timer(const Duration(seconds: 1), () {
+      _audioPlayer = widget._audioPlayerFactory()
+        ..setAsset('assets/audio/tile_move.mp3');
+    });
+    super.initState();
+  }
 
   @override
   void dispose() {
     _completePuzzleTimer?.cancel();
+    _timer.cancel();
+    _audioPlayer?.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    final DashatarPuzzleStatus status =
+        context.select((DashatarPuzzleBloc bloc) => bloc.state.status);
+    final bool hasStarted = status == DashatarPuzzleStatus.started;
+    final bool puzzleIncomplete =
+        context.select((PuzzleBloc bloc) => bloc.state.puzzleStatus) ==
+            PuzzleStatus.incomplete;
+    final bool canSlide = hasStarted && puzzleIncomplete;
     return BlocListener<PuzzleBloc, PuzzleState>(
       listener: (BuildContext context, PuzzleState state) async {
         if (state.puzzleStatus == PuzzleStatus.complete) {
@@ -90,17 +115,45 @@ class _DashatarPuzzleBoardState extends State<DashatarPuzzleBoard> {
         ),
         child: (_) => GestureDetector(
           onVerticalDragEnd: (DragEndDetails details) {
-            if (details.velocity.pixelsPerSecond.dy < -250) {
-              // Swipe up
-            } else if (details.velocity.pixelsPerSecond.dy > 250) {
-              // Swipe down
+            if (canSlide) {
+              if (details.velocity.pixelsPerSecond.dy < -250 &&
+                  context.read<PuzzleBloc>().state.puzzle.canSwipeUp()) {
+                // Swipe up
+                unawaited(_audioPlayer?.replay());
+                if (!context.read<TimerBloc>().state.isRunning) {
+                  context.read<TimerBloc>().add(const TimerResumed());
+                }
+                context.read<PuzzleBloc>().add(const SwipeUp());
+              } else if (details.velocity.pixelsPerSecond.dy > 250 &&
+                  context.read<PuzzleBloc>().state.puzzle.canSwipeDown()) {
+                // Swipe down
+                unawaited(_audioPlayer?.replay());
+                if (!context.read<TimerBloc>().state.isRunning) {
+                  context.read<TimerBloc>().add(const TimerResumed());
+                }
+                context.read<PuzzleBloc>().add(const SwipeDown());
+              }
             }
           },
           onHorizontalDragEnd: (DragEndDetails details) {
-            if (details.velocity.pixelsPerSecond.dx < -1000) {
-              // swipe left
-            } else if (details.velocity.pixelsPerSecond.dx > 1000) {
-              // swipe right  
+            if (canSlide) {
+              if (details.velocity.pixelsPerSecond.dx < 0 &&
+                  context.read<PuzzleBloc>().state.puzzle.canSwipeleft()) {
+                // swipe left
+                unawaited(_audioPlayer?.replay());
+                if (!context.read<TimerBloc>().state.isRunning) {
+                  context.read<TimerBloc>().add(const TimerResumed());
+                }
+                context.read<PuzzleBloc>().add(const SwipeLeft());
+              } else if (details.velocity.pixelsPerSecond.dx > 0 &&
+                  context.read<PuzzleBloc>().state.puzzle.canSwipeRight()) {
+                // swipe right
+                unawaited(_audioPlayer?.replay());
+                if (!context.read<TimerBloc>().state.isRunning) {
+                  context.read<TimerBloc>().add(const TimerResumed());
+                }
+                context.read<PuzzleBloc>().add(const SwipeRight());
+              }
             }
           },
           child: Stack(

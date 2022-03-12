@@ -3,15 +3,15 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:just_audio/just_audio.dart';
+
 import '../../audio_control/audio_control.dart';
-import '../dashatar.dart';
 import '../../helpers/helpers.dart';
 import '../../l10n/l10n.dart';
 import '../../layout/layout.dart';
 import '../../models/models.dart';
 import '../../puzzle/puzzle.dart';
 import '../../theme/themes/themes.dart';
-import '../../timer/timer.dart';
+import '../dashatar.dart';
 
 abstract class _TileSize {
   static double small = 75;
@@ -148,17 +148,16 @@ class DashatarPuzzleTileState extends State<DashatarPuzzleTile>
                 borderRadius: BorderRadius.circular(8.0),
                 child: IconButton(
                   padding: EdgeInsets.zero,
-                  onPressed: canPress
-                      ? () {
-                          context
-                              .read<PuzzleBloc>()
-                              .add(TileTapped(widget.tile));
-                          unawaited(_audioPlayer?.replay());
-                          if (!context.read<TimerBloc>().state.isRunning) {
-                            context.read<TimerBloc>().add(const TimerResumed());
-                          }
-                        }
-                      : null,
+                  onPressed: canPress ? () {} : null,
+                  // canPress
+                  //     ? () {
+                  //         context
+                  //             .read<PuzzleBloc>()
+                  //             .add(TileTapped(widget.tile));
+                  //         unawaited(_audioPlayer?.replay());
+                  //       }
+                  //     :
+                  // null,
                   icon: Image.asset(
                     theme.dashAssetForTile(widget.tile),
                     semanticLabel: context.l10n.puzzleTileLabelText(
