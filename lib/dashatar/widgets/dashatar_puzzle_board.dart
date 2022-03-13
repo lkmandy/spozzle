@@ -98,11 +98,13 @@ class _DashatarPuzzleBoardState extends State<DashatarPuzzleBoard> {
         }
       },
       child: ResponsiveLayoutBuilder(
-        small: (_, Widget? child) => SizedBox.square(
-          key: const Key('dashatar_puzzle_board_small'),
-          dimension: _BoardSize.small,
-          child: child,
-        ),
+        small: (_, Widget? child) {
+          return SizedBox.square(
+            key: const Key('dashatar_puzzle_board_small'),
+            dimension: _BoardSize.small,
+            child: child,
+          );
+        },
         medium: (_, Widget? child) => SizedBox.square(
           key: const Key('dashatar_puzzle_board_medium'),
           dimension: _BoardSize.medium,
