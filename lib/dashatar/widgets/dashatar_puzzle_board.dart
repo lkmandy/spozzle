@@ -113,52 +113,8 @@ class _DashatarPuzzleBoardState extends State<DashatarPuzzleBoard> {
           dimension: _BoardSize.large,
           child: child,
         ),
-        child: (_) => GestureDetector(
-          onVerticalDragEnd: (DragEndDetails details) {
-            if (canSlide) {
-              if (details.velocity.pixelsPerSecond.dy < -250 &&
-                  context.read<PuzzleBloc>().state.puzzle.canSwipeUp()) {
-                // Swipe up
-                unawaited(_audioPlayer?.replay());
-                if (!context.read<TimerBloc>().state.isRunning) {
-                  context.read<TimerBloc>().add(const TimerResumed());
-                }
-                context.read<PuzzleBloc>().add(const SwipeUp());
-              } else if (details.velocity.pixelsPerSecond.dy > 250 &&
-                  context.read<PuzzleBloc>().state.puzzle.canSwipeDown()) {
-                // Swipe down
-                unawaited(_audioPlayer?.replay());
-                if (!context.read<TimerBloc>().state.isRunning) {
-                  context.read<TimerBloc>().add(const TimerResumed());
-                }
-                context.read<PuzzleBloc>().add(const SwipeDown());
-              }
-            }
-          },
-          onHorizontalDragEnd: (DragEndDetails details) {
-            if (canSlide) {
-              if (details.velocity.pixelsPerSecond.dx < 0 &&
-                  context.read<PuzzleBloc>().state.puzzle.canSwipeleft()) {
-                // swipe left
-                unawaited(_audioPlayer?.replay());
-                if (!context.read<TimerBloc>().state.isRunning) {
-                  context.read<TimerBloc>().add(const TimerResumed());
-                }
-                context.read<PuzzleBloc>().add(const SwipeLeft());
-              } else if (details.velocity.pixelsPerSecond.dx > 0 &&
-                  context.read<PuzzleBloc>().state.puzzle.canSwipeRight()) {
-                // swipe right
-                unawaited(_audioPlayer?.replay());
-                if (!context.read<TimerBloc>().state.isRunning) {
-                  context.read<TimerBloc>().add(const TimerResumed());
-                }
-                context.read<PuzzleBloc>().add(const SwipeRight());
-              }
-            }
-          },
-          child: Stack(
-            children: widget.tiles,
-          ),
+        child: (_) => Stack(
+          children: widget.tiles,
         ),
       ),
     );

@@ -101,41 +101,40 @@ class Puzzle extends Equatable {
     return true;
   }
 
-  bool canSwipeUp() {
+  bool canSwipeUp(Tile tile) {
     final Tile? downTile = getTileRelativeToWhitespaceTile(const Offset(0, 1));
-    if (downTile != null) print('${downTile.value} downTile');
-    if (downTile != null && isTileMovable(downTile)) {
+    // if (downTile != null) print('${downTile.value} downTile');
+    if (downTile == tile) {
       return true;
     } else {
       return false;
     }
   }
 
-  bool canSwipeDown() {
+  bool canSwipeDown(Tile tile) {
     final Tile? upTile = getTileRelativeToWhitespaceTile(const Offset(0, -1));
-    if (upTile != null) print('${upTile.value} upTile');
-    print('upTile');
-    if (upTile != null && isTileMovable(upTile)) {
+    // if (upTile != null) print('${upTile.value} upTile');
+    if (upTile == tile) {
       return true;
     } else {
       return false;
     }
   }
 
-  bool canSwipeleft() {
+  bool canSwipeleft(Tile tile) {
     final Tile? rightTile = getTileRelativeToWhitespaceTile(const Offset(1, 0));
-    if (rightTile != null) print('${rightTile.value} rightTile');
-    if (rightTile != null && isTileMovable(rightTile)) {
+    // if (rightTile != null) print('${rightTile.value} rightTile');
+    if (rightTile == tile) {
       return true;
     } else {
       return false;
     }
   }
 
-  bool canSwipeRight() {
+  bool canSwipeRight(Tile tile) {
     final Tile? leftTile = getTileRelativeToWhitespaceTile(const Offset(-1, 0));
-    if (leftTile != null) print('${leftTile.value} leftTile');
-    if (leftTile != null && isTileMovable(leftTile)) {
+    // if (leftTile != null) print('${leftTile.value} leftTile');
+    if (leftTile == tile) {
       return true;
     } else {
       return false;

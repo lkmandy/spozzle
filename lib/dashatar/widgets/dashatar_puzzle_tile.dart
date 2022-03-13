@@ -11,6 +11,7 @@ import '../../layout/layout.dart';
 import '../../models/models.dart';
 import '../../puzzle/puzzle.dart';
 import '../../theme/themes/themes.dart';
+import '../../timer/bloc/timer_bloc.dart';
 import '../dashatar.dart';
 
 abstract class _TileSize {
@@ -101,9 +102,26 @@ class DashatarPuzzleTileState extends State<DashatarPuzzleTile>
 
     final Duration movementDuration = status == DashatarPuzzleStatus.loading
         ? const Duration(milliseconds: 800)
-        : const Duration(milliseconds: 370);
+        : const Duration(milliseconds: 350);
 
     final bool canPress = hasStarted && puzzleIncomplete;
+
+    final bool canSwipeUp =
+        context.read<PuzzleBloc>().state.puzzle.canSwipeUp(widget.tile);
+    final bool canSwipeDown =
+        context.read<PuzzleBloc>().state.puzzle.canSwipeDown(widget.tile);
+    final bool canSwipeleft =
+        context.read<PuzzleBloc>().state.puzzle.canSwipeleft(widget.tile);
+    final bool canSwipeRight =
+        context.read<PuzzleBloc>().state.puzzle.canSwipeRight(widget.tile);
+
+    void swipeTile() {
+      unawaited(_audioPlayer?.replay());
+      if (!context.read<TimerBloc>().state.isRunning) {
+        context.read<TimerBloc>().add(const TimerResumed());
+      }
+      context.read<PuzzleBloc>().add(TileTapped(widget.tile));
+    }
 
     return AudioControlListener(
       audioPlayer: _audioPlayer,
@@ -114,56 +132,101 @@ class DashatarPuzzleTileState extends State<DashatarPuzzleTile>
         ),
         duration: movementDuration,
         curve: Curves.easeInOut,
-        child: ResponsiveLayoutBuilder(
-          small: (_, Widget? child) => SizedBox.square(
-            key: Key('dashatar_puzzle_tile_small_${widget.tile.value}'),
-            dimension: _TileSize.small,
-            child: child,
-          ),
-          medium: (_, Widget? child) => SizedBox.square(
-            key: Key('dashatar_puzzle_tile_medium_${widget.tile.value}'),
-            dimension: _TileSize.medium,
-            child: child,
-          ),
-          large: (_, Widget? child) => SizedBox.square(
-            key: Key('dashatar_puzzle_tile_large_${widget.tile.value}'),
-            dimension: _TileSize.large,
-            child: child,
-          ),
-          child: (_) => MouseRegion(
-            onEnter: (_) {
-              if (canPress) {
-                _controller.forward();
-              }
-            },
-            onExit: (_) {
-              if (canPress) {
-                _controller.reverse();
-              }
-            },
-            child: ScaleTransition(
-              key: Key('dashatar_puzzle_tile_scale_${widget.tile.value}'),
-              scale: _scale,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(8.0),
-                child: IconButton(
-                  padding: EdgeInsets.zero,
-                  onPressed: canPress ? () {} : null,
-                  // canPress
-                  //     ? () {
-                  //         context
-                  //             .read<PuzzleBloc>()
-                  //             .add(TileTapped(widget.tile));
-                  //         unawaited(_audioPlayer?.replay());
-                  //       }
-                  //     :
-                  // null,
-                  icon: Image.asset(
-                    theme.dashAssetForTile(widget.tile),
-                    semanticLabel: context.l10n.puzzleTileLabelText(
-                      widget.tile.value.toString(),
-                      widget.tile.currentPosition.x.toString(),
-                      widget.tile.currentPosition.y.toString(),
+        child: GestureDetector(
+          onPanDown: canPress
+              ? (_) {
+                  _controller.forward();
+                }
+              : null,
+          onPanCancel: canPress
+              ? () {
+                  _controller.reverse();
+                }
+              : null,
+          onVerticalDragStart: canPress
+              ? (_) {
+                  _controller.forward();
+                }
+              : null,
+          onHorizontalDragStart: canPress
+              ? (_) {
+                  _controller.forward();
+                }
+              : null,
+          onVerticalDragEnd: (canPress && (canSwipeUp || canSwipeDown))
+              ? (DragEndDetails details) {
+                  if ((details.velocity.pixelsPerSecond.dy < 1 && canSwipeUp) ||
+                      (details.velocity.pixelsPerSecond.dy > 1 &&
+                          canSwipeDown)) {
+                    // Swipe down
+                    swipeTile();
+                    _controller.reverse();
+                  }
+                }
+              : null,
+          onHorizontalDragEnd: (canPress && (canSwipeleft || canSwipeRight))
+              ? (DragEndDetails details) {
+                  if ((details.velocity.pixelsPerSecond.dx < 1 &&
+                          canSwipeleft) ||
+                      (details.velocity.pixelsPerSecond.dx > 1 &&
+                          canSwipeRight)) {
+                    // swipe right
+                    swipeTile();
+                    _controller.reverse();
+                  }
+                }
+              : null,
+          child: ResponsiveLayoutBuilder(
+            small: (_, Widget? child) => SizedBox.square(
+              key: Key('dashatar_puzzle_tile_small_${widget.tile.value}'),
+              dimension: _TileSize.small,
+              child: child,
+            ),
+            medium: (_, Widget? child) => SizedBox.square(
+              key: Key('dashatar_puzzle_tile_medium_${widget.tile.value}'),
+              dimension: _TileSize.medium,
+              child: child,
+            ),
+            large: (_, Widget? child) => SizedBox.square(
+              key: Key('dashatar_puzzle_tile_large_${widget.tile.value}'),
+              dimension: _TileSize.large,
+              child: child,
+            ),
+            child: (_) => MouseRegion(
+              onEnter: (_) {
+                if (canPress) {
+                  _controller.forward();
+                }
+              },
+              onExit: (_) {
+                if (canPress) {
+                  _controller.reverse();
+                }
+              },
+              child: ScaleTransition(
+                key: Key('dashatar_puzzle_tile_scale_${widget.tile.value}'),
+                scale: _scale,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(8.0),
+                  child: IconButton(
+                    padding: EdgeInsets.zero,
+                    onPressed: canPress ? () {} : null,
+                    // canPress
+                    //     ? () {
+                    //         context
+                    //             .read<PuzzleBloc>()
+                    //             .add(TileTapped(widget.tile));
+                    //         unawaited(_audioPlayer?.replay());
+                    //       }
+                    //     :
+                    // null,
+                    icon: Image.asset(
+                      theme.dashAssetForTile(widget.tile),
+                      semanticLabel: context.l10n.puzzleTileLabelText(
+                        widget.tile.value.toString(),
+                        widget.tile.currentPosition.x.toString(),
+                        widget.tile.currentPosition.y.toString(),
+                      ),
                     ),
                   ),
                 ),
