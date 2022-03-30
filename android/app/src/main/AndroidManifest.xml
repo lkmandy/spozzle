@@ -1,7 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.team_spozzle.spozzle">
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
    <application
-        android:label="Spozzle"
+        android:label="spozzle"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

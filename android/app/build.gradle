@@ -27,12 +27,15 @@ if (keystorePropertiesFile.exists()) {
     keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 }
 
+
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
-    compileSdkVersion 31
+    namespace 'com.team_spozzle.spozzle'
+
+    compileSdkVersion 32
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -48,7 +51,6 @@ android {
     }
 
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.team_spozzle.spozzle"
         minSdkVersion 16
         targetSdkVersion 32
@@ -80,6 +82,7 @@ android {
     buildTypes {
         release {
             signingConfig signingConfigs.release
+            isShrinkResources = true
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt')
         }
@@ -98,4 +101,5 @@ flutter {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'com.google.android.material:material:1.5.0'
 }
