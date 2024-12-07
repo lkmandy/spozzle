@@ -30,6 +30,7 @@ dependencies:
 
 dev_dependencies:
   bloc_test: ^9.0.1
+  flutter_launcher_icons: ^0.14.2
   flutter_test:
     sdk: flutter
   mocktail: ^1.0.4
@@ -43,6 +44,8 @@ flutter:
   assets:
     - assets/audio/
     - assets/images/
+    - assets/icon/common
+    - assets/icon/android
     - assets/images/audio_control/
     - assets/images/dashatar/gallery/
     - assets/images/dashatar/success/
@@ -70,3 +73,16 @@ flutter:
       fonts:
         - asset: assets/fonts/HakunaRegular.ttf
           weight: 400
+  
+flutter_launcher_icons:
+  ios: true
+  android: true
+  image_path_ios: "assets/icon/common/app-icon.png"
+  image_path_ios_dark_transparent: "assets/icon/common/app-icon-transparent.png"
+  image_path_android: "assets/icon/android/app-icon-android.png"
+  adaptive_icon_background: "assets/icon/android/app-icon-background.png"
+  adaptive_icon_foreground: "assets/icon/android/app-icon-foreground.png"
+  remove_alpha_ios: true
+  web:
+    generate: true
+    image_path: "assets/icon/common/app-icon.png"
