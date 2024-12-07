@@ -44,8 +44,8 @@ flutter:
   assets:
     - assets/audio/
     - assets/images/
-    - assets/icon/common
-    - assets/icon/android
+    - assets/icon/common/
+    - assets/icon/android/
     - assets/images/audio_control/
     - assets/images/dashatar/gallery/
     - assets/images/dashatar/success/
