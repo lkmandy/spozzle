@@ -11,7 +11,7 @@ import '../../helpers/helpers.dart';
 void main() {
   group('ThemeBloc', () {
     test('initial state is ThemeState', () {
-      final themes = [MockPuzzleTheme()];
+      final List<MockPuzzleTheme> themes = <MockPuzzleTheme>[MockPuzzleTheme()];
       expect(
         ThemeBloc(initialThemes: themes).state,
         equals(ThemeState(themes: themes)),
@@ -26,10 +26,10 @@ void main() {
         'emits new theme',
         setUp: () {
           theme = MockPuzzleTheme();
-          themes = [MockPuzzleTheme(), theme];
+          themes = <PuzzleTheme>[MockPuzzleTheme(), theme];
         },
         build: () => ThemeBloc(initialThemes: themes),
-        act: (bloc) => bloc.add(ThemeChanged(themeIndex: 1)),
+        act: (ThemeBloc bloc) => bloc.add(ThemeChanged(themeIndex: 1)),
         expect: () => <ThemeState>[
           ThemeState(themes: themes, theme: theme),
         ],
@@ -43,7 +43,7 @@ void main() {
         'replaces the theme identified by name '
         'in the list of themes',
         setUp: () {
-          themes = [
+          themes = <PuzzleTheme>[
             /// Name: 'Simple'
             SimpleTheme(),
 
@@ -52,10 +52,10 @@ void main() {
           ];
         },
         build: () => ThemeBloc(initialThemes: themes),
-        act: (bloc) => bloc.add(ThemeUpdated(theme: NorthDashatarTheme())),
+        act: (ThemeBloc bloc) => bloc.add(ThemeUpdated(theme: NorthDashatarTheme())),
         expect: () => <ThemeState>[
           ThemeState(
-            themes: const [
+            themes: const <PuzzleTheme>[
               /// Name: 'Simple'
               SimpleTheme(),
 

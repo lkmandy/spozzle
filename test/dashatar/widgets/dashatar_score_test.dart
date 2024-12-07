@@ -20,7 +20,7 @@ void main() {
     setUp(() {
       dashatarThemeBloc = MockDashatarThemeBloc();
       when(() => dashatarThemeBloc.state).thenReturn(
-        DashatarThemeState(themes: [LittoralDashatarTheme()]),
+        DashatarThemeState(themes: <DashatarTheme>[LittoralDashatarTheme()]),
       );
 
       puzzleBloc = MockPuzzleBloc();
@@ -30,7 +30,7 @@ void main() {
       when(() => timerBloc.state).thenReturn(TimerState());
     });
 
-    testWidgets('renders on a large display', (tester) async {
+    testWidgets('renders on a large display', (WidgetTester tester) async {
       tester.setLargeDisplaySize();
 
       await tester.pumpApp(
@@ -48,7 +48,7 @@ void main() {
       );
     });
 
-    testWidgets('renders on a medium display', (tester) async {
+    testWidgets('renders on a medium display', (WidgetTester tester) async {
       tester.setMediumDisplaySize();
 
       await tester.pumpApp(
@@ -66,7 +66,7 @@ void main() {
       );
     });
 
-    testWidgets('renders on a small display', (tester) async {
+    testWidgets('renders on a small display', (WidgetTester tester) async {
       tester.setSmallDisplaySize();
 
       await tester.pumpApp(
@@ -84,12 +84,12 @@ void main() {
       );
     });
 
-    testWidgets('renders successThemeAsset from DashatarTheme', (tester) async {
-      const theme = WestDashatarTheme();
+    testWidgets('renders successThemeAsset from DashatarTheme', (WidgetTester tester) async {
+      const WestDashatarTheme theme = WestDashatarTheme();
 
       when(() => dashatarThemeBloc.state).thenReturn(
         DashatarThemeState(
-          themes: [LittoralDashatarTheme(), theme],
+          themes: <DashatarTheme>[LittoralDashatarTheme(), theme],
           theme: theme,
         ),
       );
@@ -105,7 +105,7 @@ void main() {
 
       expect(
         find.byWidgetPredicate(
-          (widget) =>
+          (Widget widget) =>
               widget is Image &&
               (widget.image as AssetImage).assetName == theme.successThemeAsset,
         ),
@@ -113,7 +113,7 @@ void main() {
       );
     });
 
-    testWidgets('renders AppFlutterLogo', (tester) async {
+    testWidgets('renders AppFlutterLogo', (WidgetTester tester) async {
       await tester.pumpApp(
         SingleChildScrollView(
           child: DashatarScore(),
@@ -129,7 +129,7 @@ void main() {
       );
     });
 
-    testWidgets('renders completed text', (tester) async {
+    testWidgets('renders completed text', (WidgetTester tester) async {
       await tester.pumpApp(
         SingleChildScrollView(
           child: DashatarScore(),
@@ -145,7 +145,7 @@ void main() {
       );
     });
 
-    testWidgets('renders well done text', (tester) async {
+    testWidgets('renders well done text', (WidgetTester tester) async {
       await tester.pumpApp(
         SingleChildScrollView(
           child: DashatarScore(),
@@ -161,7 +161,7 @@ void main() {
       );
     });
 
-    testWidgets('renders score text', (tester) async {
+    testWidgets('renders score text', (WidgetTester tester) async {
       await tester.pumpApp(
         SingleChildScrollView(
           child: DashatarScore(),
@@ -177,7 +177,7 @@ void main() {
       );
     });
 
-    testWidgets('renders DashatarTimer', (tester) async {
+    testWidgets('renders DashatarTimer', (WidgetTester tester) async {
       await tester.pumpApp(
         SingleChildScrollView(
           child: DashatarScore(),
@@ -193,8 +193,8 @@ void main() {
       );
     });
 
-    testWidgets('renders number of moves text', (tester) async {
-      const numberOfMoves = 14;
+    testWidgets('renders number of moves text', (WidgetTester tester) async {
+      const int numberOfMoves = 14;
       when(() => puzzleBloc.state).thenReturn(
         PuzzleState(
           numberOfMoves: numberOfMoves,

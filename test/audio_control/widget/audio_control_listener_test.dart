@@ -24,7 +24,7 @@ void main() {
     });
 
     group('calls audioPlayer.setVolume to 1', () {
-      testWidgets('when initialized and the audio is unmuted', (tester) async {
+      testWidgets('when initialized and the audio is unmuted', (WidgetTester tester) async {
         when(() => audioControlBloc.state)
             .thenReturn(AudioControlState(muted: false));
 
@@ -41,7 +41,7 @@ void main() {
 
       testWidgets(
           'when the audio is unmuted and '
-          'the widget is rebuilt (didUpdateWidget)', (tester) async {
+          'the widget is rebuilt (didUpdateWidget)', (WidgetTester tester) async {
         when(() => audioControlBloc.state)
             .thenReturn(AudioControlState(muted: false));
 
@@ -68,11 +68,11 @@ void main() {
 
       testWidgets(
           'when the new AudioControlState is emitted '
-          'with muted equal to false', (tester) async {
+          'with muted equal to false', (WidgetTester tester) async {
         when(() => audioControlBloc.state)
             .thenReturn(AudioControlState(muted: true));
 
-        final streamController = StreamController<AudioControlState>();
+        final StreamController<AudioControlState> streamController = StreamController<AudioControlState>();
         whenListen(audioControlBloc, streamController.stream);
 
         await tester.pumpApp(
@@ -95,7 +95,7 @@ void main() {
     });
 
     group('calls audioPlayer.setVolume to 0', () {
-      testWidgets('when initialized and the audio is muted', (tester) async {
+      testWidgets('when initialized and the audio is muted', (WidgetTester tester) async {
         when(() => audioControlBloc.state)
             .thenReturn(AudioControlState(muted: true));
 
@@ -112,7 +112,7 @@ void main() {
 
       testWidgets(
           'when the audio is muted and '
-          'the widget is rebuilt (didUpdateWidget)', (tester) async {
+          'the widget is rebuilt (didUpdateWidget)', (WidgetTester tester) async {
         when(() => audioControlBloc.state)
             .thenReturn(AudioControlState(muted: true));
 
@@ -139,11 +139,11 @@ void main() {
 
       testWidgets(
           'when the new AudioControlState is emitted '
-          'with muted equal to true', (tester) async {
+          'with muted equal to true', (WidgetTester tester) async {
         when(() => audioControlBloc.state)
             .thenReturn(AudioControlState(muted: false));
 
-        final streamController = StreamController<AudioControlState>();
+        final StreamController<AudioControlState> streamController = StreamController<AudioControlState>();
         whenListen(audioControlBloc, streamController.stream);
 
         await tester.pumpApp(
@@ -165,11 +165,11 @@ void main() {
       });
     });
 
-    testWidgets('renders child', (tester) async {
+    testWidgets('renders child', (WidgetTester tester) async {
       when(() => audioControlBloc.state)
           .thenReturn(AudioControlState(muted: false));
 
-      const key = Key('__child__');
+      const Key key = Key('__child__');
 
       await tester.pumpApp(
         AudioControlListener(

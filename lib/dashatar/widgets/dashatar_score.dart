@@ -1,17 +1,16 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:spozzle/colors/colors.dart';
-import 'package:spozzle/dashatar/dashatar.dart';
-import 'package:spozzle/l10n/l10n.dart';
-import 'package:spozzle/layout/layout.dart';
-import 'package:spozzle/puzzle/puzzle.dart';
-import 'package:spozzle/theme/themes/themes.dart';
-import 'package:spozzle/theme/widgets/widgets.dart';
-import 'package:spozzle/typography/typography.dart';
 
-import '../../models/models.dart';
+import '../../colors/colors.dart';
+import '../../l10n/l10n.dart';
+import '../../layout/layout.dart';
+import '../../puzzle/puzzle.dart';
+import '../../theme/themes/themes.dart';
+import '../../theme/widgets/widgets.dart';
 import '../../timer/bloc/timer_bloc.dart';
+import '../../typography/typography.dart';
+import '../dashatar.dart';
 
 /// {@template dashatar_score}
 /// Displays the score of the solved Dashatar puzzle.
@@ -29,7 +28,7 @@ class DashatarScore extends StatelessWidget {
     final DashatarTheme theme =
         context.select((DashatarThemeBloc bloc) => bloc.state.theme);
     final PuzzleState state = context.watch<PuzzleBloc>().state;
-    final l10n = context.l10n;
+    final AppLocalizations l10n = context.l10n;
 
     final int secondsElapsed =
     context.select((TimerBloc bloc) => bloc.state.secondsElapsed);
@@ -89,7 +88,7 @@ class DashatarScore extends StatelessWidget {
               ),
             ),
             child: Stack(
-              children: [
+              children: <Widget>[
                 Positioned(
                   left: imageOffset.dx,
                   top: imageOffset.dy,
@@ -102,7 +101,7 @@ class DashatarScore extends StatelessWidget {
                   padding: const EdgeInsets.all(24),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
+                    children: <Widget>[
                       const AppFlutterLogo(
                         height: 18,
                         isColored: false,
@@ -118,7 +117,7 @@ class DashatarScore extends StatelessWidget {
                         child: AnimatedTextKit(
                           totalRepeatCount: 4,
                           pause:  const Duration(milliseconds: 2000),
-                          animatedTexts: [
+                          animatedTexts: <AnimatedText>[
                             TypewriterAnimatedText(
                               l10n.dashatarSuccessCompleted,
                               textStyle: PuzzleTextStyle.headline5.copyWith(
@@ -138,7 +137,7 @@ class DashatarScore extends StatelessWidget {
                       key: const Key('dashatar_score_well_done'),
                       totalRepeatCount: 4,
                         pause:  const Duration(milliseconds: 2000),
-                        animatedTexts: [
+                        animatedTexts: <AnimatedText>[
                           TypewriterAnimatedText(
                             l10n.dashatarSuccessWellDone,
                             textStyle: wellDoneTextStyle.copyWith(
@@ -205,15 +204,15 @@ class DashatarScore extends StatelessWidget {
 
     s = value - (h * 3600) - (m * 60);
 
-    String hourLeft = h.toString().length < 2 ? "0" + h.toString() : h.toString();
+    final String hourLeft = h.toString().length < 2 ? '0$h' : h.toString();
 
-    String minuteLeft =
-    m.toString().length < 2 ? "0" + m.toString() : m.toString();
+    final String minuteLeft =
+    m.toString().length < 2 ? '0$m' : m.toString();
 
-    String secondsLeft =
-    s.toString().length < 2 ? "0" + s.toString() : s.toString();
+    final String secondsLeft =
+    s.toString().length < 2 ? '0$s' : s.toString();
 
-    String result = "$hourLeft:$minuteLeft:$secondsLeft";
+    final String result = '$hourLeft:$minuteLeft:$secondsLeft';
 
     return result;
   }

@@ -10,20 +10,20 @@ environment:
 dependencies:
   bloc: ^8.0.1
   equatable: ^2.0.3
-  http: ^0.13.4
+  http: ^1.2.2
   fake_async: ^1.2.0
   flutter:
     sdk: flutter
   flutter_bloc: ^8.0.0
   flutter_localizations:
     sdk: flutter
-  gap: ^2.0.0
-  google_fonts: ^2.1.0
+  gap: ^3.0.1
+  google_fonts: ^6.2.1
   intl: ^0.17.0
   just_audio: ^0.9.18
   universal_platform: ^1.0.0+1
   url_launcher: ^6.0.17
-  material_design_icons_flutter: ^5.0.6595
+  material_design_icons_flutter: ^7.0.7296
   line_icons: ^2.0.1
   flutter_carousel_slider: ^1.0.8
   animated_text_kit: ^4.2.1
@@ -32,9 +32,11 @@ dev_dependencies:
   bloc_test: ^9.0.1
   flutter_test:
     sdk: flutter
-  mocktail: ^0.2.0
-  very_good_analysis: ^2.4.0
-
+  mocktail: ^1.0.4
+  very_good_analysis: ^6.0.0
+  
+dependency_overrides:
+  intl: 0.19.0
 flutter:
   generate: true
   uses-material-design: true

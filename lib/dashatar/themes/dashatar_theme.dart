@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:path/path.dart' as p;
-import 'package:spozzle/colors/colors.dart';
-import 'package:spozzle/dashatar/dashatar.dart';
-import 'package:spozzle/layout/layout.dart';
-import 'package:spozzle/models/models.dart';
-import 'package:spozzle/theme/theme.dart';
+
+import '../../colors/colors.dart';
+import '../../layout/layout.dart';
+import '../../models/models.dart';
+import '../../theme/theme.dart';
+import '../dashatar.dart';
 
 /// {@template dashatar_theme}
 /// The dashatar puzzle theme.
@@ -82,10 +83,10 @@ abstract class DashatarTheme extends PuzzleTheme {
   ///
   /// The dash asset for the i-th tile may be found in the file i.png.
   String dashAssetForTile(Tile tile) =>
-      p.join(dashAssetsDirectory, '${tile.value.toString()}.png');
+      p.join(dashAssetsDirectory, '${tile.value}.png');
 
   @override
-  List<Object?> get props => [
+  List<Object?> get props => <Object?>[
         name,
         hasTimer,
         nameColor,

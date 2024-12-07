@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:spozzle/layout/layout.dart';
-import 'package:spozzle/theme/theme.dart';
+import '../../layout/layout.dart';
+import '../theme.dart';
 
 /// {@template puzzle_theme}
 /// Template for creating custom puzzle UI.

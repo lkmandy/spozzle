@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:nested/nested.dart';
 import 'package:spozzle/audio_control/audio_control.dart';
 import 'package:spozzle/dashatar/dashatar.dart';
 import 'package:spozzle/l10n/l10n.dart';
@@ -30,7 +31,7 @@ extension PumpApp on WidgetTester {
   }) {
     return pumpWidget(
       MultiBlocProvider(
-        providers: [
+        providers: <SingleChildWidget>[
           BlocProvider.value(
             value: themeBloc ?? MockThemeBloc(),
           ),
@@ -51,7 +52,7 @@ extension PumpApp on WidgetTester {
           ),
         ],
         child: MaterialApp(
-          localizationsDelegates: const [
+          localizationsDelegates: const <LocalizationsDelegate>[
             AppLocalizations.delegate,
             GlobalMaterialLocalizations.delegate,
           ],

@@ -7,13 +7,13 @@ import 'package:spozzle/theme/theme.dart';
 
 import '../../helpers/helpers.dart';
 
-const switchKey = Key('switchKey');
-const animationDuration = Duration(milliseconds: 1000);
-const additionalDelay = Duration(milliseconds: 1);
+const Key switchKey = Key('switchKey');
+const Duration animationDuration = Duration(milliseconds: 1000);
+const Duration additionalDelay = Duration(milliseconds: 1);
 
 void main() {
   group('AnimatedTextButton', () {
-    testWidgets('renders child', (tester) async {
+    testWidgets('renders child', (WidgetTester tester) async {
       await tester.pumpApp(
         AnimatedTextButton(
           onPressed: () {},
@@ -30,8 +30,8 @@ void main() {
 
     testWidgets(
         'calls onPressed '
-        'when tapped', (tester) async {
-      var onPressedCalled = false;
+        'when tapped', (WidgetTester tester) async {
+      bool onPressedCalled = false;
 
       await tester.pumpApp(
         AnimatedTextButton(
@@ -50,7 +50,7 @@ void main() {
     });
 
     testWidgets('onEnd is called', (WidgetTester tester) async {
-      var called = 0;
+      int called = 0;
       void onEnd() => called++;
 
       await tester.pumpApp(
@@ -65,7 +65,7 @@ void main() {
         ),
       );
 
-      final switchFinder = find.byKey(switchKey);
+      final Finder switchFinder = find.byKey(switchKey);
 
       await tester.tap(switchFinder);
       await tester.pump();
@@ -89,11 +89,11 @@ void main() {
         ),
       );
 
-      final state = tester.state(find.byType(TestAnimatedTextButton))
+      final RebuildCountingState<TestAnimatedTextButton> state = tester.state(find.byType(TestAnimatedTextButton))
           as RebuildCountingState<TestAnimatedTextButton>;
 
-      final switchFinder = find.byKey(switchKey);
-      final textButtonFinder = find.descendant(
+      final Finder switchFinder = find.byKey(switchKey);
+      final Finder textButtonFinder = find.descendant(
         of: find.byType(AnimatedTextButton),
         matching: find.byType(Material),
       );
@@ -162,11 +162,11 @@ class _TestAnimatedTextButtonState
           style: !toggle
               ? ButtonStyle(
                   backgroundColor:
-                      MaterialStateProperty.all(Colors.green.shade500),
+                      WidgetStateProperty.all(Colors.green.shade500),
                 )
               : ButtonStyle(
                   backgroundColor:
-                      MaterialStateProperty.all(Colors.blue.shade500),
+                      WidgetStateProperty.all(Colors.blue.shade500),
                 ),
           onEnd: widget.onEnd,
           child: child,

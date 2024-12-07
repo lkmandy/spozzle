@@ -23,7 +23,7 @@ void main() {
       when(() => audioControlBloc.state).thenReturn(AudioControlState());
     });
 
-    testWidgets('renders on a large display', (tester) async {
+    testWidgets('renders on a large display', (WidgetTester tester) async {
       tester.setLargeDisplaySize();
 
       await tester.pumpApp(
@@ -39,7 +39,7 @@ void main() {
       );
     });
 
-    testWidgets('renders on a medium display', (tester) async {
+    testWidgets('renders on a medium display', (WidgetTester tester) async {
       tester.setMediumDisplaySize();
 
       await tester.pumpApp(
@@ -55,7 +55,7 @@ void main() {
       );
     });
 
-    testWidgets('renders on a small display', (tester) async {
+    testWidgets('renders on a small display', (WidgetTester tester) async {
       tester.setSmallDisplaySize();
 
       await tester.pumpApp(
@@ -71,7 +71,7 @@ void main() {
       );
     });
 
-    testWidgets('renders title', (tester) async {
+    testWidgets('renders title', (WidgetTester tester) async {
       await tester.pumpApp(
         SingleChildScrollView(
           child: DashatarShareYourScore(animation: animation),
@@ -85,7 +85,7 @@ void main() {
       );
     });
 
-    testWidgets('renders message', (tester) async {
+    testWidgets('renders message', (WidgetTester tester) async {
       await tester.pumpApp(
         SingleChildScrollView(
           child: DashatarShareYourScore(animation: animation),
@@ -99,7 +99,7 @@ void main() {
       );
     });
 
-    testWidgets('renders DashatarTwitterButton', (tester) async {
+    testWidgets('renders DashatarTwitterButton', (WidgetTester tester) async {
       await tester.pumpApp(
         SingleChildScrollView(
           child: DashatarShareYourScore(animation: animation),
@@ -113,7 +113,7 @@ void main() {
       );
     });
 
-    testWidgets('renders DashatarFacebookButton', (tester) async {
+    testWidgets('renders DashatarFacebookButton', (WidgetTester tester) async {
       await tester.pumpApp(
         SingleChildScrollView(
           child: DashatarShareYourScore(animation: animation),

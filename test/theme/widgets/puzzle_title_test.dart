@@ -15,7 +15,7 @@ void main() {
     setUp(() {
       themeBloc = MockThemeBloc();
       theme = MockPuzzleTheme();
-      final ThemeState themeState = ThemeState(themes: [theme], theme: theme);
+      final ThemeState themeState = ThemeState(themes: <PuzzleTheme>[theme], theme: theme);
 
       when(() => theme.titleColor).thenReturn(Colors.black);
       when(() => themeBloc.state).thenReturn(themeState);

@@ -3,16 +3,12 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_carousel_slider/carousel_slider.dart';
-import 'package:flutter_carousel_slider/carousel_slider_indicators.dart';
-import 'package:flutter_carousel_slider/carousel_slider_transforms.dart';
 import 'package:just_audio/just_audio.dart';
 
 import '../../audio_control/audio_control.dart';
 import '../../helpers/helpers.dart';
 import '../../layout/layout.dart';
-import '../../timer/bloc/timer_bloc.dart';
 import '../dashatar.dart';
-import '../../l10n/l10n.dart';
 
 /// {@template dashatar_theme_picker}
 /// Displays the Dashatar theme picker to choose between
@@ -92,11 +88,11 @@ class _DashatarThemePickerState extends State<DashatarThemePicker> {
               return Center(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
+                  children: <Widget>[
                     IconButton(
                       color: Colors.white54,
                       iconSize: 32,
-                      icon: Icon(Icons.keyboard_arrow_left),
+                      icon: const Icon(Icons.keyboard_arrow_left),
                       onPressed: () async {
                         if (index > 0)
                           setState(() {
@@ -149,11 +145,10 @@ class _DashatarThemePickerState extends State<DashatarThemePicker> {
                               ),
                             );
                           },
-                          slideTransform: CubeTransform(),
+                          slideTransform: const CubeTransform(),
                           slideIndicator: CircularSlideIndicator(
                               indicatorRadius: 5.0,
-                              padding: EdgeInsets.only(bottom: 4.0),
-                              alignment: Alignment.bottomCenter,
+                              padding: const EdgeInsets.only(bottom: 4.0),
                               indicatorBorderColor:
                                   themeState.theme.buttonColor,
                               currentIndicatorColor:
@@ -163,7 +158,7 @@ class _DashatarThemePickerState extends State<DashatarThemePicker> {
                     IconButton(
                       color: Colors.white54,
                       iconSize: 32,
-                      icon: Icon(Icons.keyboard_arrow_right),
+                      icon: const Icon(Icons.keyboard_arrow_right),
                       onPressed: () async {
                         if (index < endIndex)
                           setState(() {

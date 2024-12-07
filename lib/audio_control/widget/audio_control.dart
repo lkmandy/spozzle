@@ -14,10 +14,10 @@ class AudioControl extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
-    final audioMuted =
+    final PuzzleTheme theme = context.select((ThemeBloc bloc) => bloc.state.theme);
+    final bool audioMuted =
         context.select((AudioControlBloc bloc) => bloc.state.muted);
-    final audioAsset =
+    final String audioAsset =
         audioMuted ? theme.audioControlOffAsset : theme.audioControlOnAsset;
 
     return MouseRegion(

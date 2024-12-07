@@ -19,8 +19,8 @@ void main() {
 
     setUp(() {
       themeBloc = MockThemeBloc();
-      final themeState = ThemeState(
-        themes: [SimpleTheme(), LittoralDashatarTheme()],
+      final ThemeState themeState = ThemeState(
+        themes: <PuzzleTheme>[SimpleTheme(), LittoralDashatarTheme()],
         theme: SimpleTheme(),
       );
       when(() => themeBloc.state).thenReturn(themeState);
@@ -33,7 +33,7 @@ void main() {
     testWidgets(
         'adds AudioToggled to AudioControlBloc '
         'when tapped and '
-        'the audio is unmuted', (tester) async {
+        'the audio is unmuted', (WidgetTester tester) async {
       when(() => audioControlBloc.state)
           .thenReturn(AudioControlState(muted: false));
 
@@ -51,7 +51,7 @@ void main() {
     testWidgets(
         'adds AudioToggled to AudioControlBloc '
         'when tapped and '
-        'the audio is muted', (tester) async {
+        'the audio is muted', (WidgetTester tester) async {
       when(() => audioControlBloc.state)
           .thenReturn(AudioControlState(muted: true));
 
@@ -69,9 +69,9 @@ void main() {
     testWidgets(
         'renders Image '
         'with PuzzleTheme.audioControlOnAsset '
-        'when the audio is unmuted', (tester) async {
-      final themeState = ThemeState(
-        themes: [SimpleTheme(), LittoralDashatarTheme()],
+        'when the audio is unmuted', (WidgetTester tester) async {
+      final ThemeState themeState = ThemeState(
+        themes: <PuzzleTheme>[SimpleTheme(), LittoralDashatarTheme()],
         theme: SimpleTheme(),
       );
       when(() => themeBloc.state).thenReturn(themeState);
@@ -87,7 +87,7 @@ void main() {
 
       expect(
         find.byWidgetPredicate(
-          (widget) =>
+          (Widget widget) =>
               widget is Image &&
               (widget.image as AssetImage).assetName ==
                   SimpleTheme().audioControlOnAsset,
@@ -99,9 +99,9 @@ void main() {
     testWidgets(
         'renders Image '
         'with PuzzleTheme.audioControlOffAsset '
-        'when the audio is muted', (tester) async {
-      final themeState = ThemeState(
-        themes: [SimpleTheme(), LittoralDashatarTheme()],
+        'when the audio is muted', (WidgetTester tester) async {
+      final ThemeState themeState = ThemeState(
+        themes: <PuzzleTheme>[SimpleTheme(), LittoralDashatarTheme()],
         theme: LittoralDashatarTheme(),
       );
       when(() => themeBloc.state).thenReturn(themeState);
@@ -117,7 +117,7 @@ void main() {
 
       expect(
         find.byWidgetPredicate(
-          (widget) =>
+          (Widget widget) =>
               widget is Image &&
               (widget.image as AssetImage).assetName ==
                   LittoralDashatarTheme().audioControlOffAsset,
@@ -126,7 +126,7 @@ void main() {
       );
     });
 
-    testWidgets('renders on a large display', (tester) async {
+    testWidgets('renders on a large display', (WidgetTester tester) async {
       tester.setLargeDisplaySize();
 
       await tester.pumpApp(
@@ -141,7 +141,7 @@ void main() {
       );
     });
 
-    testWidgets('renders on a medium display', (tester) async {
+    testWidgets('renders on a medium display', (WidgetTester tester) async {
       tester.setMediumDisplaySize();
 
       await tester.pumpApp(
@@ -156,7 +156,7 @@ void main() {
       );
     });
 
-    testWidgets('renders on a small display', (tester) async {
+    testWidgets('renders on a small display', (WidgetTester tester) async {
       tester.setSmallDisplaySize();
 
       await tester.pumpApp(

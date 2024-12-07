@@ -9,6 +9,7 @@ import 'package:mocktail/mocktail.dart';
 import 'package:spozzle/audio_control/audio_control.dart';
 import 'package:spozzle/dashatar/dashatar.dart';
 import 'package:spozzle/layout/layout.dart';
+import 'package:spozzle/models/tile.dart';
 import 'package:spozzle/puzzle/puzzle.dart';
 import 'package:spozzle/simple/simple.dart';
 import 'package:spozzle/theme/theme.dart';
@@ -18,23 +19,23 @@ import '../../helpers/helpers.dart';
 
 void main() {
   group('PuzzlePage', () {
-    testWidgets('renders PuzzleView', (tester) async {
+    testWidgets('renders PuzzleView', (WidgetTester tester) async {
       await tester.pumpApp(PuzzlePage());
       expect(find.byType(PuzzleView), findsOneWidget);
     });
 
-    testWidgets('provides all Dashatar themes to PuzzleView', (tester) async {
+    testWidgets('provides all Dashatar themes to PuzzleView', (WidgetTester tester) async {
       await tester.pumpApp(PuzzlePage());
 
       final BuildContext puzzleViewContext =
           tester.element(find.byType(PuzzleView));
 
-      final dashatarThemes =
+      final List<DashatarTheme> dashatarThemes =
           puzzleViewContext.read<DashatarThemeBloc>().state.themes;
 
       expect(
         dashatarThemes,
-        equals([
+        equals(<DashatarTheme>[
           WestDashatarTheme(),
           LittoralDashatarTheme(),
           NorthDashatarTheme(),
@@ -43,17 +44,17 @@ void main() {
     });
 
     testWidgets('provides correct initial themes to PuzzleView',
-        (tester) async {
+        (WidgetTester tester) async {
       await tester.pumpApp(PuzzlePage());
 
       final BuildContext puzzleViewContext =
           tester.element(find.byType(PuzzleView));
 
-      final initialThemes = puzzleViewContext.read<ThemeBloc>().state.themes;
+      final List<PuzzleTheme> initialThemes = puzzleViewContext.read<ThemeBloc>().state.themes;
 
       expect(
         initialThemes,
-        equals([
+        equals(<PuzzleTheme>[
           SimpleTheme(),
           LittoralDashatarTheme(),
         ]),
@@ -62,13 +63,13 @@ void main() {
 
     testWidgets(
         'provides DashatarPuzzleBloc '
-        'with secondsToBegin equal to 3', (tester) async {
+        'with secondsToBegin equal to 3', (WidgetTester tester) async {
       await tester.pumpApp(PuzzlePage());
 
       final BuildContext puzzleViewContext =
           tester.element(find.byType(PuzzleView));
 
-      final secondsToBegin =
+      final int secondsToBegin =
           puzzleViewContext.read<DashatarPuzzleBloc>().state.secondsToBegin;
 
       expect(
@@ -79,7 +80,7 @@ void main() {
 
     testWidgets(
         'provides TimerBloc '
-        'with initial state', (tester) async {
+        'with initial state', (WidgetTester tester) async {
       await tester.pumpApp(PuzzlePage());
 
       final BuildContext puzzleViewContext =
@@ -93,7 +94,7 @@ void main() {
 
     testWidgets(
         'provides AudioControlBloc '
-        'with initial state', (tester) async {
+        'with initial state', (WidgetTester tester) async {
       await tester.pumpApp(PuzzlePage());
 
       final BuildContext puzzleViewContext =
@@ -115,7 +116,7 @@ void main() {
 
     setUp(() {
       theme = MockPuzzleTheme();
-      final themeState = ThemeState(themes: [theme], theme: theme);
+      final ThemeState themeState = ThemeState(themes: <PuzzleTheme>[theme], theme: theme);
       themeBloc = MockThemeBloc();
       layoutDelegate = MockPuzzleLayoutDelegate();
 
@@ -152,7 +153,7 @@ void main() {
 
       dashatarThemeBloc = MockDashatarThemeBloc();
       when(() => dashatarThemeBloc.state)
-          .thenReturn(DashatarThemeState(themes: [LittoralDashatarTheme()]));
+          .thenReturn(DashatarThemeState(themes: <DashatarTheme>[LittoralDashatarTheme()]));
 
       audioControlBloc = MockAudioControlBloc();
       when(() => audioControlBloc.state).thenReturn(AudioControlState());
@@ -165,12 +166,12 @@ void main() {
 
     testWidgets(
         'adds ThemeUpdated to ThemeBloc '
-        'when DashatarTheme changes', (tester) async {
-      final themes = [LittoralDashatarTheme(), WestDashatarTheme()];
+        'when DashatarTheme changes', (WidgetTester tester) async {
+      final List<DashatarTheme> themes = <DashatarTheme>[LittoralDashatarTheme(), WestDashatarTheme()];
 
       whenListen(
         dashatarThemeBloc,
-        Stream.fromIterable([
+        Stream.fromIterable(<DashatarThemeState>[
           DashatarThemeState(themes: themes, theme: LittoralDashatarTheme()),
           DashatarThemeState(themes: themes, theme: WestDashatarTheme()),
         ]),
@@ -193,8 +194,8 @@ void main() {
     testWidgets(
         'renders Scaffold with descendant AnimatedContainer  '
         'using PuzzleTheme.backgroundColor as background color',
-        (tester) async {
-      const backgroundColor = Colors.orange;
+        (WidgetTester tester) async {
+      const MaterialColor backgroundColor = Colors.orange;
       when(() => theme.backgroundColor).thenReturn(backgroundColor);
 
       await tester.pumpApp(
@@ -208,7 +209,7 @@ void main() {
         find.descendant(
           of: find.byType(Scaffold),
           matching: find.byWidgetPredicate(
-            (widget) =>
+            (Widget widget) =>
                 widget is AnimatedContainer &&
                 widget.decoration == BoxDecoration(color: backgroundColor),
           ),
@@ -219,7 +220,7 @@ void main() {
 
     testWidgets(
         'renders puzzle correctly '
-        'on a large display', (tester) async {
+        'on a large display', (WidgetTester tester) async {
       tester.setLargeDisplaySize();
 
       await tester.pumpApp(
@@ -234,7 +235,7 @@ void main() {
 
     testWidgets(
         'renders puzzle correctly '
-        'on a medium display', (tester) async {
+        'on a medium display', (WidgetTester tester) async {
       tester.setMediumDisplaySize();
 
       await tester.pumpApp(
@@ -249,7 +250,7 @@ void main() {
 
     testWidgets(
         'renders puzzle correctly '
-        'on a small display', (tester) async {
+        'on a small display', (WidgetTester tester) async {
       tester.setSmallDisplaySize();
 
       await tester.pumpApp(
@@ -262,7 +263,7 @@ void main() {
       expect(find.byKey(Key('puzzle_view_puzzle')), findsOneWidget);
     });
 
-    testWidgets('renders PuzzleHeader', (tester) async {
+    testWidgets('renders PuzzleHeader', (WidgetTester tester) async {
       await tester.pumpApp(
         PuzzleView(),
         themeBloc: themeBloc,
@@ -273,7 +274,7 @@ void main() {
       expect(find.byType(PuzzleHeader), findsOneWidget);
     });
 
-    testWidgets('renders puzzle sections', (tester) async {
+    testWidgets('renders puzzle sections', (WidgetTester tester) async {
       await tester.pumpApp(
         PuzzleView(),
         themeBloc: themeBloc,
@@ -286,7 +287,7 @@ void main() {
 
     testWidgets(
         'builds background '
-        'with layoutDelegate.backgroundBuilder', (tester) async {
+        'with layoutDelegate.backgroundBuilder', (WidgetTester tester) async {
       await tester.pumpApp(
         PuzzleView(),
         themeBloc: themeBloc,
@@ -299,7 +300,7 @@ void main() {
 
     testWidgets(
         'builds board '
-        'with layoutDelegate.boardBuilder', (tester) async {
+        'with layoutDelegate.boardBuilder', (WidgetTester tester) async {
       await tester.pumpApp(
         PuzzleView(),
         themeBloc: themeBloc,
@@ -314,10 +315,10 @@ void main() {
 
     testWidgets(
         'builds 15 tiles '
-        'with layoutDelegate.tileBuilder', (tester) async {
+        'with layoutDelegate.tileBuilder', (WidgetTester tester) async {
       when(() => layoutDelegate.boardBuilder(any(), any()))
-          .thenAnswer((invocation) {
-        final tiles = invocation.positionalArguments[1] as List<Widget>;
+          .thenAnswer((Invocation invocation) {
+        final List<Widget> tiles = invocation.positionalArguments[1] as List<Widget>;
         return Row(children: tiles);
       });
 
@@ -335,10 +336,10 @@ void main() {
 
     testWidgets(
         'builds 1 whitespace tile '
-        'with layoutDelegate.whitespaceTileBuilder', (tester) async {
+        'with layoutDelegate.whitespaceTileBuilder', (WidgetTester tester) async {
       when(() => layoutDelegate.boardBuilder(any(), any()))
-          .thenAnswer((invocation) {
-        final tiles = invocation.positionalArguments[1] as List<Widget>;
+          .thenAnswer((Invocation invocation) {
+        final List<Widget> tiles = invocation.positionalArguments[1] as List<Widget>;
         return Row(children: tiles);
       });
 
@@ -356,11 +357,11 @@ void main() {
 
     testWidgets(
         'may start a timer '
-        'in layoutDelegate', (tester) async {
+        'in layoutDelegate', (WidgetTester tester) async {
       when(() => layoutDelegate.startSectionBuilder(any()))
-          .thenAnswer((invocation) {
+          .thenAnswer((Invocation invocation) {
         return Builder(
-          builder: (context) {
+          builder: (BuildContext context) {
             return TextButton(
               onPressed: () => context.read<TimerBloc>().add(TimerStarted()),
               key: Key('__start_timer__'),
@@ -384,7 +385,7 @@ void main() {
     group('PuzzleHeader', () {
       testWidgets(
           'renders PuzzleLogo and PuzzleMenu '
-          'on a large display', (tester) async {
+          'on a large display', (WidgetTester tester) async {
         tester.setLargeDisplaySize();
 
         await tester.pumpApp(
@@ -399,7 +400,7 @@ void main() {
 
       testWidgets(
           'renders PuzzleLogo and PuzzleMenu '
-          'on a medium display', (tester) async {
+          'on a medium display', (WidgetTester tester) async {
         tester.setMediumDisplaySize();
 
         await tester.pumpApp(
@@ -414,7 +415,7 @@ void main() {
 
       testWidgets(
           'renders PuzzleLogo and AudioControl '
-          'on a small display', (tester) async {
+          'on a small display', (WidgetTester tester) async {
         tester.setSmallDisplaySize();
 
         await tester.pumpApp(
@@ -433,12 +434,12 @@ void main() {
       late PuzzleBloc puzzleBloc;
 
       setUp(() {
-        final puzzleState = MockPuzzleState();
-        final puzzle = MockPuzzle();
+        final MockPuzzleState puzzleState = MockPuzzleState();
+        final MockPuzzle puzzle = MockPuzzle();
         puzzleBloc = MockPuzzleBloc();
 
         when(puzzle.getDimension).thenReturn(4);
-        when(() => puzzle.tiles).thenReturn([]);
+        when(() => puzzle.tiles).thenReturn(<Tile>[]);
         when(() => puzzleState.puzzle).thenReturn(puzzle);
         when(() => puzzleState.puzzleStatus).thenReturn(PuzzleStatus.complete);
         whenListen(
@@ -451,7 +452,7 @@ void main() {
       group('on a large display', () {
         testWidgets(
             'builds start section '
-            'with layoutDelegate.startSectionBuilder', (tester) async {
+            'with layoutDelegate.startSectionBuilder', (WidgetTester tester) async {
           tester.setLargeDisplaySize();
 
           await tester.pumpApp(
@@ -466,7 +467,7 @@ void main() {
 
         testWidgets(
             'builds end section '
-            'with layoutDelegate.endSectionBuilder', (tester) async {
+            'with layoutDelegate.endSectionBuilder', (WidgetTester tester) async {
           tester.setLargeDisplaySize();
 
           await tester.pumpApp(
@@ -479,7 +480,7 @@ void main() {
           verify(() => layoutDelegate.endSectionBuilder(any())).called(1);
         });
 
-        testWidgets('renders PuzzleBoard', (tester) async {
+        testWidgets('renders PuzzleBoard', (WidgetTester tester) async {
           tester.setLargeDisplaySize();
 
           await tester.pumpApp(
@@ -496,7 +497,7 @@ void main() {
       group('on a medium display', () {
         testWidgets(
             'builds start section '
-            'with layoutDelegate.startSectionBuilder', (tester) async {
+            'with layoutDelegate.startSectionBuilder', (WidgetTester tester) async {
           tester.setMediumDisplaySize();
 
           await tester.pumpApp(
@@ -511,7 +512,7 @@ void main() {
 
         testWidgets(
             'builds end section '
-            'with layoutDelegate.endSectionBuilder', (tester) async {
+            'with layoutDelegate.endSectionBuilder', (WidgetTester tester) async {
           tester.setMediumDisplaySize();
 
           await tester.pumpApp(
@@ -524,7 +525,7 @@ void main() {
           verify(() => layoutDelegate.endSectionBuilder(any())).called(1);
         });
 
-        testWidgets('renders PuzzleBoard', (tester) async {
+        testWidgets('renders PuzzleBoard', (WidgetTester tester) async {
           tester.setMediumDisplaySize();
 
           await tester.pumpApp(
@@ -541,7 +542,7 @@ void main() {
       group('on a small display', () {
         testWidgets(
             'builds start section '
-            'with layoutDelegate.startSectionBuilder', (tester) async {
+            'with layoutDelegate.startSectionBuilder', (WidgetTester tester) async {
           tester.setSmallDisplaySize();
 
           await tester.pumpApp(
@@ -556,7 +557,7 @@ void main() {
 
         testWidgets(
             'builds end section '
-            'with layoutDelegate.endSectionBuilder', (tester) async {
+            'with layoutDelegate.endSectionBuilder', (WidgetTester tester) async {
           tester.setSmallDisplaySize();
 
           await tester.pumpApp(
@@ -569,7 +570,7 @@ void main() {
           verify(() => layoutDelegate.endSectionBuilder(any())).called(1);
         });
 
-        testWidgets('renders PuzzleMenu', (tester) async {
+        testWidgets('renders PuzzleMenu', (WidgetTester tester) async {
           tester.setSmallDisplaySize();
 
           await tester.pumpApp(
@@ -582,7 +583,7 @@ void main() {
           expect(find.byType(PuzzleMenu), findsOneWidget);
         });
 
-        testWidgets('renders PuzzleBoard', (tester) async {
+        testWidgets('renders PuzzleBoard', (WidgetTester tester) async {
           tester.setSmallDisplaySize();
 
           await tester.pumpApp(
@@ -602,11 +603,11 @@ void main() {
 
       setUp(() {
         puzzleBloc = MockPuzzleBloc();
-        final puzzleState = MockPuzzleState();
-        final puzzle = MockPuzzle();
+        final MockPuzzleState puzzleState = MockPuzzleState();
+        final MockPuzzle puzzle = MockPuzzle();
 
         when(puzzle.getDimension).thenReturn(4);
-        when(() => puzzle.tiles).thenReturn([]);
+        when(() => puzzle.tiles).thenReturn(<Tile>[]);
         when(() => puzzleState.puzzle).thenReturn(puzzle);
         when(() => puzzleState.puzzleStatus).thenReturn(PuzzleStatus.complete);
         whenListen(
@@ -618,11 +619,11 @@ void main() {
 
       testWidgets(
           'adds TimerStopped to TimerBloc '
-          'when the puzzle completes', (tester) async {
-        final timerBloc = MockTimerBloc();
-        final timerState = MockTimerState();
+          'when the puzzle completes', (WidgetTester tester) async {
+        final MockTimerBloc timerBloc = MockTimerBloc();
+        final MockTimerState timerState = MockTimerState();
 
-        const secondsElapsed = 60;
+        const int secondsElapsed = 60;
         when(() => timerState.secondsElapsed).thenReturn(secondsElapsed);
         when(() => timerBloc.state).thenReturn(timerState);
 
@@ -638,7 +639,7 @@ void main() {
         verify(() => timerBloc.add(TimerStopped())).called(1);
       });
 
-      testWidgets('renders PuzzleKeyboardHandler', (tester) async {
+      testWidgets('renders PuzzleKeyboardHandler', (WidgetTester tester) async {
         await tester.pumpApp(
           PuzzleBoard(),
           themeBloc: themeBloc,
@@ -653,9 +654,9 @@ void main() {
     group('PuzzleMenu', () {
       testWidgets(
           'renders PuzzleMenuItem '
-          'for each theme in ThemeState', (tester) async {
-        final themes = [SimpleTheme(), LittoralDashatarTheme()];
-        final themeState = ThemeState(themes: themes, theme: themes[1]);
+          'for each theme in ThemeState', (WidgetTester tester) async {
+        final List<PuzzleTheme> themes = <PuzzleTheme>[SimpleTheme(), LittoralDashatarTheme()];
+        final ThemeState themeState = ThemeState(themes: themes, theme: themes[1]);
         when(() => themeBloc.state).thenReturn(themeState);
 
         await tester.pumpApp(
@@ -666,17 +667,17 @@ void main() {
 
         expect(find.byType(PuzzleMenuItem), findsNWidgets(themes.length));
 
-        for (final theme in themes) {
+        for (final PuzzleTheme theme in themes) {
           expect(
             find.byWidgetPredicate(
-              (widget) => widget is PuzzleMenuItem && widget.theme == theme,
+              (Widget widget) => widget is PuzzleMenuItem && widget.theme == theme,
             ),
             findsOneWidget,
           );
         }
       });
 
-      testWidgets('renders AudioControl on a large display', (tester) async {
+      testWidgets('renders AudioControl on a large display', (WidgetTester tester) async {
         tester.setLargeDisplaySize();
 
         await tester.pumpApp(
@@ -688,7 +689,7 @@ void main() {
         expect(find.byType(AudioControl), findsOneWidget);
       });
 
-      testWidgets('renders AudioControl on a medium display', (tester) async {
+      testWidgets('renders AudioControl on a medium display', (WidgetTester tester) async {
         tester.setMediumDisplaySize();
 
         await tester.pumpApp(
@@ -708,14 +709,14 @@ void main() {
 
       setUp(() {
         tappedTheme = LittoralDashatarTheme();
-        themes = [SimpleTheme(), tappedTheme];
+        themes = <PuzzleTheme>[SimpleTheme(), tappedTheme];
         themeState = ThemeState(themes: themes, theme: SimpleTheme());
 
         when(() => themeBloc.state).thenReturn(themeState);
       });
 
       group('when tapped', () {
-        testWidgets('adds ThemeChanged to ThemeBloc', (tester) async {
+        testWidgets('adds ThemeChanged to ThemeBloc', (WidgetTester tester) async {
           await tester.pumpApp(
             PuzzleMenuItem(
               theme: tappedTheme,
@@ -729,8 +730,8 @@ void main() {
           verify(() => themeBloc.add(ThemeChanged(themeIndex: 1))).called(1);
         });
 
-        testWidgets('adds TimerReset to TimerBloc', (tester) async {
-          final timerBloc = MockTimerBloc();
+        testWidgets('adds TimerReset to TimerBloc', (WidgetTester tester) async {
+          final MockTimerBloc timerBloc = MockTimerBloc();
 
           await tester.pumpApp(
             PuzzleMenuItem(
@@ -747,8 +748,8 @@ void main() {
         });
 
         testWidgets('adds DashatarCountdownStopped to DashatarPuzzleBloc',
-            (tester) async {
-          final dashatarPuzzleBloc = MockDashatarPuzzleBloc();
+            (WidgetTester tester) async {
+          final MockDashatarPuzzleBloc dashatarPuzzleBloc = MockDashatarPuzzleBloc();
 
           await tester.pumpApp(
             PuzzleMenuItem(
@@ -768,8 +769,8 @@ void main() {
         testWidgets(
             'adds PuzzleInitialized to PuzzleBloc '
             'with shufflePuzzle equal to true '
-            'if theme is SimpleTheme', (tester) async {
-          final puzzleBloc = MockPuzzleBloc();
+            'if theme is SimpleTheme', (WidgetTester tester) async {
+          final MockPuzzleBloc puzzleBloc = MockPuzzleBloc();
 
           when(() => themeBloc.state).thenReturn(
             ThemeState(
@@ -796,8 +797,8 @@ void main() {
         testWidgets(
             'adds PuzzleInitialized to PuzzleBloc '
             'with shufflePuzzle equal to false '
-            'if current theme is not SimpleTheme', (tester) async {
-          final puzzleBloc = MockPuzzleBloc();
+            'if current theme is not SimpleTheme', (WidgetTester tester) async {
+          final MockPuzzleBloc puzzleBloc = MockPuzzleBloc();
 
           when(() => themeBloc.state).thenReturn(
             ThemeState(
@@ -822,7 +823,7 @@ void main() {
         });
       });
 
-      testWidgets('renders Tooltip', (tester) async {
+      testWidgets('renders Tooltip', (WidgetTester tester) async {
         await tester.pumpApp(
           PuzzleMenuItem(
             theme: tappedTheme,
@@ -834,7 +835,7 @@ void main() {
         expect(find.byType(Tooltip), findsOneWidget);
       });
 
-      testWidgets('renders theme name', (tester) async {
+      testWidgets('renders theme name', (WidgetTester tester) async {
         await tester.pumpApp(
           PuzzleMenuItem(
             theme: tappedTheme,

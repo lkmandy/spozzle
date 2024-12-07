@@ -12,12 +12,12 @@ void main() {
     late ThemeBloc themeBloc;
     late PuzzleTheme theme;
 
-    const themeName = 'Name';
+    const String themeName = 'Name';
 
     setUp(() {
       themeBloc = MockThemeBloc();
       theme = MockPuzzleTheme();
-      final themeState = ThemeState(themes: [theme], theme: theme);
+      final ThemeState themeState = ThemeState(themes: <PuzzleTheme>[theme], theme: theme);
 
       when(() => theme.name).thenReturn(themeName);
       when(() => theme.nameColor).thenReturn(Colors.black);
@@ -26,7 +26,7 @@ void main() {
 
     testWidgets(
         'renders theme name '
-        'on a medium display', (tester) async {
+        'on a medium display', (WidgetTester tester) async {
       tester.setLargeDisplaySize();
 
       await tester.pumpApp(
@@ -39,7 +39,7 @@ void main() {
 
     testWidgets(
         'renders an empty widget '
-        'on a medium display', (tester) async {
+        'on a medium display', (WidgetTester tester) async {
       tester.setMediumDisplaySize();
 
       await tester.pumpApp(
@@ -53,7 +53,7 @@ void main() {
 
     testWidgets(
         'renders an empty widget '
-        'on a small display', (tester) async {
+        'on a small display', (WidgetTester tester) async {
       tester.setSmallDisplaySize();
 
       await tester.pumpApp(
@@ -65,17 +65,17 @@ void main() {
       expect(find.text(themeName), findsNothing);
     });
 
-    testWidgets('renders text in the given color', (tester) async {
+    testWidgets('renders text in the given color', (WidgetTester tester) async {
       tester.setLargeDisplaySize();
 
-      const color = Colors.purple;
+      const MaterialColor color = Colors.purple;
 
       await tester.pumpApp(
         PuzzleName(color: color),
         themeBloc: themeBloc,
       );
 
-      final textStyle = tester.firstWidget<AnimatedDefaultTextStyle>(
+      final AnimatedDefaultTextStyle textStyle = tester.firstWidget<AnimatedDefaultTextStyle>(
         find.byType(AnimatedDefaultTextStyle),
       );
 
@@ -85,10 +85,10 @@ void main() {
     testWidgets(
         'renders text '
         'using PuzzleTheme.nameColor as text color '
-        'if not provided', (tester) async {
+        'if not provided', (WidgetTester tester) async {
       tester.setLargeDisplaySize();
 
-      const nameColor = Colors.green;
+      const MaterialColor nameColor = Colors.green;
       when(() => theme.nameColor).thenReturn(nameColor);
 
       await tester.pumpApp(
@@ -96,7 +96,7 @@ void main() {
         themeBloc: themeBloc,
       );
 
-      final textStyle = tester.firstWidget<AnimatedDefaultTextStyle>(
+      final AnimatedDefaultTextStyle textStyle = tester.firstWidget<AnimatedDefaultTextStyle>(
         find.byType(AnimatedDefaultTextStyle),
       );
 

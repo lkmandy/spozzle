@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:spozzle/layout/layout.dart';
-import 'package:spozzle/theme/themes/themes.dart';
+import '../../layout/layout.dart';
+import '../themes/themes.dart';
 
 /// {@template app_flutter_logo}
 /// Variant of the Spozzle logo that can be either white or colored.
@@ -21,7 +21,7 @@ class AppFlutterLogo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final assetName = isColored
+    final String assetName = isColored
         ? 'assets/images/logo_spozzle_color.png'
         : 'assets/images/logo_spozzle_white.png';
 

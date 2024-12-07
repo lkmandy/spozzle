@@ -21,7 +21,7 @@ void main() {
     setUp(() {
       dashatarThemeBloc = MockDashatarThemeBloc();
       when(() => dashatarThemeBloc.state).thenReturn(
-        DashatarThemeState(themes: [LittoralDashatarTheme()]),
+        DashatarThemeState(themes: <DashatarTheme>[LittoralDashatarTheme()]),
       );
 
       puzzleBloc = MockPuzzleBloc();
@@ -34,7 +34,7 @@ void main() {
       when(() => audioControlBloc.state).thenReturn(AudioControlState());
     });
 
-    testWidgets('renders on a large display', (tester) async {
+    testWidgets('renders on a large display', (WidgetTester tester) async {
       tester.setLargeDisplaySize();
 
       await tester.pumpApp(
@@ -56,7 +56,7 @@ void main() {
       );
     });
 
-    testWidgets('renders on a medium display', (tester) async {
+    testWidgets('renders on a medium display', (WidgetTester tester) async {
       tester.setMediumDisplaySize();
 
       await tester.pumpApp(
@@ -78,7 +78,7 @@ void main() {
       );
     });
 
-    testWidgets('renders on a small display', (tester) async {
+    testWidgets('renders on a small display', (WidgetTester tester) async {
       tester.setSmallDisplaySize();
 
       await tester.pumpApp(
@@ -100,7 +100,7 @@ void main() {
       );
     });
 
-    testWidgets('renders DashatarShareDialogAnimatedBuilder', (tester) async {
+    testWidgets('renders DashatarShareDialogAnimatedBuilder', (WidgetTester tester) async {
       await tester.pumpApp(
         Scaffold(
           body: DashatarShareDialog(),
@@ -120,7 +120,7 @@ void main() {
       );
     });
 
-    testWidgets('renders DashatarScore', (tester) async {
+    testWidgets('renders DashatarScore', (WidgetTester tester) async {
       await tester.pumpApp(
         Scaffold(
           body: DashatarShareDialog(),
@@ -140,7 +140,7 @@ void main() {
       );
     });
 
-    testWidgets('renders DashatarShareYourScore', (tester) async {
+    testWidgets('renders DashatarShareYourScore', (WidgetTester tester) async {
       await tester.pumpApp(
         Scaffold(
           body: DashatarShareDialog(),
@@ -160,7 +160,7 @@ void main() {
       );
     });
 
-    testWidgets('renders close button', (tester) async {
+    testWidgets('renders close button', (WidgetTester tester) async {
       await tester.pumpApp(
         Scaffold(
           body: DashatarShareDialog(),
@@ -180,7 +180,7 @@ void main() {
       );
     });
 
-    testWidgets('renders AudioControlListeners', (tester) async {
+    testWidgets('renders AudioControlListeners', (WidgetTester tester) async {
       await tester.pumpApp(
         Scaffold(
           body: DashatarShareDialog(),
@@ -205,7 +205,7 @@ void main() {
       );
     });
 
-    testWidgets('pops when tapped on close button', (tester) async {
+    testWidgets('pops when tapped on close button', (WidgetTester tester) async {
       await tester.pumpApp(
         Scaffold(
           body: DashatarShareDialog(),

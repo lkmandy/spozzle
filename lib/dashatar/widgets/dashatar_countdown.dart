@@ -3,14 +3,15 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:spozzle/audio_control/audio_control.dart';
-import 'package:spozzle/dashatar/dashatar.dart';
-import 'package:spozzle/helpers/helpers.dart';
-import 'package:spozzle/l10n/l10n.dart';
-import 'package:spozzle/layout/layout.dart';
-import 'package:spozzle/puzzle/puzzle.dart';
-import 'package:spozzle/timer/timer.dart';
-import 'package:spozzle/typography/typography.dart';
+
+import '../../audio_control/audio_control.dart';
+import '../../helpers/helpers.dart';
+import '../../l10n/l10n.dart';
+import '../../layout/layout.dart';
+import '../../puzzle/puzzle.dart';
+import '../../timer/timer.dart';
+import '../../typography/typography.dart';
+import '../dashatar.dart';
 
 /// {@template dashatar_countdown}
 /// Displays the countdown before the puzzle is started.
@@ -50,7 +51,7 @@ class _DashatarCountdownState extends State<DashatarCountdown> {
     return AudioControlListener(
       audioPlayer: _audioPlayer,
       child: BlocListener<DashatarPuzzleBloc, DashatarPuzzleState>(
-        listener: (context, state) {
+        listener: (BuildContext context, DashatarPuzzleState state) {
           if (!state.isCountdownRunning) {
             return;
           }
@@ -75,7 +76,7 @@ class _DashatarCountdownState extends State<DashatarCountdown> {
           medium: (_, __) => const SizedBox(),
           large: (_, __) =>
               BlocBuilder<DashatarPuzzleBloc, DashatarPuzzleState>(
-            builder: (context, state) {
+            builder: (BuildContext context, DashatarPuzzleState state) {
               if (!state.isCountdownRunning || state.secondsToBegin > 3) {
                 return const SizedBox();
               }
@@ -164,7 +165,7 @@ class _DashatarCountdownSecondsToBeginState
 
   @override
   Widget build(BuildContext context) {
-    final theme = context.select((DashatarThemeBloc bloc) => bloc.state.theme);
+    final DashatarTheme theme = context.select((DashatarThemeBloc bloc) => bloc.state.theme);
 
     return FadeTransition(
       opacity: outOpacity,
@@ -252,7 +253,7 @@ class _DashatarCountdownGoState extends State<DashatarCountdownGo>
 
   @override
   Widget build(BuildContext context) {
-    final theme = context.select((DashatarThemeBloc bloc) => bloc.state.theme);
+    final DashatarTheme theme = context.select((DashatarThemeBloc bloc) => bloc.state.theme);
 
     return Padding(
       padding: const EdgeInsets.only(top: 101),

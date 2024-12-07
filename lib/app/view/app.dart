@@ -216,7 +216,7 @@ class _AppState extends State<App> {
           (LanguageControlBloc bloc) => bloc.state.language.languageCode,
         ),
       ),
-      localizationsDelegates: const [
+      localizationsDelegates: const <LocalizationsDelegate>[
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
       ],

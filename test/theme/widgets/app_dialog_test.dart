@@ -10,10 +10,10 @@ void main() {
   group('AppDialog', () {
     testWidgets(
         'renders child in Dialog '
-        'on a large display', (tester) async {
+        'on a large display', (WidgetTester tester) async {
       tester.setLargeDisplaySize();
 
-      const key = Key('__child__');
+      const Key key = Key('__child__');
 
       await tester.pumpApp(
         AppDialog(
@@ -32,10 +32,10 @@ void main() {
 
     testWidgets(
         'renders child in Dialog '
-        'on a medium display', (tester) async {
+        'on a medium display', (WidgetTester tester) async {
       tester.setMediumDisplaySize();
 
-      const key = Key('__child__');
+      const Key key = Key('__child__');
 
       await tester.pumpApp(
         AppDialog(
@@ -54,10 +54,10 @@ void main() {
 
     testWidgets(
         'renders child in full screen SizedBox '
-        'on a small display', (tester) async {
+        'on a small display', (WidgetTester tester) async {
       tester.setSmallDisplaySize();
 
-      const key = Key('__child__');
+      const Key key = Key('__child__');
 
       await tester.pumpApp(
         AppDialog(
@@ -68,7 +68,7 @@ void main() {
       expect(
         find.descendant(
           of: find.byWidgetPredicate(
-            (widget) =>
+            (Widget widget) =>
                 widget is SizedBox &&
                 widget.width == double.infinity &&
                 widget.height == double.infinity,

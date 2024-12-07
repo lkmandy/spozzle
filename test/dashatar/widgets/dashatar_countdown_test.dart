@@ -20,7 +20,7 @@ void main() {
 
     setUp(() {
       dashatarPuzzleBloc = MockDashatarPuzzleBloc();
-      final dashatarPuzzleState = DashatarPuzzleState(secondsToBegin: 3);
+      final DashatarPuzzleState dashatarPuzzleState = DashatarPuzzleState(secondsToBegin: 3);
       whenListen(
         dashatarPuzzleBloc,
         Stream.value(dashatarPuzzleState),
@@ -28,8 +28,8 @@ void main() {
       );
 
       dashatarThemeBloc = MockDashatarThemeBloc();
-      final themes = [LittoralDashatarTheme()];
-      final dashatarThemeState = DashatarThemeState(themes: themes);
+      final List<LittoralDashatarTheme> themes = <LittoralDashatarTheme>[LittoralDashatarTheme()];
+      final DashatarThemeState dashatarThemeState = DashatarThemeState(themes: themes);
       whenListen(
         dashatarThemeBloc,
         Stream.value(dashatarThemeState),
@@ -43,15 +43,15 @@ void main() {
     testWidgets(
         'adds PuzzleReset to PuzzleBloc '
         'when isCountdownRunning is true and '
-        'secondsToBegin is between 1 and 3 (inclusive)', (tester) async {
-      final puzzleBloc = MockPuzzleBloc();
+        'secondsToBegin is between 1 and 3 (inclusive)', (WidgetTester tester) async {
+      final MockPuzzleBloc puzzleBloc = MockPuzzleBloc();
 
-      final state = DashatarPuzzleState(
+      final DashatarPuzzleState state = DashatarPuzzleState(
         isCountdownRunning: true,
         secondsToBegin: 4,
       );
 
-      final streamController = StreamController<DashatarPuzzleState>();
+      final StreamController<DashatarPuzzleState> streamController = StreamController<DashatarPuzzleState>();
 
       whenListen(
         dashatarPuzzleBloc,
@@ -79,8 +79,8 @@ void main() {
 
     testWidgets(
         'plays the shuffle sound '
-        'when secondsToBegin is 3', (tester) async {
-      final audioPlayer = MockAudioPlayer();
+        'when secondsToBegin is 3', (WidgetTester tester) async {
+      final MockAudioPlayer audioPlayer = MockAudioPlayer();
       when(() => audioPlayer.setAsset(any())).thenAnswer((_) async => null);
       when(() => audioPlayer.seek(any())).thenAnswer((_) async {});
       when(() => audioPlayer.setVolume(any())).thenAnswer((_) async {});
@@ -88,7 +88,7 @@ void main() {
       when(audioPlayer.stop).thenAnswer((_) async {});
       when(audioPlayer.dispose).thenAnswer((_) async {});
 
-      final state = DashatarPuzzleState(
+      final DashatarPuzzleState state = DashatarPuzzleState(
         isCountdownRunning: true,
         secondsToBegin: 3,
       );
@@ -116,10 +116,10 @@ void main() {
       testWidgets(
           'renders DashatarCountdownSecondsToBegin '
           'if isCountdownRunning is true and '
-          'secondsToBegin is greater than 0', (tester) async {
+          'secondsToBegin is greater than 0', (WidgetTester tester) async {
         tester.setLargeDisplaySize();
 
-        final state = DashatarPuzzleState(
+        final DashatarPuzzleState state = DashatarPuzzleState(
           isCountdownRunning: true,
           secondsToBegin: 3,
         );
@@ -139,7 +139,7 @@ void main() {
 
         expect(
           find.byWidgetPredicate(
-            (widget) =>
+            (Widget widget) =>
                 widget is DashatarCountdownSecondsToBegin &&
                 widget.secondsToBegin == state.secondsToBegin,
           ),
@@ -152,10 +152,10 @@ void main() {
       testWidgets(
           'renders DashatarCountdownGo '
           'if isCountdownRunning is true and '
-          'secondsToBegin is equal to 0', (tester) async {
+          'secondsToBegin is equal to 0', (WidgetTester tester) async {
         tester.setLargeDisplaySize();
 
-        final state = DashatarPuzzleState(
+        final DashatarPuzzleState state = DashatarPuzzleState(
           isCountdownRunning: true,
           secondsToBegin: 0,
         );
@@ -179,10 +179,10 @@ void main() {
 
       testWidgets(
           'renders SizedBox '
-          'if isCountdownRunning is false', (tester) async {
+          'if isCountdownRunning is false', (WidgetTester tester) async {
         tester.setLargeDisplaySize();
 
-        final state = DashatarPuzzleState(
+        final DashatarPuzzleState state = DashatarPuzzleState(
           isCountdownRunning: false,
           secondsToBegin: 3,
         );
@@ -207,10 +207,10 @@ void main() {
 
       testWidgets(
           'renders SizedBox '
-          'if secondsToBegin is greater than 3', (tester) async {
+          'if secondsToBegin is greater than 3', (WidgetTester tester) async {
         tester.setLargeDisplaySize();
 
-        final state = DashatarPuzzleState(
+        final DashatarPuzzleState state = DashatarPuzzleState(
           isCountdownRunning: true,
           secondsToBegin: 4,
         );
@@ -234,7 +234,7 @@ void main() {
       });
     });
 
-    testWidgets('renders SizedBox on a medium display', (tester) async {
+    testWidgets('renders SizedBox on a medium display', (WidgetTester tester) async {
       tester.setMediumDisplaySize();
 
       await tester.pumpApp(
@@ -248,7 +248,7 @@ void main() {
       expect(find.byType(DashatarCountdownGo), findsNothing);
     });
 
-    testWidgets('renders SizedBox on a small display', (tester) async {
+    testWidgets('renders SizedBox on a small display', (WidgetTester tester) async {
       tester.setSmallDisplaySize();
 
       await tester.pumpApp(
@@ -262,7 +262,7 @@ void main() {
       expect(find.byType(DashatarCountdownGo), findsNothing);
     });
 
-    testWidgets('renders AudioControlListener', (tester) async {
+    testWidgets('renders AudioControlListener', (WidgetTester tester) async {
       await tester.pumpApp(
         DashatarCountdown(),
         dashatarPuzzleBloc: dashatarPuzzleBloc,
@@ -280,8 +280,8 @@ void main() {
     setUp(() {
       dashatarThemeBloc = MockDashatarThemeBloc();
       dashatarTheme = MockDashatarTheme();
-      final dashatarThemeState = DashatarThemeState(
-        themes: [dashatarTheme],
+      final DashatarThemeState dashatarThemeState = DashatarThemeState(
+        themes: <DashatarTheme>[dashatarTheme],
         theme: dashatarTheme,
       );
 
@@ -292,8 +292,8 @@ void main() {
 
     testWidgets(
         'renders secondsToBegin '
-        'using DashatarTheme.countdownColor as text color', (tester) async {
-      const countdownColor = Colors.green;
+        'using DashatarTheme.countdownColor as text color', (WidgetTester tester) async {
+      const MaterialColor countdownColor = Colors.green;
       when(() => dashatarTheme.countdownColor).thenReturn(countdownColor);
 
       await tester.pumpApp(
@@ -303,7 +303,7 @@ void main() {
         dashatarThemeBloc: dashatarThemeBloc,
       );
 
-      final text = tester.widget<Text>(find.text('3'));
+      final Text text = tester.widget<Text>(find.text('3'));
 
       expect(text.style?.color, equals(countdownColor));
     });
@@ -316,8 +316,8 @@ void main() {
     setUp(() {
       dashatarThemeBloc = MockDashatarThemeBloc();
       dashatarTheme = MockDashatarTheme();
-      final themeState = DashatarThemeState(
-        themes: [dashatarTheme],
+      final DashatarThemeState themeState = DashatarThemeState(
+        themes: <DashatarTheme>[dashatarTheme],
         theme: dashatarTheme,
       );
 
@@ -328,8 +328,8 @@ void main() {
 
     testWidgets(
         'renders text '
-        'using DashatarTheme.defaultColor as text color', (tester) async {
-      const defaultColor = Colors.orange;
+        'using DashatarTheme.defaultColor as text color', (WidgetTester tester) async {
+      const MaterialColor defaultColor = Colors.orange;
       when(() => dashatarTheme.defaultColor).thenReturn(defaultColor);
 
       await tester.pumpApp(
@@ -337,7 +337,7 @@ void main() {
         dashatarThemeBloc: dashatarThemeBloc,
       );
 
-      final text = tester.widget<Text>(find.byType(Text));
+      final Text text = tester.widget<Text>(find.byType(Text));
 
       expect(text.style?.color, equals(defaultColor));
     });

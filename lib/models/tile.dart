@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:spozzle/models/models.dart';
+import 'models.dart';
 
 /// {@template tile}
 /// Model for a puzzle tile.
@@ -37,7 +37,7 @@ class Tile extends Equatable {
   }
 
   @override
-  List<Object> get props => [
+  List<Object> get props => <Object>[
         value,
         correctPosition,
         currentPosition,

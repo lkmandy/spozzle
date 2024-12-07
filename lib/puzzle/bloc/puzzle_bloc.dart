@@ -69,8 +69,8 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
   void _moveTile(Tile tile, Emitter<PuzzleState> emit) {
     if (state.puzzleStatus == PuzzleStatus.incomplete) {
       if (state.puzzle.isTileMovable(tile)) {
-        final Puzzle mutablePuzzle = Puzzle(tiles: [...state.puzzle.tiles]);
-        final Puzzle puzzle = mutablePuzzle.moveTiles(tile, []);
+        final Puzzle mutablePuzzle = Puzzle(tiles: <Tile>[...state.puzzle.tiles]);
+        final Puzzle puzzle = mutablePuzzle.moveTiles(tile, <Tile>[]);
         if (puzzle.isComplete()) {
           emit(
             state.copyWith(
@@ -173,7 +173,7 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
     List<Position> currentPositions,
   ) {
     final Position whitespacePosition = Position(x: size, y: size);
-    return [
+    return <Tile>[
       for (int i = 1; i <= size * size; i++)
         if (i == size * size)
           Tile(

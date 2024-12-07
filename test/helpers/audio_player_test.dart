@@ -1,7 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:spozzle/helpers/helpers.dart';
-import 'package:very_good_analysis/very_good_analysis.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -14,11 +15,11 @@ void main() {
 
   group('replay', () {
     test('replays the audio', () async {
-      final audioPlayer = AudioPlayer();
+      final AudioPlayer audioPlayer = AudioPlayer();
       unawaited(audioPlayer.play());
 
-      var playCount = 0;
-      audioPlayer.playingStream.listen((playing) {
+      int playCount = 0;
+      audioPlayer.playingStream.listen((bool playing) {
         if (playing == true) {
           playCount++;
         }

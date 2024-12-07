@@ -4,12 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:spozzle/audio_control/audio_control.dart';
-import 'package:spozzle/dashatar/dashatar.dart';
-import 'package:spozzle/helpers/helpers.dart';
-import 'package:spozzle/models/models.dart';
-import 'package:spozzle/puzzle/puzzle.dart';
-import 'package:spozzle/theme/theme.dart';
+
+import '../../audio_control/audio_control.dart';
+import '../../dashatar/dashatar.dart';
+import '../../helpers/helpers.dart';
+import '../../models/models.dart';
+import '../../theme/theme.dart';
+import '../puzzle.dart';
 
 /// {@template puzzle_keyboard_handler}
 /// A widget that listens to the keyboard events and moves puzzle tiles
@@ -56,17 +57,17 @@ class _PuzzleKeyboardHandlerState extends State<PuzzleKeyboardHandler> {
   }
 
   void _handleKeyEvent(RawKeyEvent event) {
-    final theme = context.read<ThemeBloc>().state.theme;
+    final PuzzleTheme theme = context.read<ThemeBloc>().state.theme;
 
     // The user may move tiles only when the puzzle is started.
     // There's no need to check the Simple theme as it is started by default.
-    final canMoveTiles = !(theme is DashatarTheme &&
+    final bool canMoveTiles = !(theme is DashatarTheme &&
         context.read<DashatarPuzzleBloc>().state.status !=
             DashatarPuzzleStatus.started);
 
     if (event is RawKeyDownEvent && canMoveTiles) {
-      final puzzle = context.read<PuzzleBloc>().state.puzzle;
-      final physicalKey = event.data.physicalKey;
+      final Puzzle puzzle = context.read<PuzzleBloc>().state.puzzle;
+      final PhysicalKeyboardKey physicalKey = event.data.physicalKey;
 
       Tile? tile;
       if (physicalKey == PhysicalKeyboardKey.arrowDown) {
@@ -94,7 +95,7 @@ class _PuzzleKeyboardHandlerState extends State<PuzzleKeyboardHandler> {
         focusNode: _focusNode,
         onKey: _handleKeyEvent,
         child: Builder(
-          builder: (context) {
+          builder: (BuildContext context) {
             if (!_focusNode.hasFocus) {
               FocusScope.of(context).requestFocus(_focusNode);
             }

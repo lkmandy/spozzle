@@ -17,13 +17,13 @@ void main() {
 
     setUp(() {
       dashatarThemeBloc = MockDashatarThemeBloc();
-      dashatarThemes = [
+      dashatarThemes = <DashatarTheme>[
         LittoralDashatarTheme(),
         NorthDashatarTheme(),
         WestDashatarTheme()
       ];
       dashatarTheme = LittoralDashatarTheme();
-      final dashatarThemeState = DashatarThemeState(
+      final DashatarThemeState dashatarThemeState = DashatarThemeState(
         themes: dashatarThemes,
         theme: dashatarTheme,
       );
@@ -34,7 +34,7 @@ void main() {
       when(() => audioControlBloc.state).thenReturn(AudioControlState());
     });
 
-    testWidgets('renders on a large display', (tester) async {
+    testWidgets('renders on a large display', (WidgetTester tester) async {
       tester.setLargeDisplaySize();
 
       await tester.pumpApp(
@@ -49,7 +49,7 @@ void main() {
       );
     });
 
-    testWidgets('renders on a medium display', (tester) async {
+    testWidgets('renders on a medium display', (WidgetTester tester) async {
       tester.setMediumDisplaySize();
 
       await tester.pumpApp(
@@ -64,7 +64,7 @@ void main() {
       );
     });
 
-    testWidgets('renders on a small display', (tester) async {
+    testWidgets('renders on a small display', (WidgetTester tester) async {
       tester.setSmallDisplaySize();
 
       await tester.pumpApp(
@@ -81,17 +81,17 @@ void main() {
 
     testWidgets(
         'renders Image with a theme asset '
-        'for each Dashatar theme', (tester) async {
+        'for each Dashatar theme', (WidgetTester tester) async {
       await tester.pumpApp(
         DashatarThemePicker(),
         dashatarThemeBloc: dashatarThemeBloc,
         audioControlBloc: audioControlBloc,
       );
 
-      for (final dashatarTheme in dashatarThemes) {
+      for (final DashatarTheme dashatarTheme in dashatarThemes) {
         expect(
           find.byWidgetPredicate(
-            (widget) =>
+            (Widget widget) =>
                 widget is Image &&
                 (widget.image as AssetImage).assetName ==
                     dashatarTheme.themeAsset,
@@ -101,7 +101,7 @@ void main() {
       }
     });
 
-    testWidgets('renders AudioControlListener', (tester) async {
+    testWidgets('renders AudioControlListener', (WidgetTester tester) async {
       await tester.pumpApp(
         DashatarThemePicker(),
         dashatarThemeBloc: dashatarThemeBloc,
@@ -113,7 +113,7 @@ void main() {
 
     testWidgets(
         'each Image has semanticLabel '
-        'from DashatarTheme.semanticsLabel', (tester) async {
+        'from DashatarTheme.semanticsLabel', (WidgetTester tester) async {
       await tester.pumpApp(
         DashatarThemePicker(),
         dashatarThemeBloc: dashatarThemeBloc,
@@ -123,10 +123,10 @@ void main() {
       final BuildContext context =
           tester.element(find.byType(DashatarThemePicker));
 
-      for (final dashatarTheme in dashatarThemes) {
+      for (final DashatarTheme dashatarTheme in dashatarThemes) {
         expect(
           find.byWidgetPredicate(
-            (widget) =>
+            (Widget widget) =>
                 widget is Image &&
                 widget.semanticLabel == dashatarTheme.semanticsLabel(context),
           ),
@@ -137,14 +137,14 @@ void main() {
 
     testWidgets(
         'adds DashatarThemeChanged to DashatarThemeBloc '
-        'when tapped', (tester) async {
+        'when tapped', (WidgetTester tester) async {
       await tester.pumpApp(
         DashatarThemePicker(),
         dashatarThemeBloc: dashatarThemeBloc,
         audioControlBloc: audioControlBloc,
       );
 
-      final index = dashatarThemes.indexOf(NorthDashatarTheme());
+      final int index = dashatarThemes.indexOf(NorthDashatarTheme());
 
       await tester.tap(find.byKey(Key('dashatar_theme_picker_$index')));
 
@@ -155,8 +155,8 @@ void main() {
 
     testWidgets(
         'plays DashatarTheme.audioAsset sound '
-        'when tapped', (tester) async {
-      final audioPlayer = MockAudioPlayer();
+        'when tapped', (WidgetTester tester) async {
+      final MockAudioPlayer audioPlayer = MockAudioPlayer();
       when(() => audioPlayer.setAsset(any())).thenAnswer((_) async => null);
       when(() => audioPlayer.seek(any())).thenAnswer((_) async {});
       when(() => audioPlayer.setVolume(any())).thenAnswer((_) async {});
@@ -172,8 +172,8 @@ void main() {
         audioControlBloc: audioControlBloc,
       );
 
-      final theme = NorthDashatarTheme();
-      final index = dashatarThemes.indexOf(theme);
+      final NorthDashatarTheme theme = NorthDashatarTheme();
+      final int index = dashatarThemes.indexOf(theme);
 
       await tester.tap(find.byKey(Key('dashatar_theme_picker_$index')));
 

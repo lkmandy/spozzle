@@ -10,8 +10,8 @@ import 'package:spozzle/dashatar/dashatar.dart';
 import '../../helpers/helpers.dart';
 
 void main() {
-  final ticker = MockTicker();
-  final streamController = StreamController<int>.broadcast();
+  final MockTicker ticker = MockTicker();
+  final StreamController<int> streamController = StreamController<int>.broadcast();
 
   setUp(() {
     when(ticker.tick).thenAnswer((_) => streamController.stream);
@@ -33,10 +33,10 @@ void main() {
           'emits 4 sequential countdown states and '
           'then stops then countdown '
           'when secondsToBegin is 3', () async {
-        final bloc = DashatarPuzzleBloc(secondsToBegin: 3, ticker: ticker)
+        final DashatarPuzzleBloc bloc = DashatarPuzzleBloc(secondsToBegin: 3, ticker: ticker)
           ..add(DashatarCountdownStarted());
 
-        final state = await bloc.stream.first;
+        final DashatarPuzzleState state = await bloc.stream.first;
         expect(
           state,
           equals(
@@ -68,8 +68,8 @@ void main() {
         'decreases secondsToBegin by 1 '
         'if secondsToBegin is greater than 0',
         build: () => DashatarPuzzleBloc(secondsToBegin: 3, ticker: ticker),
-        act: (bloc) => bloc.add(DashatarCountdownTicked()),
-        expect: () => [DashatarPuzzleState(secondsToBegin: 2)],
+        act: (DashatarPuzzleBloc bloc) => bloc.add(DashatarCountdownTicked()),
+        expect: () => <DashatarPuzzleState>[DashatarPuzzleState(secondsToBegin: 2)],
       );
 
       blocTest<DashatarPuzzleBloc, DashatarPuzzleState>(
@@ -78,8 +78,8 @@ void main() {
         build: () => DashatarPuzzleBloc(secondsToBegin: 0, ticker: ticker),
         seed: () =>
             DashatarPuzzleState(secondsToBegin: 0, isCountdownRunning: true),
-        act: (bloc) => bloc..add(DashatarCountdownTicked()),
-        expect: () => [
+        act: (DashatarPuzzleBloc bloc) => bloc..add(DashatarCountdownTicked()),
+        expect: () => <DashatarPuzzleState>[
           DashatarPuzzleState(secondsToBegin: 0, isCountdownRunning: false),
         ],
       );
@@ -89,7 +89,7 @@ void main() {
       test(
           'stops the countdown and '
           'resets secondsToBegin', () async {
-        final bloc = DashatarPuzzleBloc(secondsToBegin: 3, ticker: ticker)
+        final DashatarPuzzleBloc bloc = DashatarPuzzleBloc(secondsToBegin: 3, ticker: ticker)
           ..add(DashatarCountdownStarted());
 
         expect(
@@ -123,10 +123,10 @@ void main() {
       test(
           'restarts the countdown '
           'with the given secondsToBegin', () async {
-        final bloc = DashatarPuzzleBloc(secondsToBegin: 3, ticker: ticker)
+        final DashatarPuzzleBloc bloc = DashatarPuzzleBloc(secondsToBegin: 3, ticker: ticker)
           ..add(DashatarCountdownReset(secondsToBegin: 5));
 
-        final state = await bloc.stream.first;
+        final DashatarPuzzleState state = await bloc.stream.first;
         expect(
           state,
           equals(

@@ -39,7 +39,7 @@ class DashatarPuzzleLayoutDelegate extends PuzzleLayoutDelegate {
   Widget endSectionBuilder(PuzzleState state) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.end,
-      children: [
+      children: <Widget>[
         const ResponsiveGap(
           small: 23,
           medium: 32,
@@ -90,7 +90,7 @@ class DashatarPuzzleLayoutDelegate extends PuzzleLayoutDelegate {
   @override
   Widget boardBuilder(int size, List<Widget> tiles, {PuzzleState? state}) {
     return Stack(
-      children: [
+      children: <Widget>[
         Positioned(
           top: 24,
           left: 0,
@@ -102,7 +102,7 @@ class DashatarPuzzleLayoutDelegate extends PuzzleLayoutDelegate {
           ),
         ),
         Column(
-          children: [
+          children: <Widget>[
             const ResponsiveGap(
               small: 21,
               medium: 34,
@@ -139,7 +139,7 @@ class DashatarPuzzleLayoutDelegate extends PuzzleLayoutDelegate {
   }
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => <Object?>[];
 }
 
 class ControlAndPuzzleStatus extends StatelessWidget {
@@ -156,7 +156,7 @@ class ControlAndPuzzleStatus extends StatelessWidget {
         context.select((DashatarPuzzleBloc bloc) => bloc.state.status);
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
+      children: <Widget>[
         const DashatarPuzzleActionButton(),
         // const ResponsiveGap(
         //   small: 12,

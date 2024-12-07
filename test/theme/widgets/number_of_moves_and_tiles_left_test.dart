@@ -15,13 +15,13 @@ void main() {
     setUp(() {
       themeBloc = MockThemeBloc();
       theme = MockPuzzleTheme();
-      final themeState = ThemeState(themes: [theme], theme: theme);
+      final ThemeState themeState = ThemeState(themes: <PuzzleTheme>[theme], theme: theme);
 
       when(() => theme.defaultColor).thenReturn(Colors.black);
       when(() => themeBloc.state).thenReturn(themeState);
     });
 
-    testWidgets('renders on a large display', (tester) async {
+    testWidgets('renders on a large display', (WidgetTester tester) async {
       tester.setLargeDisplaySize();
 
       await tester.pumpApp(
@@ -38,7 +38,7 @@ void main() {
       );
     });
 
-    testWidgets('renders on a medium display', (tester) async {
+    testWidgets('renders on a medium display', (WidgetTester tester) async {
       tester.setMediumDisplaySize();
 
       await tester.pumpApp(
@@ -55,7 +55,7 @@ void main() {
       );
     });
 
-    testWidgets('renders on a small display', (tester) async {
+    testWidgets('renders on a small display', (WidgetTester tester) async {
       tester.setSmallDisplaySize();
 
       await tester.pumpApp(
@@ -72,7 +72,7 @@ void main() {
       );
     });
 
-    testWidgets('renders the number of moves and tiles left', (tester) async {
+    testWidgets('renders the number of moves and tiles left', (WidgetTester tester) async {
       await tester.pumpApp(
         NumberOfMovesAndTilesLeft(
           numberOfMoves: 5,
@@ -98,8 +98,8 @@ void main() {
       );
     });
 
-    testWidgets('renders text in the given color', (tester) async {
-      const color = Colors.purple;
+    testWidgets('renders text in the given color', (WidgetTester tester) async {
+      const MaterialColor color = Colors.purple;
 
       await tester.pumpApp(
         NumberOfMovesAndTilesLeft(
@@ -110,11 +110,11 @@ void main() {
         themeBloc: themeBloc,
       );
 
-      final textStyles = tester.widgetList<AnimatedDefaultTextStyle>(
+      final Iterable<AnimatedDefaultTextStyle> textStyles = tester.widgetList<AnimatedDefaultTextStyle>(
         find.byType(AnimatedDefaultTextStyle),
       );
 
-      for (final textStyle in textStyles) {
+      for (final AnimatedDefaultTextStyle textStyle in textStyles) {
         expect(textStyle.style.color, equals(color));
       }
     });
@@ -122,8 +122,8 @@ void main() {
     testWidgets(
         'renders text '
         'using PuzzleTheme.defaultColor as text color '
-        'if not provided', (tester) async {
-      const themeColor = Colors.green;
+        'if not provided', (WidgetTester tester) async {
+      const MaterialColor themeColor = Colors.green;
 
       when(() => theme.defaultColor).thenReturn(themeColor);
 
@@ -135,11 +135,11 @@ void main() {
         themeBloc: themeBloc,
       );
 
-      final textStyles = tester.widgetList<AnimatedDefaultTextStyle>(
+      final Iterable<AnimatedDefaultTextStyle> textStyles = tester.widgetList<AnimatedDefaultTextStyle>(
         find.byType(AnimatedDefaultTextStyle),
       );
 
-      for (final textStyle in textStyles) {
+      for (final AnimatedDefaultTextStyle textStyle in textStyles) {
         expect(textStyle.style.color, equals(themeColor));
       }
     });

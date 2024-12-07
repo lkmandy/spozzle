@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:spozzle/audio_control/audio_control.dart';
+import '../audio_control.dart';
 
 /// {@template audio_control_listener}
 /// Listens to the current audio status and mutes/unmutes [audioPlayer] accordingly.
@@ -42,7 +42,7 @@ class _AudioControlListenerState extends State<AudioControlListener> {
   @override
   Widget build(BuildContext context) {
     return BlocListener<AudioControlBloc, AudioControlState>(
-      listener: (context, state) => updateAudioPlayer(muted: state.muted),
+      listener: (BuildContext context, AudioControlState state) => updateAudioPlayer(muted: state.muted),
       child: widget.child,
     );
   }

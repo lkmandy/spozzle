@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:spozzle/colors/colors.dart';
-import 'package:spozzle/layout/layout.dart';
+import '../../colors/colors.dart';
+import '../../layout/layout.dart';
 
 /// {@template app_dialog}
 /// Displays a full screen dialog on a small display and
@@ -26,10 +26,10 @@ class AppDialog extends StatelessWidget {
           child: child,
         ),
       ),
-      medium: (_, child) => child!,
-      large: (_, child) => child!,
-      child: (currentSize) {
-        final dialogWidth =
+      medium: (_, Widget? child) => child!,
+      large: (_, Widget? child) => child!,
+      child: (ResponsiveLayoutSize currentSize) {
+        final double dialogWidth =
             currentSize == ResponsiveLayoutSize.large ? 740.0 : 700.0;
 
         return Dialog(

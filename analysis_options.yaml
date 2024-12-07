@@ -19,6 +19,7 @@ analyzer:
     unnecessary_import: ignore
     # Turned off until null-safe rollout is complete.
     unnecessary_null_comparison: ignore
+    always_specify_types: ignore
   exclude:
     - "bin/cache/**"
     # Ignore protoc generated files

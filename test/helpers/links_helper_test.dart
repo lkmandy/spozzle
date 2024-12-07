@@ -24,7 +24,7 @@ void main() {
           enableJavaScript: false,
           enableDomStorage: false,
           universalLinksOnly: false,
-          headers: const {},
+          headers: const <String, String>{},
         ),
       ).thenAnswer((_) async => true);
       await openLink('url');
@@ -36,13 +36,13 @@ void main() {
           enableJavaScript: false,
           enableDomStorage: false,
           universalLinksOnly: false,
-          headers: const {},
+          headers: const <String, String>{},
         ),
       ).called(1);
     });
 
     test('executes the onError callback when it cannot launch', () async {
-      var wasCalled = false;
+      bool wasCalled = false;
       when(() => urlLauncher.canLaunch('url')).thenAnswer((_) async => false);
       when(
         () => urlLauncher.launch(
@@ -52,7 +52,7 @@ void main() {
           enableJavaScript: false,
           enableDomStorage: false,
           universalLinksOnly: false,
-          headers: const {},
+          headers: const <String, String>{},
         ),
       ).thenAnswer((_) async => true);
       await openLink(

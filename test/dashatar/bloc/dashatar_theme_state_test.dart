@@ -7,8 +7,8 @@ import '../../helpers/helpers.dart';
 void main() {
   group('DashatarThemeState', () {
     test('supports value comparisons', () {
-      final theme = MockDashatarTheme();
-      final themes = [theme];
+      final MockDashatarTheme theme = MockDashatarTheme();
+      final List<MockDashatarTheme> themes = <MockDashatarTheme>[theme];
 
       expect(
         DashatarThemeState(themes: themes, theme: theme),
@@ -23,15 +23,15 @@ void main() {
 
     test('default theme is GreenDashatarTheme', () {
       expect(
-        DashatarThemeState(themes: [MockDashatarTheme()]).theme,
+        DashatarThemeState(themes: <DashatarTheme>[MockDashatarTheme()]).theme,
         equals(LittoralDashatarTheme()),
       );
     });
 
     group('copyWith', () {
       test('updates themes', () {
-        final themesA = [LittoralDashatarTheme()];
-        final themesB = [WestDashatarTheme()];
+        final List<LittoralDashatarTheme> themesA = <LittoralDashatarTheme>[LittoralDashatarTheme()];
+        final List<WestDashatarTheme> themesB = <WestDashatarTheme>[WestDashatarTheme()];
         expect(
           DashatarThemeState(
             themes: themesA,
@@ -45,9 +45,9 @@ void main() {
       });
 
       test('updates theme', () {
-        final themes = [LittoralDashatarTheme(), WestDashatarTheme()];
-        final themeA = LittoralDashatarTheme();
-        final themeB = WestDashatarTheme();
+        final List<DashatarTheme> themes = <DashatarTheme>[LittoralDashatarTheme(), WestDashatarTheme()];
+        final LittoralDashatarTheme themeA = LittoralDashatarTheme();
+        final WestDashatarTheme themeB = WestDashatarTheme();
 
         expect(
           DashatarThemeState(

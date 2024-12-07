@@ -3,14 +3,14 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:spozzle/audio_control/audio_control.dart';
-import 'package:spozzle/colors/colors.dart';
-import 'package:spozzle/dashatar/dashatar.dart';
-import 'package:spozzle/helpers/helpers.dart';
-import 'package:spozzle/layout/layout.dart';
 
+import '../../audio_control/audio_control.dart';
+import '../../colors/colors.dart';
+import '../../helpers/helpers.dart';
+import '../../layout/layout.dart';
 import '../../puzzle/puzzle.dart';
 import '../../timer/bloc/timer_bloc.dart';
+import '../dashatar.dart';
 
 /// {@template dashatar_share_dialog}
 /// Displays a Dashatar share dialog with a score of the completed puzzle
@@ -74,32 +74,32 @@ class _DashatarShareDialogState extends State<DashatarShareDialog>
         key: const Key('dashatar_share_dialog_click_audio_player'),
         audioPlayer: _clickAudioPlayer,
         child: ResponsiveLayoutBuilder(
-          small: (_, child) => child!,
-          medium: (_, child) => child!,
-          large: (_, child) => child!,
-          child: (currentSize) {
-            final padding = currentSize == ResponsiveLayoutSize.large
+          small: (_, Widget? child) => child!,
+          medium: (_, Widget? child) => child!,
+          large: (_, Widget? child) => child!,
+          child: (ResponsiveLayoutSize currentSize) {
+            final EdgeInsets padding = currentSize == ResponsiveLayoutSize.large
                 ? const EdgeInsets.fromLTRB(68, 82, 68, 73)
                 : (currentSize == ResponsiveLayoutSize.medium
                     ? const EdgeInsets.fromLTRB(48, 54, 48, 53)
                     : const EdgeInsets.fromLTRB(20, 99, 20, 76));
 
-            final closeIconOffset = currentSize == ResponsiveLayoutSize.large
+            final Offset closeIconOffset = currentSize == ResponsiveLayoutSize.large
                 ? const Offset(44, 37)
                 : (currentSize == ResponsiveLayoutSize.medium
                     ? const Offset(25, 28)
                     : const Offset(17, 63));
 
-            final crossAxisAlignment = currentSize == ResponsiveLayoutSize.large
+            final CrossAxisAlignment crossAxisAlignment = currentSize == ResponsiveLayoutSize.large
                 ? CrossAxisAlignment.start
                 : CrossAxisAlignment.center;
 
             return Stack(
               key: const Key('dashatar_share_dialog'),
-              children: [
+              children: <Widget>[
             SingleChildScrollView(
                   child: LayoutBuilder(
-                    builder: (context, constraints) {
+                    builder: (BuildContext context, BoxConstraints constraints) {
                       context.read<TimerBloc>().add(const TimerStopped());
                       return SizedBox(
                         width: constraints.maxWidth,
@@ -107,11 +107,11 @@ class _DashatarShareDialogState extends State<DashatarShareDialog>
                           padding: padding,
                           child: DashatarShareDialogAnimatedBuilder(
                             animation: _controller,
-                            builder: (context, child, animation) {
+                            builder: (BuildContext context, Widget? child, DashatarShareDialogEnterAnimation animation) {
                               return Column(
                                 mainAxisSize: MainAxisSize.min,
                                 crossAxisAlignment: crossAxisAlignment,
-                                children: [
+                                children: <Widget>[
                                   SlideTransition(
                                     position: animation.scoreOffset,
                                     child: Opacity(
@@ -156,7 +156,7 @@ class _DashatarShareDialogState extends State<DashatarShareDialog>
                       context.read<TimerBloc>().add(const TimerReset());
                       Navigator.push (
                         context,
-                        MaterialPageRoute(builder: (context) => PuzzlePage()),
+                        MaterialPageRoute(builder: (BuildContext context) => const PuzzlePage()),
                       );
                     },
                   ),

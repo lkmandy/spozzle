@@ -24,8 +24,8 @@ void main() {
       });
 
       test('dashAssetForTile returns correct assets', () {
-        final tile = MockTile();
-        const tileValue = 6;
+        final MockTile tile = MockTile();
+        const int tileValue = 6;
         when(() => tile.value).thenReturn(tileValue);
         expect(
           WestDashatarTheme().dashAssetForTile(tile),
@@ -50,8 +50,8 @@ void main() {
       });
 
       test('dashAssetForTile returns correct assets', () {
-        final tile = MockTile();
-        const tileValue = 6;
+        final MockTile tile = MockTile();
+        const int tileValue = 6;
         when(() => tile.value).thenReturn(tileValue);
         expect(
           LittoralDashatarTheme().dashAssetForTile(tile),
@@ -76,8 +76,8 @@ void main() {
       });
 
       test('dashAssetForTile returns correct assets', () {
-        final tile = MockTile();
-        const tileValue = 6;
+        final MockTile tile = MockTile();
+        const int tileValue = 6;
         when(() => tile.value).thenReturn(tileValue);
         expect(
           NorthDashatarTheme().dashAssetForTile(tile),

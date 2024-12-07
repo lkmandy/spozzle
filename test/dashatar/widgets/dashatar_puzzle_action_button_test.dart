@@ -36,16 +36,16 @@ void main() {
 
       dashatarThemeBloc = MockDashatarThemeBloc();
       dashatarTheme = MockDashatarTheme();
-      final dashatarThemeState = DashatarThemeState(
-        themes: [dashatarTheme],
+      final DashatarThemeState dashatarThemeState = DashatarThemeState(
+        themes: <DashatarTheme>[dashatarTheme],
         theme: dashatarTheme,
       );
 
       when(() => dashatarTheme.defaultColor).thenReturn(Colors.black);
       when(() => dashatarThemeBloc.state).thenReturn(dashatarThemeState);
 
-      final theme = MockPuzzleTheme();
-      final themeState = ThemeState(themes: [theme], theme: theme);
+      final MockPuzzleTheme theme = MockPuzzleTheme();
+      final ThemeState themeState = ThemeState(themes: <PuzzleTheme>[theme], theme: theme);
       themeBloc = MockThemeBloc();
 
       when(() => theme.buttonColor).thenReturn(Colors.black);
@@ -57,8 +57,8 @@ void main() {
 
     testWidgets(
         'adds TimerReset to TimerBloc '
-        'when tapped', (tester) async {
-      final timerBloc = MockTimerBloc();
+        'when tapped', (WidgetTester tester) async {
+      final MockTimerBloc timerBloc = MockTimerBloc();
 
       await tester.pumpApp(
         DashatarPuzzleActionButton(),
@@ -78,7 +78,7 @@ void main() {
         'adds DashatarCountdownReset to DashatarPuzzleBloc '
         'with secondsToBegin equal to 5 '
         'when tapped and '
-        'DashatarPuzzleStatus is started', (tester) async {
+        'DashatarPuzzleStatus is started', (WidgetTester tester) async {
       when(() => dashatarPuzzleState.status)
           .thenReturn(DashatarPuzzleStatus.started);
 
@@ -101,7 +101,7 @@ void main() {
         'adds DashatarCountdownReset to DashatarPuzzleBloc '
         'with secondsToBegin equal to 3 '
         'when tapped and '
-        'DashatarPuzzleStatus is notStarted', (tester) async {
+        'DashatarPuzzleStatus is notStarted', (WidgetTester tester) async {
       when(() => dashatarPuzzleState.status)
           .thenReturn(DashatarPuzzleStatus.notStarted);
 
@@ -123,8 +123,8 @@ void main() {
     testWidgets(
         'adds PuzzleInitialized to PuzzleBloc '
         'when tapped and '
-        'DashatarPuzzleStatus is started', (tester) async {
-      final puzzleBloc = MockPuzzleBloc();
+        'DashatarPuzzleStatus is started', (WidgetTester tester) async {
+      final MockPuzzleBloc puzzleBloc = MockPuzzleBloc();
 
       when(() => dashatarPuzzleState.status)
           .thenReturn(DashatarPuzzleStatus.started);
@@ -148,8 +148,8 @@ void main() {
     testWidgets(
         'plays the click sound '
         'when tapped and '
-        'DashatarPuzzleStatus is not loading', (tester) async {
-      final audioPlayer = MockAudioPlayer();
+        'DashatarPuzzleStatus is not loading', (WidgetTester tester) async {
+      final MockAudioPlayer audioPlayer = MockAudioPlayer();
       when(() => audioPlayer.setAsset(any())).thenAnswer((_) async => null);
       when(() => audioPlayer.seek(any())).thenAnswer((_) async {});
       when(() => audioPlayer.setVolume(any())).thenAnswer((_) async {});
@@ -178,7 +178,7 @@ void main() {
 
     testWidgets(
         'renders disabled PuzzleButton '
-        'when DashatarPuzzleStatus is loading', (tester) async {
+        'when DashatarPuzzleStatus is loading', (WidgetTester tester) async {
       when(() => dashatarPuzzleState.status)
           .thenReturn(DashatarPuzzleStatus.loading);
 
@@ -192,7 +192,7 @@ void main() {
 
       expect(
         find.byWidgetPredicate(
-          (widget) => widget is PuzzleButton && widget.onPressed == null,
+          (Widget widget) => widget is PuzzleButton && widget.onPressed == null,
         ),
         findsOneWidget,
       );
@@ -201,11 +201,11 @@ void main() {
     testWidgets(
         'renders PuzzleButton '
         'using DashatarTheme.defaultColor as text color '
-        'when DashatarPuzzleStatus is loading', (tester) async {
+        'when DashatarPuzzleStatus is loading', (WidgetTester tester) async {
       when(() => dashatarPuzzleState.status)
           .thenReturn(DashatarPuzzleStatus.loading);
 
-      const defaultColor = Colors.orange;
+      const MaterialColor defaultColor = Colors.orange;
       when(() => dashatarTheme.defaultColor).thenReturn(defaultColor);
 
       await tester.pumpApp(
@@ -218,14 +218,14 @@ void main() {
 
       expect(
         find.byWidgetPredicate(
-          (widget) =>
+          (Widget widget) =>
               widget is PuzzleButton && widget.textColor == defaultColor,
         ),
         findsOneWidget,
       );
     });
 
-    testWidgets('renders Tooltip', (tester) async {
+    testWidgets('renders Tooltip', (WidgetTester tester) async {
       await tester.pumpApp(
         DashatarPuzzleActionButton(),
         dashatarPuzzleBloc: dashatarPuzzleBloc,
@@ -240,7 +240,7 @@ void main() {
       );
     });
 
-    testWidgets('renders AudioControlListener', (tester) async {
+    testWidgets('renders AudioControlListener', (WidgetTester tester) async {
       await tester.pumpApp(
         DashatarPuzzleActionButton(),
         dashatarPuzzleBloc: dashatarPuzzleBloc,

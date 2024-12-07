@@ -24,7 +24,7 @@ void main() {
     late AudioPlayer audioPlayer;
     late AudioControlBloc audioControlBloc;
 
-    const tile = Tile(
+    const Tile tile = Tile(
       value: 1,
       currentPosition: Position(x: 1, y: 1),
       correctPosition: Position(x: 2, y: 2),
@@ -34,7 +34,7 @@ void main() {
       themeBloc = MockThemeBloc();
       when(() => themeBloc.state).thenReturn(
         ThemeState(
-          themes: [SimpleTheme(), LittoralDashatarTheme()],
+          themes: <PuzzleTheme>[SimpleTheme(), LittoralDashatarTheme()],
           theme: SimpleTheme(),
         ),
       );
@@ -45,7 +45,7 @@ void main() {
       );
 
       puzzleBloc = MockPuzzleBloc();
-      final puzzleState = MockPuzzleState();
+      final MockPuzzleState puzzleState = MockPuzzleState();
       puzzle = MockPuzzle();
       when(() => puzzleState.puzzle).thenReturn(puzzle);
       when(() => puzzleBloc.state).thenReturn(puzzleState);
@@ -66,7 +66,7 @@ void main() {
         'adds TileTapped with a tile relative to the whitespace tile '
         'with offset (0, -1) '
         'and plays the tile_move sound '
-        'when arrow down is pressed', (tester) async {
+        'when arrow down is pressed', (WidgetTester tester) async {
       when(() => puzzle.getTileRelativeToWhitespaceTile(Offset(0, -1)))
           .thenReturn(tile);
 
@@ -100,7 +100,7 @@ void main() {
         'adds TileTapped with a tile relative to the whitespace tile '
         'with offset (0, 1) '
         'and plays the tile_move sound '
-        'when arrow up is pressed', (tester) async {
+        'when arrow up is pressed', (WidgetTester tester) async {
       when(() => puzzle.getTileRelativeToWhitespaceTile(Offset(0, 1)))
           .thenReturn(tile);
 
@@ -134,7 +134,7 @@ void main() {
         'adds TileTapped with a tile relative to the whitespace tile '
         'with offset (-1, 0) '
         'and plays the tile_move sound '
-        'when arrow right is pressed', (tester) async {
+        'when arrow right is pressed', (WidgetTester tester) async {
       when(() => puzzle.getTileRelativeToWhitespaceTile(Offset(-1, 0)))
           .thenReturn(tile);
 
@@ -168,7 +168,7 @@ void main() {
         'adds TileTapped with a tile relative to the whitespace tile '
         'with offset (1, 0) '
         'and plays the tile_move sound '
-        'when arrow left is pressed', (tester) async {
+        'when arrow left is pressed', (WidgetTester tester) async {
       when(() => puzzle.getTileRelativeToWhitespaceTile(Offset(1, 0)))
           .thenReturn(tile);
 
@@ -201,10 +201,10 @@ void main() {
     testWidgets(
         'does not add TileTapped '
         'when arrow is pressed and '
-        'Dashatar puzzle is not started', (tester) async {
+        'Dashatar puzzle is not started', (WidgetTester tester) async {
       when(() => themeBloc.state).thenReturn(
         ThemeState(
-          themes: [SimpleTheme(), LittoralDashatarTheme()],
+          themes: <PuzzleTheme>[SimpleTheme(), LittoralDashatarTheme()],
           theme: LittoralDashatarTheme(),
         ),
       );
@@ -226,8 +226,8 @@ void main() {
       verifyNever(() => puzzleBloc.add(TileTapped(tile)));
     });
 
-    testWidgets('renders child', (tester) async {
-      const key = Key('__child__');
+    testWidgets('renders child', (WidgetTester tester) async {
+      const Key key = Key('__child__');
 
       await tester.pumpApp(
         PuzzleKeyboardHandler(
@@ -242,7 +242,7 @@ void main() {
       expect(find.byKey(key), findsOneWidget);
     });
 
-    testWidgets('renders AudioControlListener', (tester) async {
+    testWidgets('renders AudioControlListener', (WidgetTester tester) async {
       await tester.pumpApp(
         PuzzleKeyboardHandler(
           child: SizedBox(),

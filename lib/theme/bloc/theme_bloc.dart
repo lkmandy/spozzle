@@ -24,7 +24,7 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
         .indexWhere((PuzzleTheme theme) => theme.name == event.theme.name);
 
     if (themeIndex != -1) {
-      final List<PuzzleTheme> newThemes = [...state.themes];
+      final List<PuzzleTheme> newThemes = <PuzzleTheme>[...state.themes];
       newThemes[themeIndex] = event.theme;
       emit(
         state.copyWith(

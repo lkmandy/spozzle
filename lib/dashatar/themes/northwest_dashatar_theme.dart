@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:spozzle/colors/colors.dart';
-import 'package:spozzle/dashatar/dashatar.dart';
-import 'package:spozzle/l10n/l10n.dart';
+
+import '../../colors/colors.dart';
+import '../../l10n/l10n.dart';
+import '../dashatar.dart';
 
 /// {@template green_dashatar_theme}
 /// The green dashatar puzzle theme.

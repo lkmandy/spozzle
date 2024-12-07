@@ -24,7 +24,7 @@ class DashatarStartSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
+      children: <Widget>[
         const ResponsiveGap(
           small: 20,
           medium: 83,

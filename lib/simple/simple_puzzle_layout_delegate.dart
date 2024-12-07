@@ -35,7 +35,7 @@ class SimplePuzzleLayoutDelegate extends PuzzleLayoutDelegate {
   @override
   Widget endSectionBuilder(PuzzleState state) {
     return Column(
-      children: [
+      children: <Widget>[
         const ResponsiveGap(
           small: 32,
           medium: 48,
@@ -93,7 +93,7 @@ class SimplePuzzleLayoutDelegate extends PuzzleLayoutDelegate {
   @override
   Widget boardBuilder(int size, List<Widget> tiles, {PuzzleState? state}) {
     return Column(
-      children: [
+      children: <Widget>[
         const ResponsiveGap(
           small: 32,
           medium: 48,
@@ -163,7 +163,7 @@ class SimplePuzzleLayoutDelegate extends PuzzleLayoutDelegate {
   }
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => <Object?>[];
 }
 
 /// {@template simple_start_section}
@@ -184,7 +184,7 @@ class SimpleStartSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
+      children: <Widget>[
         const ResponsiveGap(
           small: 20,
           medium: 83,
@@ -328,7 +328,7 @@ class SimplePuzzleTile extends StatelessWidget {
 
     return TextButton(
       style: TextButton.styleFrom(
-        primary: PuzzleColors.white,
+        foregroundColor: PuzzleColors.white,
         textStyle: PuzzleTextStyle.headline2.copyWith(
           fontSize: tileFontSize,
         ),
@@ -338,12 +338,12 @@ class SimplePuzzleTile extends StatelessWidget {
           ),
         ),
       ).copyWith(
-        foregroundColor: MaterialStateProperty.all(PuzzleColors.white),
-        backgroundColor: MaterialStateProperty.resolveWith<Color?>(
-          (Set<MaterialState> states) {
+        foregroundColor: WidgetStateProperty.all(PuzzleColors.white),
+        backgroundColor: WidgetStateProperty.resolveWith<Color?>(
+          (Set<WidgetState> states) {
             if (tile.value == state.lastTappedTile?.value) {
               return theme.pressedColor;
-            } else if (states.contains(MaterialState.hovered)) {
+            } else if (states.contains(WidgetState.hovered)) {
               return theme.hoverColor;
             } else {
               return theme.defaultColor;
@@ -382,7 +382,7 @@ class SimplePuzzleShuffleButton extends StatelessWidget {
       onPressed: () => context.read<PuzzleBloc>().add(const PuzzleReset()),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: [
+        children: <Widget>[
           Image.asset(
             'assets/images/shuffle_icon.png',
             width: 17,

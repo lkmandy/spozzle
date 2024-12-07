@@ -9,7 +9,7 @@ import '../../helpers/helpers.dart';
 void main() {
   group('DashatarThemeBloc', () {
     test('initial state is correct', () {
-      final themes = [MockDashatarTheme()];
+      final List<MockDashatarTheme> themes = <MockDashatarTheme>[MockDashatarTheme()];
 
       expect(
         DashatarThemeBloc(themes: themes).state,
@@ -27,10 +27,10 @@ void main() {
         'emits new theme',
         setUp: () {
           theme = MockDashatarTheme();
-          themes = [MockDashatarTheme(), theme];
+          themes = <DashatarTheme>[MockDashatarTheme(), theme];
         },
         build: () => DashatarThemeBloc(themes: themes),
-        act: (bloc) => bloc.add(DashatarThemeChanged(themeIndex: 1)),
+        act: (DashatarThemeBloc bloc) => bloc.add(DashatarThemeChanged(themeIndex: 1)),
         expect: () => <DashatarThemeState>[
           DashatarThemeState(themes: themes, theme: theme),
         ],

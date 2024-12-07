@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:spozzle/colors/colors.dart';
-import 'package:spozzle/dashatar/dashatar.dart';
-import 'package:spozzle/l10n/l10n.dart';
-import 'package:spozzle/layout/layout.dart';
-import 'package:spozzle/typography/typography.dart';
+
+import '../../colors/colors.dart';
+import '../../l10n/l10n.dart';
+import '../../layout/layout.dart';
+import '../../typography/typography.dart';
+import '../dashatar.dart';
 
 /// {@template dashatar_share_your_score}
 /// Displays buttons to share a score of the completed puzzle.
@@ -21,35 +22,35 @@ class DashatarShareYourScore extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = context.l10n;
+    final AppLocalizations l10n = context.l10n;
 
     return ResponsiveLayoutBuilder(
-      small: (_, child) => child!,
-      medium: (_, child) => child!,
-      large: (_, child) => child!,
-      child: (currentSize) {
-        final titleTextStyle = currentSize == ResponsiveLayoutSize.small
+      small: (_, Widget? child) => child!,
+      medium: (_, Widget? child) => child!,
+      large: (_, Widget? child) => child!,
+      child: (ResponsiveLayoutSize currentSize) {
+        final TextStyle titleTextStyle = currentSize == ResponsiveLayoutSize.small
             ? PuzzleTextStyle.headline4
             : PuzzleTextStyle.headline3;
 
-        final messageTextStyle = currentSize == ResponsiveLayoutSize.small
+        final TextStyle messageTextStyle = currentSize == ResponsiveLayoutSize.small
             ? PuzzleTextStyle.bodyXSmall
             : PuzzleTextStyle.bodySmall;
 
-        final titleAndMessageCrossAxisAlignment =
+        final CrossAxisAlignment titleAndMessageCrossAxisAlignment =
             currentSize == ResponsiveLayoutSize.large
                 ? CrossAxisAlignment.start
                 : CrossAxisAlignment.center;
 
-        final textAlign = currentSize == ResponsiveLayoutSize.large
+        final TextAlign textAlign = currentSize == ResponsiveLayoutSize.large
             ? TextAlign.left
             : TextAlign.center;
 
-        final messageWidth = currentSize == ResponsiveLayoutSize.large
+        final double messageWidth = currentSize == ResponsiveLayoutSize.large
             ? double.infinity
             : (currentSize == ResponsiveLayoutSize.medium ? 434.0 : 307.0);
 
-        final buttonsMainAxisAlignment =
+        final MainAxisAlignment buttonsMainAxisAlignment =
             currentSize == ResponsiveLayoutSize.large
                 ? MainAxisAlignment.start
                 : MainAxisAlignment.center;
@@ -57,14 +58,14 @@ class DashatarShareYourScore extends StatelessWidget {
         return Column(
           key: const Key('dashatar_share_your_score'),
           crossAxisAlignment: titleAndMessageCrossAxisAlignment,
-          children: [
+          children: <Widget>[
             SlideTransition(
               position: animation.shareYourScoreOffset,
               child: Opacity(
                 opacity: animation.shareYourScoreOpacity.value,
                 child: Column(
                   crossAxisAlignment: titleAndMessageCrossAxisAlignment,
-                  children: [
+                  children: <Widget>[
                     Text(
                       l10n.dashatarSuccessShareYourScoreTitle,
                       key: const Key('dashatar_share_your_score_title'),
@@ -100,7 +101,7 @@ class DashatarShareYourScore extends StatelessWidget {
                 opacity: animation.socialButtonsOpacity.value,
                 child: Row(
                   mainAxisAlignment: buttonsMainAxisAlignment,
-                  children: const [
+                  children: const <Widget>[
                     DashatarTwitterButton(),
                     Gap(16),
                     DashatarWhatsAppButton(),

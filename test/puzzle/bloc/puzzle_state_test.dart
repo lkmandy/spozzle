@@ -6,13 +6,13 @@ import 'package:spozzle/puzzle/puzzle.dart';
 import '../../helpers/helpers.dart';
 
 void main() {
-  final position = Position(x: 1, y: 1);
-  final tile = Tile(
+  final Position position = Position(x: 1, y: 1);
+  final Tile tile = Tile(
     value: 0,
     correctPosition: position,
     currentPosition: position,
   );
-  final puzzle = Puzzle(tiles: [tile]);
+  final Puzzle puzzle = Puzzle(tiles: <Tile>[tile]);
 
   group('PuzzleState', () {
     test('supports value comparisons', () {
@@ -20,8 +20,8 @@ void main() {
     });
 
     test('numberOfTilesLeft returns a correct value', () {
-      final tiles = [MockTile(), MockTile(), MockTile()];
-      const numberOfCorrectTiles = 1;
+      final List<MockTile> tiles = <MockTile>[MockTile(), MockTile(), MockTile()];
+      const int numberOfCorrectTiles = 1;
 
       expect(
         PuzzleState(

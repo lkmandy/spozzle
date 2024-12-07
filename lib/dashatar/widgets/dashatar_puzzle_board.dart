@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:nested/nested.dart';
 
 import '../../audio_control/audio_control.dart';
 import '../../helpers/helpers.dart';
@@ -77,7 +78,7 @@ class _DashatarPuzzleBoardState extends State<DashatarPuzzleBoard> {
             await showAppDialog<void>(
               context: context,
               child: MultiBlocProvider(
-                providers: [
+                providers: <SingleChildWidget>[
                   BlocProvider.value(
                     value: context.read<DashatarThemeBloc>(),
                   ),

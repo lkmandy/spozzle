@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:spozzle/theme/theme.dart';
+import '../theme/theme.dart';
 
 /// Displays the [AppDialog] above the current contents of the app.
 Future<T?> showAppDialog<T>({
@@ -9,8 +9,8 @@ Future<T?> showAppDialog<T>({
   String barrierLabel = '',
 }) =>
     showGeneralDialog<T>(
-      transitionBuilder: (context, animation, secondaryAnimation, widget) {
-        final curvedAnimation = CurvedAnimation(
+      transitionBuilder: (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget widget) {
+        final CurvedAnimation curvedAnimation = CurvedAnimation(
           parent: animation,
           curve: Curves.decelerate,
         );
@@ -28,7 +28,7 @@ Future<T?> showAppDialog<T>({
       barrierLabel: barrierLabel,
       barrierColor: const Color(0x66000000),
       context: context,
-      pageBuilder: (context, animation, secondaryAnimation) => AppDialog(
+      pageBuilder: (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation) => AppDialog(
         child: child,
       ),
     );

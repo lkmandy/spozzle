@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
+import 'package:nested/nested.dart';
 import '../../audio_control/bloc/audio_control_bloc.dart';
 import '../../colors/colors.dart';
 import '../../helpers/modal_helper.dart';
@@ -89,7 +90,7 @@ class _DashatarTimerState extends State<DashatarTimer>
             key: const Key('dashatar_timer'),
             mainAxisAlignment:
                 widget.mainAxisAlignment ?? MainAxisAlignment.center,
-            children: [
+            children: <Widget>[
               if (context.read<TimerBloc>().state.isRunning &&
                   secondsElapsed > 0)
                 BlocListener<TimerBloc, TimerState>(
@@ -151,7 +152,7 @@ class _DashatarTimerState extends State<DashatarTimer>
             key: const Key('dashatar_timer'),
             mainAxisAlignment:
                 widget.mainAxisAlignment ?? MainAxisAlignment.center,
-            children: [
+            children: <Widget>[
               if (context.read<TimerBloc>().state.isRunning &&
                   secondsElapsed > 0)
                 BlocListener<TimerBloc, TimerState>(
@@ -213,7 +214,7 @@ class _DashatarTimerState extends State<DashatarTimer>
             key: const Key('dashatar_timer'),
             mainAxisAlignment:
                 widget.mainAxisAlignment ?? MainAxisAlignment.center,
-            children: [
+            children: <Widget>[
               if (context.read<TimerBloc>().state.isRunning &&
                   secondsElapsed > 0)
                 BlocListener<TimerBloc, TimerState>(
@@ -281,7 +282,7 @@ class _DashatarTimerState extends State<DashatarTimer>
       await showAppDialog<void>(
         context: context,
         child: MultiBlocProvider(
-          providers: [
+          providers: <SingleChildWidget>[
             BlocProvider.value(
               value: context.read<DashatarThemeBloc>(),
             ),

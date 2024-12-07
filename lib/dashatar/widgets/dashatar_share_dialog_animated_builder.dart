@@ -1,7 +1,7 @@
 // ignore_for_file: public_member_api_docs
 
 import 'package:flutter/material.dart';
-import 'package:spozzle/dashatar/dashatar.dart';
+import '../dashatar.dart';
 
 /// The animation builder of [DashatarShareDialog].
 class DashatarShareDialogAnimatedBuilder extends StatelessWidget {
@@ -20,7 +20,7 @@ class DashatarShareDialogAnimatedBuilder extends StatelessWidget {
   Widget build(BuildContext context) {
     return AnimatedBuilder(
       animation: animation,
-      builder: (context, child) {
+      builder: (BuildContext context, Widget? child) {
         return builder(
           context,
           child,

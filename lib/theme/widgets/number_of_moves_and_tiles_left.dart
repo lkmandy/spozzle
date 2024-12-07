@@ -62,7 +62,7 @@ class NumberOfMovesAndTilesLeft extends StatelessWidget {
               mainAxisAlignment: mainAxisAlignment,
               crossAxisAlignment: CrossAxisAlignment.baseline,
               textBaseline: TextBaseline.alphabetic,
-              children: [
+              children: <Widget>[
                 AnimatedDefaultTextStyle(
                   style: PuzzleTextStyle.headline5.copyWith(
                     color: textColor,
@@ -76,7 +76,7 @@ class NumberOfMovesAndTilesLeft extends StatelessWidget {
                     color: textColor,
                   ),
                   duration: PuzzleThemeAnimationDuration.textStyle,
-                  child: Text('${numberOfMoves.toString()}  '),
+                  child: Text('$numberOfMoves  '),
                 ),
                 AnimatedDefaultTextStyle(
                   style: PuzzleTextStyle.headline5.copyWith(

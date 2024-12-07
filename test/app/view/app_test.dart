@@ -18,8 +18,8 @@ void main() {
   group('App', () {
     testWidgets(
         'renders PuzzlePage '
-        'when the platform is Web', (tester) async {
-      final platformHelper = MockPlatformHelper();
+        'when the platform is Web', (WidgetTester tester) async {
+      final MockPlatformHelper platformHelper = MockPlatformHelper();
       when(() => platformHelper.isWeb).thenReturn(true);
 
       await tester.pumpWidget(
@@ -35,10 +35,10 @@ void main() {
 
     testWidgets(
         'throws UnimplementedError '
-        'when the platform is not Web', (tester) async {
+        'when the platform is not Web', (WidgetTester tester) async {
       Object? caughtError;
       await runZonedGuarded(() async {
-        final platformHelper = MockPlatformHelper();
+        final MockPlatformHelper platformHelper = MockPlatformHelper();
         when(() => platformHelper.isWeb).thenReturn(false);
 
         await tester.pumpWidget(
@@ -48,7 +48,7 @@ void main() {
         );
 
         await tester.pump(const Duration(seconds: 1));
-      }, (error, stack) {
+      }, (Object error, StackTrace stack) {
         caughtError = error;
       });
 

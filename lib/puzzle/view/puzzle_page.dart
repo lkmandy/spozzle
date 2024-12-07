@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:nested/nested.dart';
 import '../../audio_control/audio_control.dart';
 import '../../dashatar/dashatar.dart';
 import '../../l10n/l10n.dart';
@@ -28,11 +29,11 @@ class PuzzlePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: [
+      providers: <SingleChildWidget>[
         BlocProvider(
           create: (_) {
             final DashatarThemeBloc dashatarThemeBloc = DashatarThemeBloc(
-              themes: const [
+              themes: const <DashatarTheme>[
                 NorthwestDashatarTheme(),
                 NorthDashatarTheme(),
                 LittoralDashatarTheme(),
@@ -50,7 +51,7 @@ class PuzzlePage extends StatelessWidget {
         ),
         BlocProvider(
           create: (BuildContext context) => ThemeBloc(
-            initialThemes: [
+            initialThemes: <PuzzleTheme>[
               context.read<DashatarThemeBloc>().state.theme,
             ],
           ),
@@ -98,7 +99,7 @@ class PuzzleView extends StatelessWidget {
             context.read<ThemeBloc>().add(ThemeUpdated(theme: dashatarTheme));
           },
           child: MultiBlocProvider(
-            providers: [
+            providers: <SingleChildWidget>[
               BlocProvider(
                 create: (BuildContext context) => TimerBloc(
                   ticker: const Ticker(),
@@ -135,14 +136,14 @@ class _Puzzle extends StatelessWidget {
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
         return Stack(
-          children: [
+          children: <Widget>[
             SingleChildScrollView(
               child: ConstrainedBox(
                 constraints: BoxConstraints(
                   minHeight: constraints.maxHeight,
                 ),
-                child: Column(
-                  children: const [
+                child: const Column(
+                  children: <Widget>[
                     PuzzleHeader(),
                     PuzzleSections(),
                   ],
@@ -218,7 +219,7 @@ class _HeaderState extends State<Header> {
     context.select((DashatarThemeBloc bloc) => bloc.state.theme);
 
     return Stack(
-      children: [
+      children: <Widget>[
         const Align(
           alignment: Alignment.centerLeft,
           child: PuzzleLogo(),
@@ -234,7 +235,7 @@ class _HeaderState extends State<Header> {
             padding: const EdgeInsets.only(right: 12),
             child: Row(
               mainAxisSize: MainAxisSize.min,
-              children: [
+              children: <Widget>[
                 DropdownButton(
                   dropdownColor: theme.buttonColor,
                   onChanged: (Language? language) {
@@ -251,7 +252,6 @@ class _HeaderState extends State<Header> {
                           (LanguageControlBloc bloc) => bloc.state.languages)
                       .map<DropdownMenuItem<Language>>((Language lang) =>
                           DropdownMenuItem(
-                            enabled: true,
                             value: lang,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -313,14 +313,14 @@ class PuzzleSections extends StatelessWidget {
 
     return ResponsiveLayoutBuilder(
       small: (BuildContext context, Widget? child) => Column(
-        children: [
+        children: <Widget>[
           theme.layoutDelegate.startSectionBuilder(state),
           const PuzzleBoard(),
           theme.layoutDelegate.endSectionBuilder(state),
         ],
       ),
       medium: (BuildContext context, Widget? child) => Column(
-        children: [
+        children: <Widget>[
           theme.layoutDelegate.startSectionBuilder(state),
           const PuzzleBoard(),
           theme.layoutDelegate.endSectionBuilder(state),
@@ -328,7 +328,7 @@ class PuzzleSections extends StatelessWidget {
       ),
       large: (BuildContext context, Widget? child) => Row(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
+        children: <Widget>[
           Expanded(
             child: theme.layoutDelegate.startSectionBuilder(state),
           ),
@@ -373,7 +373,7 @@ class PuzzleBoard extends StatelessWidget {
           puzzle.tiles
               .map(
                 (Tile tile) => _PuzzleTile(
-                  key: Key('puzzle_tile_${tile.value.toString()}'),
+                  key: Key('puzzle_tile_${tile.value}'),
                   tile: tile,
                 ),
               )
@@ -422,7 +422,7 @@ class PuzzleMenu extends StatelessWidget {
       large: (_, Widget? child) => child!,
       child: (ResponsiveLayoutSize currentSize) {
         return Row(
-          children: [
+          children: <Widget>[
             const Gap(44),
             AudioControl(
               key: audioControlKey,
@@ -460,7 +460,7 @@ class PuzzleMenuItem extends StatelessWidget {
 
     return ResponsiveLayoutBuilder(
       small: (_, Widget? child) => Column(
-        children: [
+        children: <Widget>[
           Container(
             width: 100,
             height: 40,
@@ -495,7 +495,7 @@ class PuzzleMenuItem extends StatelessWidget {
               style: TextButton.styleFrom(
                 padding: EdgeInsets.zero,
               ).copyWith(
-                overlayColor: MaterialStateProperty.all(Colors.transparent),
+                overlayColor: WidgetStateProperty.all(Colors.transparent),
               ),
               onPressed: () {
                 // Ignore if this theme is already selected.

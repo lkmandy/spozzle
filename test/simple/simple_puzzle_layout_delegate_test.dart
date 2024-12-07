@@ -19,11 +19,11 @@ void main() {
     late PuzzleTheme theme;
     late PuzzleState state;
 
-    const themeName = 'Name';
+    const String themeName = 'Name';
 
     setUpAll(() {
-      final oldComparator = goldenFileComparator as LocalFileComparator;
-      final newComparator =
+      final LocalFileComparator oldComparator = goldenFileComparator as LocalFileComparator;
+      final TolerantComparator newComparator =
           TolerantComparator(Uri.parse('${oldComparator.basedir}test'));
       expect(oldComparator.basedir, newComparator.basedir);
       goldenFileComparator = newComparator;
@@ -34,7 +34,7 @@ void main() {
       themeBloc = MockThemeBloc();
       theme = MockPuzzleTheme();
       state = MockPuzzleState();
-      final themeState = ThemeState(themes: [theme], theme: theme);
+      final ThemeState themeState = ThemeState(themes: <PuzzleTheme>[theme], theme: theme);
 
       when(() => state.puzzleStatus).thenReturn(PuzzleStatus.incomplete);
       when(() => state.numberOfMoves).thenReturn(5);
@@ -51,7 +51,7 @@ void main() {
     group('startSectionBuilder', () {
       testWidgets(
           'renders SimpleStartSection '
-          'on a large display', (tester) async {
+          'on a large display', (WidgetTester tester) async {
         tester.setLargeDisplaySize();
 
         await tester.pumpApp(
@@ -63,7 +63,7 @@ void main() {
 
         expect(
           find.byWidgetPredicate(
-            (widget) => widget is SimpleStartSection && widget.state == state,
+            (Widget widget) => widget is SimpleStartSection && widget.state == state,
           ),
           findsOneWidget,
         );
@@ -71,7 +71,7 @@ void main() {
 
       testWidgets(
           'renders SimpleStartSection '
-          'on a medium display', (tester) async {
+          'on a medium display', (WidgetTester tester) async {
         tester.setMediumDisplaySize();
 
         await tester.pumpApp(
@@ -83,7 +83,7 @@ void main() {
 
         expect(
           find.byWidgetPredicate(
-            (widget) => widget is SimpleStartSection && widget.state == state,
+            (Widget widget) => widget is SimpleStartSection && widget.state == state,
           ),
           findsOneWidget,
         );
@@ -91,7 +91,7 @@ void main() {
 
       testWidgets(
           'renders SimpleStartSection '
-          'on a small display', (tester) async {
+          'on a small display', (WidgetTester tester) async {
         tester.setSmallDisplaySize();
 
         await tester.pumpApp(
@@ -103,7 +103,7 @@ void main() {
 
         expect(
           find.byWidgetPredicate(
-            (widget) => widget is SimpleStartSection && widget.state == state,
+            (Widget widget) => widget is SimpleStartSection && widget.state == state,
           ),
           findsOneWidget,
         );
@@ -113,7 +113,7 @@ void main() {
     group('endSectionBuilder', () {
       testWidgets(
           'renders an empty widget '
-          'on a large display', (tester) async {
+          'on a large display', (WidgetTester tester) async {
         tester.setLargeDisplaySize();
 
         await tester.pumpApp(
@@ -129,7 +129,7 @@ void main() {
 
       testWidgets(
           'renders SimplePuzzleShuffleButton '
-          'on a medium display', (tester) async {
+          'on a medium display', (WidgetTester tester) async {
         tester.setMediumDisplaySize();
 
         await tester.pumpApp(
@@ -144,7 +144,7 @@ void main() {
 
       testWidgets(
           'renders SimplePuzzleShuffleButton '
-          'on a small display', (tester) async {
+          'on a small display', (WidgetTester tester) async {
         tester.setSmallDisplaySize();
 
         await tester.pumpApp(
@@ -161,12 +161,12 @@ void main() {
     group('backgroundBuilder', () {
       testWidgets(
           'renders a large dash Image '
-          'on a large display', (tester) async {
+          'on a large display', (WidgetTester tester) async {
         tester.setLargeDisplaySize();
 
         await tester.pumpApp(
           Stack(
-            children: [
+            children: <Widget>[
               layoutDelegate.backgroundBuilder(state),
             ],
           ),
@@ -181,12 +181,12 @@ void main() {
 
       testWidgets(
           'renders a medium dash Image '
-          'on a medium display', (tester) async {
+          'on a medium display', (WidgetTester tester) async {
         tester.setMediumDisplaySize();
 
         await tester.pumpApp(
           Stack(
-            children: [
+            children: <Widget>[
               layoutDelegate.backgroundBuilder(state),
             ],
           ),
@@ -201,12 +201,12 @@ void main() {
 
       testWidgets(
           'renders a small dash Image '
-          'on a small display', (tester) async {
+          'on a small display', (WidgetTester tester) async {
         tester.setSmallDisplaySize();
 
         await tester.pumpApp(
           Stack(
-            children: [
+            children: <Widget>[
               layoutDelegate.backgroundBuilder(state),
             ],
           ),
@@ -223,12 +223,12 @@ void main() {
     group('boardBuilder', () {
       testWidgets(
           'renders a large puzzle board '
-          'on a large display', (tester) async {
+          'on a large display', (WidgetTester tester) async {
         tester.setLargeDisplaySize();
 
         await tester.pumpApp(
           SingleChildScrollView(
-            child: layoutDelegate.boardBuilder(4, [
+            child: layoutDelegate.boardBuilder(4, <Widget>[
               const SizedBox(),
             ]),
           ),
@@ -243,12 +243,12 @@ void main() {
 
       testWidgets(
           'renders a medium puzzle board '
-          'on a medium display', (tester) async {
+          'on a medium display', (WidgetTester tester) async {
         tester.setMediumDisplaySize();
 
         await tester.pumpApp(
           SingleChildScrollView(
-            child: layoutDelegate.boardBuilder(4, [
+            child: layoutDelegate.boardBuilder(4, <Widget>[
               const SizedBox(),
             ]),
           ),
@@ -263,12 +263,12 @@ void main() {
 
       testWidgets(
           'renders a small puzzle board '
-          'on a small display', (tester) async {
+          'on a small display', (WidgetTester tester) async {
         tester.setSmallDisplaySize();
 
         await tester.pumpApp(
           SingleChildScrollView(
-            child: layoutDelegate.boardBuilder(4, [
+            child: layoutDelegate.boardBuilder(4, <Widget>[
               const SizedBox(),
             ]),
           ),
@@ -284,7 +284,7 @@ void main() {
 
     group('tileBuilder', () {
       late Tile tile;
-      const tileValue = 10;
+      const int tileValue = 10;
 
       setUp(() {
         tile = MockTile();
@@ -294,7 +294,7 @@ void main() {
 
       testWidgets(
           'renders a large puzzle tile '
-          'on a large display', (tester) async {
+          'on a large display', (WidgetTester tester) async {
         tester.setLargeDisplaySize();
 
         await tester.pumpApp(
@@ -310,7 +310,7 @@ void main() {
 
       testWidgets(
           'renders a medium puzzle tile '
-          'on a medium display', (tester) async {
+          'on a medium display', (WidgetTester tester) async {
         tester.setMediumDisplaySize();
 
         await tester.pumpApp(
@@ -326,7 +326,7 @@ void main() {
 
       testWidgets(
           'renders a small puzzle tile '
-          'on a small display', (tester) async {
+          'on a small display', (WidgetTester tester) async {
         tester.setSmallDisplaySize();
 
         await tester.pumpApp(
@@ -342,7 +342,7 @@ void main() {
     });
 
     group('whitespaceTileBuilder', () {
-      testWidgets('renders SizedBox', (tester) async {
+      testWidgets('renders SizedBox', (WidgetTester tester) async {
         await tester.pumpApp(
           layoutDelegate.whitespaceTileBuilder(),
           themeBloc: themeBloc,
@@ -356,7 +356,7 @@ void main() {
     });
 
     group('SimpleStartSection', () {
-      testWidgets('renders PuzzleName', (tester) async {
+      testWidgets('renders PuzzleName', (WidgetTester tester) async {
         await tester.pumpApp(
           SingleChildScrollView(
             child: SimpleStartSection(state: state),
@@ -367,7 +367,7 @@ void main() {
         expect(find.byType(PuzzleName), findsOneWidget);
       });
 
-      testWidgets('renders SimplePuzzleTitle', (tester) async {
+      testWidgets('renders SimplePuzzleTitle', (WidgetTester tester) async {
         when(() => state.puzzleStatus).thenReturn(PuzzleStatus.complete);
 
         await tester.pumpApp(
@@ -379,7 +379,7 @@ void main() {
 
         expect(
           find.byWidgetPredicate(
-            (widget) =>
+            (Widget widget) =>
                 widget is SimplePuzzleTitle &&
                 widget.status == state.puzzleStatus,
           ),
@@ -387,7 +387,7 @@ void main() {
         );
       });
 
-      testWidgets('renders NumberOfMovesAndTilesLeft', (tester) async {
+      testWidgets('renders NumberOfMovesAndTilesLeft', (WidgetTester tester) async {
         await tester.pumpApp(
           SingleChildScrollView(
             child: SimpleStartSection(state: state),
@@ -397,7 +397,7 @@ void main() {
 
         expect(
           find.byWidgetPredicate(
-            (widget) =>
+            (Widget widget) =>
                 widget is NumberOfMovesAndTilesLeft &&
                 widget.numberOfMoves == state.numberOfMoves &&
                 widget.numberOfTilesLeft == state.numberOfTilesLeft,
@@ -408,7 +408,7 @@ void main() {
 
       testWidgets(
           'renders SimplePuzzleShuffleButton '
-          'on a large display', (tester) async {
+          'on a large display', (WidgetTester tester) async {
         tester.setLargeDisplaySize();
 
         await tester.pumpApp(
@@ -427,8 +427,8 @@ void main() {
 
     group('SimplePuzzleTile', () {
       late Tile tile;
-      const tileValue = 10;
-      const tileFontSize = 12.0;
+      const int tileValue = 10;
+      const double tileFontSize = 12.0;
 
       setUp(() {
         tile = MockTile();
@@ -439,8 +439,8 @@ void main() {
       testWidgets(
           'adds TileTapped '
           'when tapped and '
-          'PuzzleStatus is incomplete', (tester) async {
-        final puzzleBloc = MockPuzzleBloc();
+          'PuzzleStatus is incomplete', (WidgetTester tester) async {
+        final MockPuzzleBloc puzzleBloc = MockPuzzleBloc();
         when(() => state.puzzleStatus).thenReturn(PuzzleStatus.incomplete);
         when(() => puzzleBloc.state).thenReturn(state);
 
@@ -462,8 +462,8 @@ void main() {
       testWidgets(
           'does not add TileTapped '
           'when tapped and '
-          'PuzzleStatus is complete', (tester) async {
-        final puzzleBloc = MockPuzzleBloc();
+          'PuzzleStatus is complete', (WidgetTester tester) async {
+        final MockPuzzleBloc puzzleBloc = MockPuzzleBloc();
         when(() => state.puzzleStatus).thenReturn(PuzzleStatus.complete);
         when(() => puzzleBloc.state).thenReturn(state);
 
@@ -489,7 +489,7 @@ void main() {
           when(() => theme.pressedColor).thenReturn(PuzzleColors.primary7);
         });
 
-        testWidgets('given default state', (tester) async {
+        testWidgets('given default state', (WidgetTester tester) async {
           await tester.pumpApp(
             SimplePuzzleTile(
               tile: tile,
@@ -505,7 +505,7 @@ void main() {
           );
         });
 
-        testWidgets('given tapped state', (tester) async {
+        testWidgets('given tapped state', (WidgetTester tester) async {
           when(() => state.lastTappedTile).thenReturn(tile);
 
           await tester.pumpApp(
@@ -523,7 +523,7 @@ void main() {
           );
         });
 
-        testWidgets('given hover state', (tester) async {
+        testWidgets('given hover state', (WidgetTester tester) async {
           await tester.pumpApp(
             SimplePuzzleTile(
               tile: tile,
@@ -533,7 +533,7 @@ void main() {
             themeBloc: themeBloc,
           );
 
-          final gesture =
+          final TestGesture gesture =
               await tester.createGesture(kind: PointerDeviceKind.mouse);
           await gesture.addPointer(location: Offset.zero);
           addTearDown(gesture.removePointer);
@@ -551,8 +551,8 @@ void main() {
     group('SimplePuzzleShuffleButton', () {
       testWidgets(
           'adds PuzzleReset to PuzzleBloc '
-          'on tapped', (tester) async {
-        final puzzleBloc = MockPuzzleBloc();
+          'on tapped', (WidgetTester tester) async {
+        final MockPuzzleBloc puzzleBloc = MockPuzzleBloc();
 
         await tester.pumpApp(
           SimplePuzzleShuffleButton(),

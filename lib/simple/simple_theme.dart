@@ -1,10 +1,11 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:spozzle/colors/colors.dart';
-import 'package:spozzle/layout/layout.dart';
-import 'package:spozzle/simple/simple.dart';
-import 'package:spozzle/theme/themes/themes.dart';
+
+import '../colors/colors.dart';
+import '../layout/layout.dart';
+import '../theme/themes/themes.dart';
+import 'simple.dart';
 
 /// {@template simple_theme}
 /// The simple puzzle theme.
@@ -66,7 +67,7 @@ class SimpleTheme extends PuzzleTheme {
   PuzzleLayoutDelegate get layoutDelegate => const SimplePuzzleLayoutDelegate();
 
   @override
-  List<Object?> get props => [
+  List<Object?> get props => <Object?>[
         name,
         audioControlOnAsset,
         audioControlOffAsset,

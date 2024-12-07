@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:spozzle/layout/layout.dart';
+import 'layout.dart';
 
 /// Represents the layout size passed to [ResponsiveLayoutBuilder.child].
 enum ResponsiveLayoutSize {
@@ -47,8 +47,8 @@ class ResponsiveLayoutBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
-      builder: (context, constraints) {
-        final screenWidth = MediaQuery.of(context).size.width;
+      builder: (BuildContext context, BoxConstraints constraints) {
+        final double screenWidth = MediaQuery.of(context).size.width;
 
         if (screenWidth <= PuzzleBreakpoints.small) {
           return small(context, child?.call(ResponsiveLayoutSize.small));

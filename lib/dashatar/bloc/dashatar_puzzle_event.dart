@@ -6,7 +6,7 @@ abstract class DashatarPuzzleEvent extends Equatable {
   const DashatarPuzzleEvent();
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => <Object?>[];
 }
 
 class DashatarCountdownStarted extends DashatarPuzzleEvent {
@@ -29,5 +29,5 @@ class DashatarCountdownReset extends DashatarPuzzleEvent {
   final int? secondsToBegin;
 
   @override
-  List<Object?> get props => [secondsToBegin];
+  List<Object?> get props => <Object?>[secondsToBegin];
 }

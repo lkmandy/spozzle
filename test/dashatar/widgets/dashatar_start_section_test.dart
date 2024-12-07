@@ -38,15 +38,15 @@ void main() {
 
       dashatarThemeBloc = MockDashatarThemeBloc();
       dashatarTheme = LittoralDashatarTheme();
-      final dashatarThemeState = DashatarThemeState(
-        themes: [dashatarTheme],
+      final DashatarThemeState dashatarThemeState = DashatarThemeState(
+        themes: <DashatarTheme>[dashatarTheme],
         theme: dashatarTheme,
       );
 
       when(() => dashatarThemeBloc.state).thenReturn(dashatarThemeState);
 
-      final theme = SimpleTheme();
-      final themeState = ThemeState(themes: [theme], theme: theme);
+      final SimpleTheme theme = SimpleTheme();
+      final ThemeState themeState = ThemeState(themes: <PuzzleTheme>[theme], theme: theme);
       themeBloc = MockThemeBloc();
 
       when(() => themeBloc.state).thenReturn(themeState);
@@ -58,7 +58,7 @@ void main() {
       when(() => audioControlBloc.state).thenReturn(AudioControlState());
     });
 
-    testWidgets('renders PuzzleName', (tester) async {
+    testWidgets('renders PuzzleName', (WidgetTester tester) async {
       await tester.pumpApp(
         SingleChildScrollView(
           child: DashatarStartSection(
@@ -74,7 +74,7 @@ void main() {
       expect(find.byType(PuzzleName), findsOneWidget);
     });
 
-    testWidgets('renders PuzzleTitle', (tester) async {
+    testWidgets('renders PuzzleTitle', (WidgetTester tester) async {
       await tester.pumpApp(
         SingleChildScrollView(
           child: DashatarStartSection(
@@ -92,11 +92,11 @@ void main() {
 
     testWidgets(
         'renders NumberOfMovesAndTilesLeft '
-        'when DashatarPuzzleStatus is started', (tester) async {
-      const numberOfMoves = 10;
-      const numberOfTilesLeft = 12;
+        'when DashatarPuzzleStatus is started', (WidgetTester tester) async {
+      const int numberOfMoves = 10;
+      const int numberOfTilesLeft = 12;
 
-      final puzzleState = MockPuzzleState();
+      final MockPuzzleState puzzleState = MockPuzzleState();
       when(() => puzzleState.numberOfMoves).thenReturn(numberOfMoves);
       when(() => puzzleState.numberOfTilesLeft).thenReturn(numberOfTilesLeft);
 
@@ -117,7 +117,7 @@ void main() {
 
       expect(
         find.byWidgetPredicate(
-          (widget) =>
+          (Widget widget) =>
               widget is NumberOfMovesAndTilesLeft &&
               widget.numberOfMoves == numberOfMoves &&
               widget.numberOfTilesLeft == numberOfTilesLeft,
@@ -128,14 +128,14 @@ void main() {
 
     testWidgets(
         'renders NumberOfMovesAndTilesLeft '
-        'when DashatarPuzzleStatus is notStarted', (tester) async {
-      const numberOfMoves = 10;
-      const numberOfTiles = 16;
+        'when DashatarPuzzleStatus is notStarted', (WidgetTester tester) async {
+      const int numberOfMoves = 10;
+      const int numberOfTiles = 16;
 
-      final puzzleState = MockPuzzleState();
+      final MockPuzzleState puzzleState = MockPuzzleState();
       when(() => puzzleState.numberOfMoves).thenReturn(numberOfMoves);
 
-      final puzzle = MockPuzzle();
+      final MockPuzzle puzzle = MockPuzzle();
       when(() => puzzle.tiles)
           .thenReturn(List.generate(numberOfTiles, (_) => MockTile()));
       when(() => puzzleState.puzzle).thenReturn(puzzle);
@@ -157,7 +157,7 @@ void main() {
 
       expect(
         find.byWidgetPredicate(
-          (widget) =>
+          (Widget widget) =>
               widget is NumberOfMovesAndTilesLeft &&
               widget.numberOfMoves == numberOfMoves &&
               widget.numberOfTilesLeft == numberOfTiles - 1,
@@ -167,7 +167,7 @@ void main() {
     });
 
     testWidgets('renders DashatarPuzzleActionButton on a large display',
-        (tester) async {
+        (WidgetTester tester) async {
       tester.setLargeDisplaySize();
 
       await tester.pumpApp(
@@ -187,7 +187,7 @@ void main() {
       expect(find.byType(DashatarTimer), findsNothing);
     });
 
-    testWidgets('renders DashatarTimer on a medium display', (tester) async {
+    testWidgets('renders DashatarTimer on a medium display', (WidgetTester tester) async {
       tester.setMediumDisplaySize();
 
       await tester.pumpApp(
@@ -206,7 +206,7 @@ void main() {
       expect(find.byType(DashatarTimer), findsOneWidget);
     });
 
-    testWidgets('renders DashatarTimer on a small display', (tester) async {
+    testWidgets('renders DashatarTimer on a small display', (WidgetTester tester) async {
       tester.setSmallDisplaySize();
 
       await tester.pumpApp(

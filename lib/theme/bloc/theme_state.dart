@@ -16,7 +16,7 @@ class ThemeState extends Equatable {
   final PuzzleTheme theme;
 
   @override
-  List<Object> get props => [themes, theme];
+  List<Object> get props => <Object>[themes, theme];
 
   ThemeState copyWith({
     List<PuzzleTheme>? themes,

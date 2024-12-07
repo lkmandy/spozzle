@@ -7,13 +7,13 @@ import 'package:spozzle/theme/theme.dart';
 
 void main() {
   group('showAppDialog', () {
-    testWidgets('renders AppDialog with child', (tester) async {
-      const key = Key('__child__');
+    testWidgets('renders AppDialog with child', (WidgetTester tester) async {
+      const Key key = Key('__child__');
 
       await tester.pumpWidget(
         MaterialApp(
           home: Builder(
-            builder: (context) => TextButton(
+            builder: (BuildContext context) => TextButton(
               onPressed: () => showAppDialog<void>(
                 context: context,
                 child: SizedBox(

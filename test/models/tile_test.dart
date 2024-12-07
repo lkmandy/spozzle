@@ -4,9 +4,9 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:spozzle/models/models.dart';
 
 void main() {
-  const value = 1;
-  const position = Position(x: 1, y: 1);
-  const newPosition = Position(x: 2, y: 2);
+  const int value = 1;
+  const Position position = Position(x: 1, y: 1);
+  const Position newPosition = Position(x: 2, y: 2);
 
   group('Tile', () {
     test('supports value comparisons', () {

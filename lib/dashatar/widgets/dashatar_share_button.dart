@@ -2,12 +2,12 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:spozzle/audio_control/audio_control.dart';
-import 'package:spozzle/helpers/helpers.dart';
-import 'package:spozzle/l10n/l10n.dart';
+import '../../audio_control/audio_control.dart';
+import '../../helpers/helpers.dart';
+import '../../l10n/l10n.dart';
 
 /// The url to share for this Flutter Puzzle challenge.
-const _shareUrl = 'https://spozzle.web.app/#/';
+const String _shareUrl = 'https://spozzle.web.app/#/';
 
 /// {@template dashatar_twitter_button}
 /// Displays a button that shares the Flutter Puzzle challenge
@@ -18,8 +18,8 @@ class DashatarTwitterButton extends StatelessWidget {
   const DashatarTwitterButton({Key? key}) : super(key: key);
 
   String _twitterShareUrl(BuildContext context) {
-    final shareText = '${context.l10n.dashatarSuccessShareText} ${_shareUrl} \n#FlutterPuzzleHack #Flutter #Dart';
-    final encodedShareText = Uri.encodeComponent(shareText);
+    final String shareText = '${context.l10n.dashatarSuccessShareText} $_shareUrl \n#FlutterPuzzleHack #Flutter #Dart';
+    final String encodedShareText = Uri.encodeComponent(shareText);
     return 'https://twitter.com/intent/tweet?text=$encodedShareText';
   }
 
@@ -47,8 +47,8 @@ class DashatarWhatsAppButton extends StatelessWidget {
   const DashatarWhatsAppButton({Key? key}) : super(key: key);
 
   String _whatsAppShareUrl(BuildContext context) {
-    final shareText = '${context.l10n.dashatarSuccessShareText} ${_shareUrl} \n#FlutterPuzzleHack #Flutter #Dart';
-    final encodedShareText = Uri.encodeComponent(shareText);
+    final String shareText = '${context.l10n.dashatarSuccessShareText} $_shareUrl \n#FlutterPuzzleHack #Flutter #Dart';
+    final String encodedShareText = Uri.encodeComponent(shareText);
     return 'https://wa.me/?text=$encodedShareText';
   }
 
@@ -76,8 +76,8 @@ class DashatarFacebookButton extends StatelessWidget {
   const DashatarFacebookButton({Key? key}) : super(key: key);
 
   String _facebookShareUrl(BuildContext context) {
-    final shareText = context.l10n.dashatarSuccessShareText;
-    final encodedShareText = Uri.encodeComponent(shareText);
+    final String shareText = context.l10n.dashatarSuccessShareText;
+    final String encodedShareText = Uri.encodeComponent(shareText);
     return 'https://www.facebook.com/sharer.php?u=$_shareUrl&quote=$encodedShareText';
   }
 
@@ -160,7 +160,7 @@ class _DashatarShareButtonState extends State<DashatarShareButton> {
         child: TextButton(
           style: TextButton.styleFrom(
             padding: EdgeInsets.zero,
-            primary: widget.color,
+            foregroundColor: widget.color,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
             ),
@@ -171,7 +171,7 @@ class _DashatarShareButtonState extends State<DashatarShareButton> {
             unawaited(_audioPlayer.replay());
           },
           child: Row(
-            children: [
+            children: <Widget>[
               //const Gap(12),
               ClipRRect(
                 borderRadius: BorderRadius.circular(12),

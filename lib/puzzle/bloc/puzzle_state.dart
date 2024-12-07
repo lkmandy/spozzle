@@ -8,7 +8,7 @@ enum TileMovementStatus { nothingTapped, cannotBeMoved, moved }
 
 class PuzzleState extends Equatable {
   const PuzzleState({
-    this.puzzle = const Puzzle(tiles: []),
+    this.puzzle = const Puzzle(tiles: <Tile>[]),
     this.puzzleStatus = PuzzleStatus.incomplete,
     this.tileMovementStatus = TileMovementStatus.nothingTapped,
     this.numberOfCorrectTiles = 0,
@@ -63,7 +63,7 @@ class PuzzleState extends Equatable {
   }
 
   @override
-  List<Object?> get props => [
+  List<Object?> get props => <Object?>[
         puzzle,
         puzzleStatus,
         tileMovementStatus,

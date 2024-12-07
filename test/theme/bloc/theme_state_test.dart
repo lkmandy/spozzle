@@ -9,7 +9,7 @@ import '../../helpers/helpers.dart';
 void main() {
   group('ThemeState', () {
     test('supports value comparisons', () {
-      final themes = [MockPuzzleTheme(), MockPuzzleTheme()];
+      final List<MockPuzzleTheme> themes = <MockPuzzleTheme>[MockPuzzleTheme(), MockPuzzleTheme()];
 
       expect(
         ThemeState(
@@ -27,15 +27,15 @@ void main() {
 
     test('default theme is SimpleTheme', () {
       expect(
-        ThemeState(themes: const [SimpleTheme()]).theme,
+        ThemeState(themes: const <PuzzleTheme>[SimpleTheme()]).theme,
         equals(SimpleTheme()),
       );
     });
 
     group('copyWith', () {
       test('updates themes', () {
-        final themesA = [SimpleTheme(), LittoralDashatarTheme()];
-        final themesB = [SimpleTheme(), NorthDashatarTheme()];
+        final List<PuzzleTheme> themesA = <PuzzleTheme>[SimpleTheme(), LittoralDashatarTheme()];
+        final List<PuzzleTheme> themesB = <PuzzleTheme>[SimpleTheme(), NorthDashatarTheme()];
 
         expect(
           ThemeState(
@@ -52,9 +52,9 @@ void main() {
       });
 
       test('updates theme', () {
-        final themes = [SimpleTheme(), NorthDashatarTheme()];
-        final themeA = SimpleTheme();
-        final themeB = NorthDashatarTheme();
+        final List<PuzzleTheme> themes = <PuzzleTheme>[SimpleTheme(), NorthDashatarTheme()];
+        final SimpleTheme themeA = SimpleTheme();
+        final NorthDashatarTheme themeB = NorthDashatarTheme();
 
         expect(
           ThemeState(

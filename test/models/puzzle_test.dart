@@ -2,54 +2,54 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:spozzle/models/models.dart';
 
 void main() {
-  const unsolvable3x3Tile0 = Tile(
+  const Tile unsolvable3x3Tile0 = Tile(
     value: 0,
     correctPosition: Position(x: 3, y: 3),
     currentPosition: Position(x: 3, y: 3),
     isWhitespace: true,
   );
-  const unsolvable3x3Tile1 = Tile(
+  const Tile unsolvable3x3Tile1 = Tile(
     value: 1,
     correctPosition: Position(x: 1, y: 1),
     currentPosition: Position(x: 2, y: 1),
   );
-  const unsolvable3x3Tile2 = Tile(
+  const Tile unsolvable3x3Tile2 = Tile(
     value: 2,
     correctPosition: Position(x: 2, y: 1),
     currentPosition: Position(x: 1, y: 1),
   );
-  const unsolvable3x3Tile3 = Tile(
+  const Tile unsolvable3x3Tile3 = Tile(
     value: 3,
     correctPosition: Position(x: 3, y: 1),
     currentPosition: Position(x: 3, y: 1),
   );
-  const unsolvable3x3Tile4 = Tile(
+  const Tile unsolvable3x3Tile4 = Tile(
     value: 4,
     correctPosition: Position(x: 1, y: 2),
     currentPosition: Position(x: 1, y: 2),
   );
-  const unsolvable3x3Tile5 = Tile(
+  const Tile unsolvable3x3Tile5 = Tile(
     value: 5,
     correctPosition: Position(x: 2, y: 2),
     currentPosition: Position(x: 2, y: 2),
   );
-  const unsolvable3x3Tile6 = Tile(
+  const Tile unsolvable3x3Tile6 = Tile(
     value: 6,
     correctPosition: Position(x: 3, y: 2),
     currentPosition: Position(x: 3, y: 2),
   );
-  const unsolvable3x3Tile7 = Tile(
+  const Tile unsolvable3x3Tile7 = Tile(
     value: 7,
     correctPosition: Position(x: 1, y: 3),
     currentPosition: Position(x: 1, y: 3),
   );
-  const unsolvable3x3Tile8 = Tile(
+  const Tile unsolvable3x3Tile8 = Tile(
     value: 8,
     correctPosition: Position(x: 2, y: 3),
     currentPosition: Position(x: 2, y: 3),
   );
-  const unsolvable3x3Puzzle = Puzzle(
-    tiles: [
+  const Puzzle unsolvable3x3Puzzle = Puzzle(
+    tiles: <Tile>[
       unsolvable3x3Tile0,
       unsolvable3x3Tile1,
       unsolvable3x3Tile2,
@@ -62,8 +62,8 @@ void main() {
     ],
   );
 
-  const solvable3x3Puzzle = Puzzle(
-    tiles: [
+  const Puzzle solvable3x3Puzzle = Puzzle(
+    tiles: <Tile>[
       Tile(
         value: 2,
         correctPosition: Position(x: 2, y: 1),
@@ -113,8 +113,8 @@ void main() {
     ],
   );
 
-  const unsolvable4x4Puzzle = Puzzle(
-    tiles: [
+  const Puzzle unsolvable4x4Puzzle = Puzzle(
+    tiles: <Tile>[
       Tile(
         value: 1,
         correctPosition: Position(x: 1, y: 1),
@@ -199,29 +199,29 @@ void main() {
     ],
   );
 
-  const solvable2x2Tile0 = Tile(
+  const Tile solvable2x2Tile0 = Tile(
     value: 0,
     correctPosition: Position(x: 2, y: 2),
     currentPosition: Position(x: 1, y: 1),
     isWhitespace: true,
   );
-  const solvable2x2Tile1 = Tile(
+  const Tile solvable2x2Tile1 = Tile(
     value: 1,
     correctPosition: Position(x: 1, y: 1),
     currentPosition: Position(x: 2, y: 1),
   );
-  const solvable2x2Tile2 = Tile(
+  const Tile solvable2x2Tile2 = Tile(
     value: 2,
     correctPosition: Position(x: 2, y: 1),
     currentPosition: Position(x: 2, y: 2),
   );
-  const solvable2x2Tile3 = Tile(
+  const Tile solvable2x2Tile3 = Tile(
     value: 3,
     correctPosition: Position(x: 1, y: 2),
     currentPosition: Position(x: 1, y: 2),
   );
-  const solvable2x2Puzzle = Puzzle(
-    tiles: [
+  const Puzzle solvable2x2Puzzle = Puzzle(
+    tiles: <Tile>[
       solvable2x2Tile0,
       solvable2x2Tile1,
       solvable2x2Tile2,
@@ -231,14 +231,14 @@ void main() {
 
   group('Puzzle', () {
     group('getPuzzleDimension', () {
-      const tile = Tile(
+      const Tile tile = Tile(
         value: 1,
         correctPosition: Position(x: 1, y: 1),
         currentPosition: Position(x: 1, y: 1),
       );
-      const puzzleEmpty = Puzzle(tiles: []);
-      const puzzle1x1 = Puzzle(tiles: [tile]);
-      const puzzle2x2 = Puzzle(tiles: [tile, tile, tile, tile]);
+      const Puzzle puzzleEmpty = Puzzle(tiles: <Tile>[]);
+      const Puzzle puzzle1x1 = Puzzle(tiles: <Tile>[tile]);
+      const Puzzle puzzle2x2 = Puzzle(tiles: <Tile>[tile, tile, tile, tile]);
 
       test('returns 0 when given an empty list', () {
         expect(puzzleEmpty.getDimension(), equals(0));
@@ -261,7 +261,7 @@ void main() {
 
     group('getTileRelativeToWhitespaceTile', () {
       test('returns a tile relative to the whitespace tile', () {
-        const offset = Offset(1, 1);
+        const Offset offset = Offset(1, 1);
 
         expect(
           solvable2x2Puzzle.getTileRelativeToWhitespaceTile(offset),
@@ -272,7 +272,7 @@ void main() {
       test(
           'returns null '
           'if a tile relative to the whitespace tile does not exist', () {
-        const offset = Offset(5, 5);
+        const Offset offset = Offset(5, 5);
 
         expect(
           solvable2x2Puzzle.getTileRelativeToWhitespaceTile(offset),
@@ -283,8 +283,8 @@ void main() {
 
     group('getNumberOfCorrectTiles', () {
       test('returns 0 from 1x1 puzzle with only a whitespace tile', () {
-        const puzzle = Puzzle(
-          tiles: [
+        const Puzzle puzzle = Puzzle(
+          tiles: <Tile>[
             Tile(
               value: 0,
               correctPosition: Position(x: 1, y: 1),
@@ -356,10 +356,10 @@ void main() {
       test(
           'moves one tile that is adjacent to the whitespace to the '
           'position of the whitespace tile', () {
-        final mutableSolvable2x2Puzzle =
-            Puzzle(tiles: [...solvable2x2Puzzle.tiles]);
-        final newPuzzle = Puzzle(
-          tiles: [
+        final Puzzle mutableSolvable2x2Puzzle =
+            Puzzle(tiles: <Tile>[...solvable2x2Puzzle.tiles]);
+        final Puzzle newPuzzle = Puzzle(
+          tiles: <Tile>[
             solvable2x2Tile0.copyWith(
               currentPosition: solvable2x2Tile3.currentPosition,
             ),
@@ -371,7 +371,7 @@ void main() {
           ],
         );
         expect(
-          mutableSolvable2x2Puzzle.moveTiles(solvable2x2Tile3, []),
+          mutableSolvable2x2Puzzle.moveTiles(solvable2x2Tile3, <Tile>[]),
           newPuzzle,
         );
       });
@@ -379,10 +379,10 @@ void main() {
       test(
           'moves multiple tiles that are in the same row/column as the '
           'whitespace tile', () {
-        final mutableUnsolvable3x3Puzzle =
-            Puzzle(tiles: [...unsolvable3x3Puzzle.tiles]);
-        final newPuzzle = Puzzle(
-          tiles: [
+        final Puzzle mutableUnsolvable3x3Puzzle =
+            Puzzle(tiles: <Tile>[...unsolvable3x3Puzzle.tiles]);
+        final Puzzle newPuzzle = Puzzle(
+          tiles: <Tile>[
             unsolvable3x3Tile0.copyWith(
               currentPosition: unsolvable3x3Tile3.currentPosition,
             ),
@@ -401,7 +401,7 @@ void main() {
           ],
         );
         expect(
-          mutableUnsolvable3x3Puzzle.moveTiles(unsolvable3x3Tile3, []),
+          mutableUnsolvable3x3Puzzle.moveTiles(unsolvable3x3Tile3, <Tile>[]),
           newPuzzle,
         );
       });
@@ -409,8 +409,8 @@ void main() {
 
     group('sort', () {
       test('returns a puzzle with tiles sorted by their current positions', () {
-        const sortedPuzzle = Puzzle(
-          tiles: [
+        const Puzzle sortedPuzzle = Puzzle(
+          tiles: <Tile>[
             solvable2x2Tile0,
             solvable2x2Tile1,
             solvable2x2Tile3,

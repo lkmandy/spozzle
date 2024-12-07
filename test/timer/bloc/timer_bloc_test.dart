@@ -51,7 +51,7 @@ void main() {
         'emits 1 when seconds elapsed is 1',
         build: () => TimerBloc(ticker: ticker),
         act: (TimerBloc bloc) => bloc.add(TimerTicked(1)),
-        expect: () => [TimerState(secondsElapsed: 1)],
+        expect: () => <TimerState>[TimerState(secondsElapsed: 1)],
       );
     });
 
@@ -85,7 +85,7 @@ void main() {
         'emits new timer state',
         build: () => TimerBloc(ticker: ticker),
         act: (TimerBloc bloc) => bloc.add(TimerReset()),
-        expect: () => [TimerState()],
+        expect: () => <TimerState>[TimerState()],
       );
     });
   });

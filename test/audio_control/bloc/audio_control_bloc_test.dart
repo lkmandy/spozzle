@@ -13,7 +13,7 @@ void main() {
         'if the current value is false',
         seed: () => AudioControlState(muted: false),
         build: () => AudioControlBloc(),
-        act: (bloc) => bloc.add(AudioToggled()),
+        act: (AudioControlBloc bloc) => bloc.add(AudioToggled()),
         expect: () => <AudioControlState>[
           AudioControlState(muted: true),
         ],
@@ -25,7 +25,7 @@ void main() {
         'if the current value is true',
         seed: () => AudioControlState(muted: true),
         build: () => AudioControlBloc(),
-        act: (bloc) => bloc.add(AudioToggled()),
+        act: (AudioControlBloc bloc) => bloc.add(AudioToggled()),
         expect: () => <AudioControlState>[
           AudioControlState(muted: false),
         ],

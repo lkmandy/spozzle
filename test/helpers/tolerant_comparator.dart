@@ -18,16 +18,16 @@ class TolerantComparator extends LocalFileComparator {
   ///
   /// If compared files produce less than [differenceTolerance]% difference,
   /// then the test is accepted. Otherwise, the test fails.
-  static const differenceTolerance = .06;
+  static const double differenceTolerance = .06;
 
   @override
   Future<bool> compare(Uint8List imageBytes, Uri golden) async {
-    final result = await GoldenFileComparator.compareLists(
+    final ComparisonResult result = await GoldenFileComparator.compareLists(
       imageBytes,
       await getGoldenBytes(golden),
     );
     if (!result.passed) {
-      final error = await generateFailureOutput(result, golden, basedir);
+      final String error = await generateFailureOutput(result, golden, basedir);
       if (result.diffPercent >= differenceTolerance) {
         throw FlutterError(error);
       } else {

@@ -15,14 +15,14 @@ void main() {
 
     setUp(() {
       theme = MockPuzzleTheme();
-      final themeState = ThemeState(themes: [theme], theme: theme);
+      final ThemeState themeState = ThemeState(themes: <PuzzleTheme>[theme], theme: theme);
       themeBloc = MockThemeBloc();
 
       when(() => theme.buttonColor).thenReturn(Colors.black);
       when(() => themeBloc.state).thenReturn(themeState);
     });
 
-    testWidgets('renders AnimatedTextButton', (tester) async {
+    testWidgets('renders AnimatedTextButton', (WidgetTester tester) async {
       await tester.pumpApp(
         PuzzleButton(
           onPressed: () {},
@@ -34,7 +34,7 @@ void main() {
       expect(find.byType(AnimatedTextButton), findsOneWidget);
     });
 
-    testWidgets('renders child', (tester) async {
+    testWidgets('renders child', (WidgetTester tester) async {
       await tester.pumpApp(
         PuzzleButton(
           onPressed: () {},
@@ -50,8 +50,8 @@ void main() {
 
     testWidgets(
         'calls onPressed '
-        'when tapped', (tester) async {
-      var onPressedCalled = false;
+        'when tapped', (WidgetTester tester) async {
+      bool onPressedCalled = false;
 
       await tester.pumpApp(
         PuzzleButton(
@@ -67,8 +67,8 @@ void main() {
     });
 
     group('backgroundColor', () {
-      testWidgets('defaults to PuzzleTheme.buttonColor', (tester) async {
-        const themeBackgroundColor = Colors.orange;
+      testWidgets('defaults to PuzzleTheme.buttonColor', (WidgetTester tester) async {
+        const MaterialColor themeBackgroundColor = Colors.orange;
         when(() => theme.buttonColor).thenReturn(themeBackgroundColor);
 
         await tester.pumpApp(
@@ -85,9 +85,9 @@ void main() {
         );
       });
 
-      testWidgets('can be overriden with a property', (tester) async {
-        const backgroundColor = Colors.purple;
-        const themeBackgroundColor = Colors.orange;
+      testWidgets('can be overriden with a property', (WidgetTester tester) async {
+        const MaterialColor backgroundColor = Colors.purple;
+        const MaterialColor themeBackgroundColor = Colors.orange;
         when(() => theme.buttonColor).thenReturn(themeBackgroundColor);
 
         await tester.pumpApp(
@@ -107,7 +107,7 @@ void main() {
     });
 
     group('textColor', () {
-      testWidgets('defaults to PuzzleColors.white', (tester) async {
+      testWidgets('defaults to PuzzleColors.white', (WidgetTester tester) async {
         await tester.pumpApp(
           PuzzleButton(
             onPressed: () {},
@@ -122,8 +122,8 @@ void main() {
         );
       });
 
-      testWidgets('can be overriden with a property', (tester) async {
-        const textColor = Colors.orange;
+      testWidgets('can be overriden with a property', (WidgetTester tester) async {
+        const MaterialColor textColor = Colors.orange;
 
         await tester.pumpApp(
           PuzzleButton(

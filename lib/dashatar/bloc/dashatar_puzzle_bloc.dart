@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:spozzle/models/models.dart';
+import '../../models/models.dart';
 
 part 'dashatar_puzzle_event.dart';
 part 'dashatar_puzzle_state.dart';

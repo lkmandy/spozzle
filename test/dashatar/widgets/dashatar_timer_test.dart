@@ -17,7 +17,7 @@ void main() {
       when(() => timerBloc.state).thenReturn(TimerState());
     });
 
-    testWidgets('renders on a large display', (tester) async {
+    testWidgets('renders on a large display', (WidgetTester tester) async {
       tester.setLargeDisplaySize();
 
       await tester.pumpApp(
@@ -31,7 +31,7 @@ void main() {
       );
     });
 
-    testWidgets('renders on a medium display', (tester) async {
+    testWidgets('renders on a medium display', (WidgetTester tester) async {
       tester.setMediumDisplaySize();
 
       await tester.pumpApp(
@@ -45,7 +45,7 @@ void main() {
       );
     });
 
-    testWidgets('renders on a small display', (tester) async {
+    testWidgets('renders on a small display', (WidgetTester tester) async {
       tester.setSmallDisplaySize();
 
       await tester.pumpApp(
@@ -61,7 +61,7 @@ void main() {
 
     testWidgets(
         'renders secondsElapsed from TimerBloc '
-        'when secondsElapsed is less than a minute', (tester) async {
+        'when secondsElapsed is less than a minute', (WidgetTester tester) async {
       when(() => timerBloc.state).thenReturn(
         TimerState(secondsElapsed: 20),
       );
@@ -76,8 +76,8 @@ void main() {
 
     testWidgets(
         'renders secondsElapsed from TimerBloc '
-        'when secondsElapsed is more than a minute', (tester) async {
-      const secondsElapsed = 150;
+        'when secondsElapsed is more than a minute', (WidgetTester tester) async {
+      const int secondsElapsed = 150;
       when(() => timerBloc.state)
           .thenReturn(TimerState(secondsElapsed: secondsElapsed));
 
@@ -91,8 +91,8 @@ void main() {
 
     testWidgets(
         'renders secondsElapsed from TimerBloc '
-        'when secondsElapsed is more than an hour', (tester) async {
-      const secondsElapsed = 5450;
+        'when secondsElapsed is more than an hour', (WidgetTester tester) async {
+      const int secondsElapsed = 5450;
       when(() => timerBloc.state)
           .thenReturn(TimerState(secondsElapsed: secondsElapsed));
 
@@ -106,8 +106,8 @@ void main() {
 
     testWidgets(
         'renders semanticsLabel '
-        'based on secondsElapsed from TimerBloc', (tester) async {
-      const secondsElapsed = 5450;
+        'based on secondsElapsed from TimerBloc', (WidgetTester tester) async {
+      const int secondsElapsed = 5450;
       when(() => timerBloc.state)
           .thenReturn(TimerState(secondsElapsed: secondsElapsed));
 
@@ -122,7 +122,7 @@ void main() {
       );
     });
 
-    testWidgets('renders timer icon', (tester) async {
+    testWidgets('renders timer icon', (WidgetTester tester) async {
       await tester.pumpApp(
         DashatarTimer(),
         timerBloc: timerBloc,

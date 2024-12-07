@@ -4,13 +4,13 @@ import 'package:spozzle/models/models.dart';
 import 'package:spozzle/puzzle/puzzle.dart';
 
 void main() {
-  final position = Position(x: 1, y: 1);
-  final tile1 = Tile(
+  final Position position = Position(x: 1, y: 1);
+  final Tile tile1 = Tile(
     value: 1,
     correctPosition: position,
     currentPosition: position,
   );
-  final tile2 = Tile(
+  final Tile tile2 = Tile(
     value: 2,
     correctPosition: position,
     currentPosition: position,

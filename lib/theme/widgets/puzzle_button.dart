@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../colors/colors.dart';
-import '../theme.dart';
 import '../../typography/typography.dart';
+import '../theme.dart';
 
 /// {@template puzzle_button}
 /// Displays the puzzle action button.
@@ -50,8 +51,8 @@ class PuzzleButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(10),
           ),
         ).copyWith(
-          backgroundColor: MaterialStateProperty.all(buttonBackgroundColor),
-          foregroundColor: MaterialStateProperty.all(buttonTextColor),
+          backgroundColor: WidgetStateProperty.all(buttonBackgroundColor),
+          foregroundColor: WidgetStateProperty.all(buttonTextColor),
         ),
         onPressed: onPressed,
         child: child,

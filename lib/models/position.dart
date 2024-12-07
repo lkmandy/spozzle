@@ -16,7 +16,7 @@ class Position extends Equatable implements Comparable<Position> {
   final int y;
 
   @override
-  List<Object> get props => [x, y];
+  List<Object> get props => <Object>[x, y];
 
   @override
   int compareTo(Position other) {

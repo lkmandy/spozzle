@@ -38,8 +38,8 @@ void main() {
 
       dashatarThemeBloc = MockDashatarThemeBloc();
       dashatarTheme = LittoralDashatarTheme();
-      final dashatarThemeState = DashatarThemeState(
-        themes: [dashatarTheme],
+      final DashatarThemeState dashatarThemeState = DashatarThemeState(
+        themes: <DashatarTheme>[dashatarTheme],
         theme: dashatarTheme,
       );
 
@@ -75,8 +75,8 @@ void main() {
         'and plays the tile_move sound '
         'when tapped and '
         'DashatarPuzzleStatus is started and '
-        'PuzzleStatus is incomplete', (tester) async {
-      final audioPlayer = MockAudioPlayer();
+        'PuzzleStatus is incomplete', (WidgetTester tester) async {
+      final MockAudioPlayer audioPlayer = MockAudioPlayer();
       when(() => audioPlayer.setAsset(any())).thenAnswer((_) async => null);
       when(() => audioPlayer.seek(any())).thenAnswer((_) async {});
       when(() => audioPlayer.setVolume(any())).thenAnswer((_) async {});
@@ -84,7 +84,7 @@ void main() {
       when(audioPlayer.stop).thenAnswer((_) async {});
       when(audioPlayer.dispose).thenAnswer((_) async {});
 
-      final puzzle = MockPuzzle();
+      final MockPuzzle puzzle = MockPuzzle();
 
       when(puzzle.getDimension).thenReturn(4);
       when(() => puzzleState.puzzle).thenReturn(puzzle);
@@ -120,8 +120,8 @@ void main() {
 
     testWidgets(
         'does not add TileTapped to PuzzleBloc '
-        'when tapped and DashatarPuzzleStatus is notStarted', (tester) async {
-      final puzzle = MockPuzzle();
+        'when tapped and DashatarPuzzleStatus is notStarted', (WidgetTester tester) async {
+      final MockPuzzle puzzle = MockPuzzle();
 
       when(puzzle.getDimension).thenReturn(4);
       when(() => puzzleState.puzzle).thenReturn(puzzle);
@@ -150,8 +150,8 @@ void main() {
 
     testWidgets(
         'does not add TileTapped to PuzzleBloc '
-        'when tapped and PuzzleStatus is complete', (tester) async {
-      final puzzle = MockPuzzle();
+        'when tapped and PuzzleStatus is complete', (WidgetTester tester) async {
+      final MockPuzzle puzzle = MockPuzzle();
 
       when(puzzle.getDimension).thenReturn(4);
       when(() => puzzleState.puzzle).thenReturn(puzzle);
@@ -178,7 +178,7 @@ void main() {
       verifyNever(() => puzzleBloc.add(TileTapped(tile)));
     });
 
-    testWidgets('renders a large tile on a large display', (tester) async {
+    testWidgets('renders a large tile on a large display', (WidgetTester tester) async {
       tester.setLargeDisplaySize();
 
       await tester.pumpApp(
@@ -200,7 +200,7 @@ void main() {
       );
     });
 
-    testWidgets('renders a medium tile on a medium display', (tester) async {
+    testWidgets('renders a medium tile on a medium display', (WidgetTester tester) async {
       tester.setMediumDisplaySize();
 
       await tester.pumpApp(
@@ -222,7 +222,7 @@ void main() {
       );
     });
 
-    testWidgets('renders a small tile on a small display', (tester) async {
+    testWidgets('renders a small tile on a small display', (WidgetTester tester) async {
       tester.setSmallDisplaySize();
 
       await tester.pumpApp(
@@ -246,7 +246,7 @@ void main() {
 
     testWidgets(
         'renders IconButton '
-        'with Dashatar icon', (tester) async {
+        'with Dashatar icon', (WidgetTester tester) async {
       await tester.pumpApp(
         Scaffold(
           body: DashatarPuzzleTile(
@@ -262,7 +262,7 @@ void main() {
 
       expect(
         find.byWidgetPredicate(
-          (widget) =>
+          (Widget widget) =>
               widget is Image &&
               (widget.image as AssetImage).assetName ==
                   dashatarTheme.dashAssetForTile(tile),
@@ -273,7 +273,7 @@ void main() {
 
     testWidgets(
         'renders disabled IconButton '
-        'when DashatarPuzzleStatus is loading', (tester) async {
+        'when DashatarPuzzleStatus is loading', (WidgetTester tester) async {
       when(() => dashatarPuzzleState.status)
           .thenReturn(DashatarPuzzleStatus.loading);
 
@@ -292,13 +292,13 @@ void main() {
 
       expect(
         find.byWidgetPredicate(
-          (widget) => widget is IconButton && widget.onPressed == null,
+          (Widget widget) => widget is IconButton && widget.onPressed == null,
         ),
         findsOneWidget,
       );
     });
 
-    testWidgets('renders AudioControlListener', (tester) async {
+    testWidgets('renders AudioControlListener', (WidgetTester tester) async {
       await tester.pumpApp(
         Scaffold(
           body: DashatarPuzzleTile(
@@ -317,14 +317,14 @@ void main() {
 
     testWidgets(
         'scales IconButton '
-        'when hovered over', (tester) async {
+        'when hovered over', (WidgetTester tester) async {
       when(() => dashatarPuzzleState.status)
           .thenReturn(DashatarPuzzleStatus.started);
 
       await tester.pumpApp(
         Scaffold(
           body: Column(
-            children: [
+            children: <Widget>[
               DashatarPuzzleTile(
                 state: PuzzleState(),
                 tile: tile,
@@ -343,13 +343,13 @@ void main() {
         audioControlBloc: audioControlBloc,
       );
 
-      final gesture = await tester.createGesture(kind: PointerDeviceKind.mouse);
+      final TestGesture gesture = await tester.createGesture(kind: PointerDeviceKind.mouse);
       await gesture.addPointer(location: Offset.zero);
       addTearDown(gesture.removePointer);
       await gesture.moveTo(tester.getCenter(find.byType(IconButton)));
       await tester.pumpAndSettle();
 
-      final scaleWithHover = tester
+      final double scaleWithHover = tester
           .widget<ScaleTransition>(
             find.byKey(Key('dashatar_puzzle_tile_scale_${tile.value}')),
           )
@@ -359,7 +359,7 @@ void main() {
       await gesture.moveTo(tester.getCenter(find.byKey(Key('__sized_box__'))));
       await tester.pumpAndSettle();
 
-      final scaleWithoutHover = tester
+      final double scaleWithoutHover = tester
           .widget<ScaleTransition>(
             find.byKey(Key('dashatar_puzzle_tile_scale_${tile.value}')),
           )

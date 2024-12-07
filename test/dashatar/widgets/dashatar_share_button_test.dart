@@ -35,7 +35,7 @@ void main() {
   });
 
   group('DashatarTwitterButton', () {
-    testWidgets('renders TextButton', (tester) async {
+    testWidgets('renders TextButton', (WidgetTester tester) async {
       await tester.pumpApp(
         DashatarTwitterButton(),
         audioControlBloc: audioControlBloc,
@@ -44,7 +44,7 @@ void main() {
       expect(find.byType(TextButton), findsOneWidget);
     });
 
-    testWidgets('opens a link when tapped', (tester) async {
+    testWidgets('opens a link when tapped', (WidgetTester tester) async {
       await tester.pumpApp(
         DashatarTwitterButton(),
         audioControlBloc: audioControlBloc,
@@ -67,7 +67,7 @@ void main() {
   });
 
   group('DashatarFacebookButton', () {
-    testWidgets('renders TextButton', (tester) async {
+    testWidgets('renders TextButton', (WidgetTester tester) async {
       await tester.pumpApp(
         DashatarFacebookButton(),
         audioControlBloc: audioControlBloc,
@@ -76,7 +76,7 @@ void main() {
       expect(find.byType(TextButton), findsOneWidget);
     });
 
-    testWidgets('opens a link when tapped', (tester) async {
+    testWidgets('opens a link when tapped', (WidgetTester tester) async {
       await tester.pumpApp(
         DashatarFacebookButton(),
         audioControlBloc: audioControlBloc,
@@ -99,8 +99,8 @@ void main() {
   });
 
   group('DashatarShareButton', () {
-    testWidgets('plays the click sound when tapped', (tester) async {
-      final audioPlayer = MockAudioPlayer();
+    testWidgets('plays the click sound when tapped', (WidgetTester tester) async {
+      final MockAudioPlayer audioPlayer = MockAudioPlayer();
       when(() => audioPlayer.setAsset(any())).thenAnswer((_) async => null);
       when(() => audioPlayer.seek(any())).thenAnswer((_) async {});
       when(() => audioPlayer.setVolume(any())).thenAnswer((_) async {});
@@ -125,7 +125,7 @@ void main() {
       verify(audioPlayer.play).called(1);
     });
 
-    testWidgets('renders AudioControlListener', (tester) async {
+    testWidgets('renders AudioControlListener', (WidgetTester tester) async {
       await tester.pumpApp(
         DashatarShareButton(
           title: 'title',

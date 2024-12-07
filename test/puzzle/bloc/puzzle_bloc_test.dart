@@ -7,57 +7,57 @@ import 'package:spozzle/models/models.dart';
 import 'package:spozzle/puzzle/puzzle.dart';
 
 void main() {
-  const seed = 2;
+  const int seed = 2;
 
-  final size3Tile1 = Tile(
+  final Tile size3Tile1 = Tile(
     value: 1,
     correctPosition: Position(x: 1, y: 1),
     currentPosition: Position(x: 1, y: 3),
   );
-  final size3Tile2 = Tile(
+  final Tile size3Tile2 = Tile(
     value: 2,
     correctPosition: Position(x: 2, y: 1),
     currentPosition: Position(x: 1, y: 1),
   );
-  final size3Tile3 = Tile(
+  final Tile size3Tile3 = Tile(
     value: 3,
     correctPosition: Position(x: 3, y: 1),
     currentPosition: Position(x: 2, y: 3),
   );
-  final size3Tile4 = Tile(
+  final Tile size3Tile4 = Tile(
     value: 4,
     correctPosition: Position(x: 1, y: 2),
     currentPosition: Position(x: 2, y: 1),
   );
-  final size3Tile5 = Tile(
+  final Tile size3Tile5 = Tile(
     value: 5,
     correctPosition: Position(x: 2, y: 2),
     currentPosition: Position(x: 3, y: 2),
   );
-  final size3Tile6 = Tile(
+  final Tile size3Tile6 = Tile(
     value: 6,
     correctPosition: Position(x: 3, y: 2),
     currentPosition: Position(x: 1, y: 2),
   );
-  final size3Tile7 = Tile(
+  final Tile size3Tile7 = Tile(
     value: 7,
     correctPosition: Position(x: 1, y: 3),
     currentPosition: Position(x: 3, y: 3),
   );
-  final size3Tile8 = Tile(
+  final Tile size3Tile8 = Tile(
     value: 8,
     correctPosition: Position(x: 2, y: 3),
     currentPosition: Position(x: 2, y: 2),
   );
-  final size3Tile9 = Tile(
+  final Tile size3Tile9 = Tile(
     value: 9,
     correctPosition: Position(x: 3, y: 3),
     currentPosition: Position(x: 3, y: 1),
     isWhitespace: true,
   );
 
-  final puzzleSize3Unshuffled = Puzzle(
-    tiles: [
+  final Puzzle puzzleSize3Unshuffled = Puzzle(
+    tiles: <Tile>[
       size3Tile1.copyWith(currentPosition: size3Tile1.correctPosition),
       size3Tile2.copyWith(currentPosition: size3Tile2.correctPosition),
       size3Tile3.copyWith(currentPosition: size3Tile3.correctPosition),
@@ -70,8 +70,8 @@ void main() {
     ],
   );
 
-  final puzzleSize3 = Puzzle(
-    tiles: [
+  final Puzzle puzzleSize3 = Puzzle(
+    tiles: <Tile>[
       size3Tile2,
       size3Tile4,
       size3Tile9,
@@ -93,92 +93,92 @@ void main() {
     });
 
     group('PuzzleInitialized', () {
-      final random = Random(seed);
+      final Random random = Random(seed);
 
       blocTest<PuzzleBloc, PuzzleState>(
         'emits solvable 3x3 puzzle, [incomplete], 0 correct tiles, and 0 moves '
         'when initialized with size 3 and shuffle equal to true',
         build: () => PuzzleBloc(3, random: random),
-        act: (bloc) => bloc.add(PuzzleInitialized(shufflePuzzle: true)),
-        expect: () => [PuzzleState(puzzle: puzzleSize3)],
-        verify: (bloc) => expect(bloc.state.puzzle.isSolvable(), isTrue),
+        act: (PuzzleBloc bloc) => bloc.add(PuzzleInitialized(shufflePuzzle: true)),
+        expect: () => <PuzzleState>[PuzzleState(puzzle: puzzleSize3)],
+        verify: (PuzzleBloc bloc) => expect(bloc.state.puzzle.isSolvable(), isTrue),
       );
 
       blocTest<PuzzleBloc, PuzzleState>(
         'emits unshuffled 3x3 puzzle, 8 correct tiles, and 0 moves '
         'when initialized with size 3 and shuffle equal to false',
         build: () => PuzzleBloc(3, random: random),
-        act: (bloc) => bloc.add(PuzzleInitialized(shufflePuzzle: false)),
-        expect: () => [
+        act: (PuzzleBloc bloc) => bloc.add(PuzzleInitialized(shufflePuzzle: false)),
+        expect: () => <PuzzleState>[
           PuzzleState(
             puzzle: puzzleSize3Unshuffled,
             numberOfCorrectTiles: 8,
           )
         ],
-        verify: (bloc) => expect(bloc.state.puzzle.isSolvable(), isTrue),
+        verify: (PuzzleBloc bloc) => expect(bloc.state.puzzle.isSolvable(), isTrue),
       );
     });
 
     group('TileTapped', () {
-      const size = 3;
-      final topLeft = Position(x: 1, y: 1);
-      final topCenter = Position(x: 2, y: 1);
-      final topRight = Position(x: 3, y: 1);
-      final middleLeft = Position(x: 1, y: 2);
-      final middleCenter = Position(x: 2, y: 2);
-      final middleRight = Position(x: 3, y: 2);
-      final bottomLeft = Position(x: 1, y: 3);
-      final bottomCenter = Position(x: 2, y: 3);
-      final bottomRight = Position(x: 3, y: 3);
+      const int size = 3;
+      final Position topLeft = Position(x: 1, y: 1);
+      final Position topCenter = Position(x: 2, y: 1);
+      final Position topRight = Position(x: 3, y: 1);
+      final Position middleLeft = Position(x: 1, y: 2);
+      final Position middleCenter = Position(x: 2, y: 2);
+      final Position middleRight = Position(x: 3, y: 2);
+      final Position bottomLeft = Position(x: 1, y: 3);
+      final Position bottomCenter = Position(x: 2, y: 3);
+      final Position bottomRight = Position(x: 3, y: 3);
 
-      final topLeftTile = Tile(
+      final Tile topLeftTile = Tile(
         value: 1,
         correctPosition: topLeft,
         currentPosition: topLeft,
       );
-      final topCenterTile = Tile(
+      final Tile topCenterTile = Tile(
         value: 2,
         correctPosition: topCenter,
         currentPosition: topCenter,
       );
-      final topRightTile = Tile(
+      final Tile topRightTile = Tile(
         value: 3,
         correctPosition: topRight,
         currentPosition: topRight,
       );
-      final middleLeftTile = Tile(
+      final Tile middleLeftTile = Tile(
         value: 4,
         correctPosition: middleLeft,
         currentPosition: middleLeft,
       );
-      final middleCenterTile = Tile(
+      final Tile middleCenterTile = Tile(
         value: 5,
         correctPosition: middleCenter,
         currentPosition: middleCenter,
       );
-      final middleRightTile = Tile(
+      final Tile middleRightTile = Tile(
         value: 6,
         correctPosition: middleRight,
         currentPosition: middleRight,
       );
-      final bottomLeftTile = Tile(
+      final Tile bottomLeftTile = Tile(
         value: 7,
         correctPosition: bottomLeft,
         currentPosition: bottomLeft,
       );
-      final whitespaceTile = Tile(
+      final Tile whitespaceTile = Tile(
         value: 0,
         correctPosition: bottomRight,
         currentPosition: bottomCenter,
         isWhitespace: true,
       );
-      final bottomRightTile = Tile(
+      final Tile bottomRightTile = Tile(
         value: 8,
         correctPosition: bottomCenter,
         currentPosition: bottomRight,
       );
 
-      final tiles = [
+      final List<Tile> tiles = <Tile>[
         topLeftTile,
         topCenterTile,
         topRightTile,
@@ -189,7 +189,7 @@ void main() {
         whitespaceTile,
         bottomRightTile,
       ];
-      final puzzle = Puzzle(tiles: tiles);
+      final Puzzle puzzle = Puzzle(tiles: tiles);
 
       blocTest<PuzzleBloc, PuzzleState>(
         'emits [moved] when one tile was able to move',
@@ -198,11 +198,11 @@ void main() {
           puzzle: puzzle,
           numberOfCorrectTiles: 7,
         ),
-        act: (bloc) => bloc.add(TileTapped(middleCenterTile)),
+        act: (PuzzleBloc bloc) => bloc.add(TileTapped(middleCenterTile)),
         expect: () => <PuzzleState>[
           PuzzleState(
             puzzle: Puzzle(
-              tiles: [
+              tiles: <Tile>[
                 topLeftTile,
                 topCenterTile,
                 topRightTile,
@@ -238,11 +238,11 @@ void main() {
           puzzle: puzzle,
           numberOfCorrectTiles: 7,
         ),
-        act: (bloc) => bloc.add(TileTapped(topCenterTile)),
+        act: (PuzzleBloc bloc) => bloc.add(TileTapped(topCenterTile)),
         expect: () => <PuzzleState>[
           PuzzleState(
             puzzle: Puzzle(
-              tiles: [
+              tiles: <Tile>[
                 topLeftTile,
                 Tile(
                   value: 0,
@@ -282,10 +282,10 @@ void main() {
           puzzle: puzzle,
           numberOfCorrectTiles: 7,
         ),
-        act: (bloc) => bloc.add(TileTapped(topLeftTile)),
-        expect: () => [
+        act: (PuzzleBloc bloc) => bloc.add(TileTapped(topLeftTile)),
+        expect: () => <TypeMatcher<PuzzleState>>[
           isA<PuzzleState>().having(
-            (state) => state.tileMovementStatus,
+            (PuzzleState state) => state.tileMovementStatus,
             'tileMovementStatus',
             TileMovementStatus.cannotBeMoved,
           ),
@@ -300,10 +300,10 @@ void main() {
           puzzleStatus: PuzzleStatus.complete,
           numberOfCorrectTiles: 7,
         ),
-        act: (bloc) => bloc.add(TileTapped(topLeftTile)),
-        expect: () => [
+        act: (PuzzleBloc bloc) => bloc.add(TileTapped(topLeftTile)),
+        expect: () => <TypeMatcher<PuzzleState>>[
           isA<PuzzleState>().having(
-            (state) => state.tileMovementStatus,
+            (PuzzleState state) => state.tileMovementStatus,
             'tileMovementStatus',
             TileMovementStatus.cannotBeMoved,
           ),
@@ -317,11 +317,11 @@ void main() {
           puzzle: puzzle,
           numberOfCorrectTiles: 7,
         ),
-        act: (bloc) => bloc.add(TileTapped(bottomRightTile)),
-        expect: () => [
+        act: (PuzzleBloc bloc) => bloc.add(TileTapped(bottomRightTile)),
+        expect: () => <PuzzleState>[
           PuzzleState(
             puzzle: Puzzle(
-              tiles: [
+              tiles: <Tile>[
                 topLeftTile,
                 topCenterTile,
                 topRightTile,
@@ -353,10 +353,10 @@ void main() {
     });
 
     group('PuzzleReset', () {
-      final random = Random(seed);
+      final Random random = Random(seed);
 
-      final initialSize3Puzzle = Puzzle(
-        tiles: [
+      final Puzzle initialSize3Puzzle = Puzzle(
+        tiles: <Tile>[
           Tile(
             value: 1,
             correctPosition: Position(x: 1, y: 1),
@@ -385,9 +385,9 @@ void main() {
           numberOfCorrectTiles: 1,
           numberOfMoves: 10,
         ),
-        act: (bloc) => bloc.add(PuzzleReset()),
-        expect: () => [PuzzleState(puzzle: puzzleSize3)],
-        verify: (bloc) => expect(bloc.state.puzzle.isSolvable(), isTrue),
+        act: (PuzzleBloc bloc) => bloc.add(PuzzleReset()),
+        expect: () => <PuzzleState>[PuzzleState(puzzle: puzzleSize3)],
+        verify: (PuzzleBloc bloc) => expect(bloc.state.puzzle.isSolvable(), isTrue),
       );
     });
   });

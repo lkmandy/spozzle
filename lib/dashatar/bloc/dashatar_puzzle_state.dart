@@ -34,7 +34,7 @@ class DashatarPuzzleState extends Equatable {
           : DashatarPuzzleStatus.notStarted);
 
   @override
-  List<Object> get props => [isCountdownRunning, secondsToBegin];
+  List<Object> get props => <Object>[isCountdownRunning, secondsToBegin];
 
   DashatarPuzzleState copyWith({
     bool? isCountdownRunning,

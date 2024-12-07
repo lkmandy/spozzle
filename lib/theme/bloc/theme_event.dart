@@ -14,7 +14,7 @@ class ThemeChanged extends ThemeEvent {
   final int themeIndex;
 
   @override
-  List<Object> get props => [themeIndex];
+  List<Object> get props => <Object>[themeIndex];
 }
 
 /// The theme identified by [PuzzleTheme.name] has been updated
@@ -30,5 +30,5 @@ class ThemeUpdated extends ThemeEvent {
   final PuzzleTheme theme;
 
   @override
-  List<Object> get props => [theme];
+  List<Object> get props => <Object>[theme];
 }

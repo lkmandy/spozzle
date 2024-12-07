@@ -58,7 +58,7 @@ class _DashatarPuzzleActionButtonState
     final bool isStarted = status == DashatarPuzzleStatus.started;
 
     final Widget playControl = isStarted
-        ? const Icon(MdiIcons.restart)
+        ? Icon(MdiIcons.restart)
         : (isLoading
             ? const SizedBox(
                 height: 15,
@@ -67,7 +67,7 @@ class _DashatarPuzzleActionButtonState
                   color: Colors.white,
                   strokeWidth: 2.5,
                 ))
-            : const Icon(MdiIcons.play));
+            : Icon(MdiIcons.play));
 
     return AudioControlListener(
       audioPlayer: _audioPlayer,
