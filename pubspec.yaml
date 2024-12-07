@@ -31,6 +31,7 @@ dependencies:
 dev_dependencies:
   bloc_test: ^9.0.1
   flutter_launcher_icons: ^0.14.2
+  flutter_native_splash: ^2.4.1
   flutter_test:
     sdk: flutter
   mocktail: ^1.0.4
@@ -86,3 +87,13 @@ flutter_launcher_icons:
   web:
     generate: true
     image_path: "assets/icon/common/app-icon.png"
+
+flutter_native_splash:
+  color: "#ffffff"
+  color_android: "#ffffff"
+  color_dark_android: "#121212"
+  color_ios: "#ffffff"
+  color_dark_ios: "#121212"
+  color_web: "#ffffff"
+  color_dark_web: "#121212"
+  image: "assets/icon/android/app-icon-foreground.png"
