@@ -1,4 +1,4 @@
-package com.team_spozzle.spozzle
+package net.spozzle.spozzle
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -30,6 +30,7 @@ dependencies:
 
 dev_dependencies:
   bloc_test: ^9.0.1
+  change_app_package_name: ^1.4.0
   flutter_launcher_icons: ^0.14.2
   flutter_native_splash: ^2.4.1
   flutter_test:
