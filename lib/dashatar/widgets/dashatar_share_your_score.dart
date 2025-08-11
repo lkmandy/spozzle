@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
 import '../../colors/colors.dart';
+import '../../l10n/arb/app_localizations.dart';
 import '../../l10n/l10n.dart';
 import '../../layout/layout.dart';
 import '../../typography/typography.dart';
@@ -29,13 +30,15 @@ class DashatarShareYourScore extends StatelessWidget {
       medium: (_, Widget? child) => child!,
       large: (_, Widget? child) => child!,
       child: (ResponsiveLayoutSize currentSize) {
-        final TextStyle titleTextStyle = currentSize == ResponsiveLayoutSize.small
-            ? PuzzleTextStyle.headline4
-            : PuzzleTextStyle.headline3;
+        final TextStyle titleTextStyle =
+            currentSize == ResponsiveLayoutSize.small
+                ? PuzzleTextStyle.headline4
+                : PuzzleTextStyle.headline3;
 
-        final TextStyle messageTextStyle = currentSize == ResponsiveLayoutSize.small
-            ? PuzzleTextStyle.bodyXSmall
-            : PuzzleTextStyle.bodySmall;
+        final TextStyle messageTextStyle =
+            currentSize == ResponsiveLayoutSize.small
+                ? PuzzleTextStyle.bodyXSmall
+                : PuzzleTextStyle.bodySmall;
 
         final CrossAxisAlignment titleAndMessageCrossAxisAlignment =
             currentSize == ResponsiveLayoutSize.large

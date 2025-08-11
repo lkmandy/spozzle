@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../colors/colors.dart';
+import '../../l10n/arb/app_localizations.dart';
 import '../../l10n/l10n.dart';
 import '../../layout/layout.dart';
 import '../../puzzle/puzzle.dart';
@@ -31,7 +32,7 @@ class DashatarScore extends StatelessWidget {
     final AppLocalizations l10n = context.l10n;
 
     final int secondsElapsed =
-    context.select((TimerBloc bloc) => bloc.state.secondsElapsed);
+        context.select((TimerBloc bloc) => bloc.state.secondsElapsed);
 
     return ResponsiveLayoutBuilder(
       small: (_, Widget? child) => child!,
@@ -116,7 +117,7 @@ class DashatarScore extends StatelessWidget {
                         width: completedTextWidth,
                         child: AnimatedTextKit(
                           totalRepeatCount: 4,
-                          pause:  const Duration(milliseconds: 2000),
+                          pause: const Duration(milliseconds: 2000),
                           animatedTexts: <AnimatedText>[
                             TypewriterAnimatedText(
                               l10n.dashatarSuccessCompleted,
@@ -132,11 +133,10 @@ class DashatarScore extends StatelessWidget {
                         medium: 16,
                         large: 16,
                       ),
-
-                    AnimatedTextKit(
-                      key: const Key('dashatar_score_well_done'),
-                      totalRepeatCount: 4,
-                        pause:  const Duration(milliseconds: 2000),
+                      AnimatedTextKit(
+                        key: const Key('dashatar_score_well_done'),
+                        totalRepeatCount: 4,
+                        pause: const Duration(milliseconds: 2000),
                         animatedTexts: <AnimatedText>[
                           TypewriterAnimatedText(
                             l10n.dashatarSuccessWellDone,
@@ -146,7 +146,6 @@ class DashatarScore extends StatelessWidget {
                           ),
                         ],
                       ),
-
                       const ResponsiveGap(
                         small: 24,
                         medium: 32,
@@ -158,8 +157,9 @@ class DashatarScore extends StatelessWidget {
                           color: theme.defaultColor,
                         ),
                         duration: PuzzleThemeAnimationDuration.textStyle,
-                        child:
-                        Text(l10n.dashatarSuccessScore(intToTimeLeft(secondsElapsed)),
+                        child: Text(
+                          l10n.dashatarSuccessScore(
+                              intToTimeLeft(secondsElapsed)),
                         ),
                       ),
                       const ResponsiveGap(
@@ -200,17 +200,15 @@ class DashatarScore extends StatelessWidget {
 
     h = value ~/ 3600;
 
-    m = ((value - h * 3600)) ~/ 60;
+    m = (value - h * 3600) ~/ 60;
 
     s = value - (h * 3600) - (m * 60);
 
     final String hourLeft = h.toString().length < 2 ? '0$h' : h.toString();
 
-    final String minuteLeft =
-    m.toString().length < 2 ? '0$m' : m.toString();
+    final String minuteLeft = m.toString().length < 2 ? '0$m' : m.toString();
 
-    final String secondsLeft =
-    s.toString().length < 2 ? '0$s' : s.toString();
+    final String secondsLeft = s.toString().length < 2 ? '0$s' : s.toString();
 
     final String result = '$hourLeft:$minuteLeft:$secondsLeft';
 

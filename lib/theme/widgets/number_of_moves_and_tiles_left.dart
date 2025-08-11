@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../l10n/arb/app_localizations.dart';
 import '../../l10n/l10n.dart';
 import '../../layout/layout.dart';
 import '../../typography/typography.dart';

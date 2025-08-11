@@ -16,7 +16,7 @@ import 'package:http/http.dart' as http;
 import 'package:provider/src/provider.dart';
 
 import '../../helpers/helpers.dart';
-import '../../l10n/l10n.dart';
+import '../../l10n/arb/app_localizations.dart';
 import '../../language_control/language_control.dart';
 import '../../puzzle/puzzle.dart';
 

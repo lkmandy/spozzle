@@ -12,7 +12,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:nested/nested.dart';
 import 'package:spozzle/audio_control/audio_control.dart';
 import 'package:spozzle/dashatar/dashatar.dart';
-import 'package:spozzle/l10n/l10n.dart';
+import 'package:spozzle/l10n/arb/app_localizations.dart';
 import 'package:spozzle/puzzle/puzzle.dart';
 import 'package:spozzle/theme/theme.dart';
 import 'package:spozzle/timer/timer.dart';
