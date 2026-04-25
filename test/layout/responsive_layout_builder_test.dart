@@ -205,7 +205,7 @@ void main() {
         expect(find.byKey(largeKey), findsNothing);
         expect(find.byKey(childKey), findsOneWidget);
 
-        addTearDown(tester.binding.window.clearPhysicalSizeTestValue);
+        addTearDown(tester.view.resetPhysicalSize);
       });
 
       testWidgets('returns small layout size for child', (WidgetTester tester) async {

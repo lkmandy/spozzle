@@ -28,10 +28,7 @@ class DashatarThemePicker extends StatefulWidget {
   static const double _activeThemeNormalSize = 180.0;
   static const double _activeThemeSmallSize = 140.0;
   static const double _borderRadiusSmallSize = 4.0;
-  static const double _inactiveThemeNormalSize = 96.0;
-  static const double _inactiveThemeSmallSize = 50.0;
   static const double _borderRadiusNormalSize = 8.0;
-  static const double _borderRadiusNormalSizeBig = 8.0;
 
   final AudioPlayerFactory _audioPlayerFactory;
 
@@ -78,12 +75,6 @@ class _DashatarThemePickerState extends State<DashatarThemePicker> {
             final double borderRadius = isSmallSize
                 ? DashatarThemePicker._borderRadiusSmallSize
                 : DashatarThemePicker._borderRadiusNormalSize;
-            final double borderRadiusBig = isSmallSize
-                ? DashatarThemePicker._borderRadiusNormalSize
-                : DashatarThemePicker._borderRadiusNormalSizeBig;
-            final double inactiveSize = isSmallSize
-                ? DashatarThemePicker._inactiveThemeSmallSize
-                : DashatarThemePicker._inactiveThemeNormalSize;
 
               return Center(
                 child: Row(

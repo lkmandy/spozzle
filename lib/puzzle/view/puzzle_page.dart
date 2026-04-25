@@ -359,7 +359,9 @@ class PuzzleBoard extends StatelessWidget {
     final PuzzleState state = context.select((PuzzleBloc bloc) => bloc.state);
 
     final int size = puzzle.getDimension();
-    if (size == 0) return const CircularProgressIndicator();
+    if (size == 0) {
+      return const CircularProgressIndicator();
+    }
 
     return PuzzleKeyboardHandler(
       child: BlocListener<PuzzleBloc, PuzzleState>(

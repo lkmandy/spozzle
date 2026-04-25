@@ -56,7 +56,7 @@ class _PuzzleKeyboardHandlerState extends State<PuzzleKeyboardHandler> {
     super.dispose();
   }
 
-  void _handleKeyEvent(RawKeyEvent event) {
+  void _handleKeyEvent(KeyEvent event) {
     final PuzzleTheme theme = context.read<ThemeBloc>().state.theme;
 
     // The user may move tiles only when the puzzle is started.
@@ -65,9 +65,9 @@ class _PuzzleKeyboardHandlerState extends State<PuzzleKeyboardHandler> {
         context.read<DashatarPuzzleBloc>().state.status !=
             DashatarPuzzleStatus.started);
 
-    if (event is RawKeyDownEvent && canMoveTiles) {
+    if (event is KeyDownEvent && canMoveTiles) {
       final Puzzle puzzle = context.read<PuzzleBloc>().state.puzzle;
-      final PhysicalKeyboardKey physicalKey = event.data.physicalKey;
+      final PhysicalKeyboardKey physicalKey = event.physicalKey;
 
       Tile? tile;
       if (physicalKey == PhysicalKeyboardKey.arrowDown) {
@@ -91,9 +91,9 @@ class _PuzzleKeyboardHandlerState extends State<PuzzleKeyboardHandler> {
   Widget build(BuildContext context) {
     return AudioControlListener(
       audioPlayer: _audioPlayer,
-      child: RawKeyboardListener(
+      child: KeyboardListener(
         focusNode: _focusNode,
-        onKey: _handleKeyEvent,
+        onKeyEvent: _handleKeyEvent,
         child: Builder(
           builder: (BuildContext context) {
             if (!_focusNode.hasFocus) {

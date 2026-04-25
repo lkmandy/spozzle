@@ -64,13 +64,6 @@ class DashatarScore extends StatelessWidget {
                 ? PuzzleTextStyle.headline5
                 : PuzzleTextStyle.headline4;
 
-        final Size timerIconSize = currentSize == ResponsiveLayoutSize.small
-            ? const Size(21, 21)
-            : const Size(28, 28);
-
-        final double timerIconPadding =
-            currentSize == ResponsiveLayoutSize.small ? 4.0 : 6.0;
-
         final TextStyle numberOfMovesTextStyle =
             currentSize == ResponsiveLayoutSize.small
                 ? PuzzleTextStyle.headline5

@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_implementing_value_types
 import 'package:bloc_test/bloc_test.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:mocktail/mocktail.dart';

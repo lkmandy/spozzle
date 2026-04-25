@@ -250,6 +250,7 @@ class SimplePuzzleTitle extends StatelessWidget {
 }
 
 abstract class _BoardSize {
+  _BoardSize._();
   static double small = 312;
   static double medium = 424;
   static double large = 472;
@@ -293,6 +294,7 @@ class SimplePuzzleBoard extends StatelessWidget {
 }
 
 abstract class _TileFontSize {
+  _TileFontSize._();
   static double small = 36;
   static double medium = 50;
   static double large = 54;

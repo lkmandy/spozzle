@@ -50,7 +50,7 @@ class DashatarTimer extends StatefulWidget {
 
 class _DashatarTimerState extends State<DashatarTimer>
     with TickerProviderStateMixin {
-  AnimationController? _animationController;
+  late AnimationController _animationController;
   bool isPlaying = true;
 
   @override
@@ -96,9 +96,9 @@ class _DashatarTimerState extends State<DashatarTimer>
                 BlocListener<TimerBloc, TimerState>(
                   listener: (BuildContext context, TimerState state) {
                     if (context.read<TimerBloc>().state.isRunning) {
-                      _animationController!.reverse();
+                      _animationController.reverse();
                     } else {
-                      _animationController!.forward();
+                      _animationController.forward();
                     }
                   },
                   child: Padding(
@@ -111,16 +111,16 @@ class _DashatarTimerState extends State<DashatarTimer>
                       child: IconButton(
                         onPressed: () {
                           if (context.read<TimerBloc>().state.isRunning) {
-                            _animationController!.forward();
+                            _animationController.forward();
                             context.read<TimerBloc>().add(const TimerStopped());
                           } else {
                             context.read<TimerBloc>().add(const TimerResumed());
-                            _animationController!.reverse();
+                            _animationController.reverse();
                           }
                         },
                         icon: AnimatedIcon(
                           icon: AnimatedIcons.pause_play,
-                          progress: _animationController!,
+                          progress: _animationController,
                           color: theme.defaultColor,
                           size: 14.0,
                         ),
@@ -158,9 +158,9 @@ class _DashatarTimerState extends State<DashatarTimer>
                 BlocListener<TimerBloc, TimerState>(
                   listener: (BuildContext context, TimerState state) {
                     if (context.read<TimerBloc>().state.isRunning) {
-                      _animationController!.reverse();
+                      _animationController.reverse();
                     } else {
-                      _animationController!.forward();
+                      _animationController.forward();
                     }
                   },
                   child: Padding(
@@ -173,16 +173,16 @@ class _DashatarTimerState extends State<DashatarTimer>
                       child: IconButton(
                         onPressed: () {
                           if (context.read<TimerBloc>().state.isRunning) {
-                            _animationController!.forward();
+                            _animationController.forward();
                             context.read<TimerBloc>().add(const TimerStopped());
                           } else {
                             context.read<TimerBloc>().add(const TimerResumed());
-                            _animationController!.reverse();
+                            _animationController.reverse();
                           }
                         },
                         icon: AnimatedIcon(
                           icon: AnimatedIcons.pause_play,
-                          progress: _animationController!,
+                          progress: _animationController,
                           color: theme.defaultColor,
                           size: 20.0,
                         ),
@@ -220,9 +220,9 @@ class _DashatarTimerState extends State<DashatarTimer>
                 BlocListener<TimerBloc, TimerState>(
                   listener: (BuildContext context, TimerState state) {
                     if (context.read<TimerBloc>().state.isRunning) {
-                      _animationController!.reverse();
+                      _animationController.reverse();
                     } else {
-                      _animationController!.forward();
+                      _animationController.forward();
                     }
                   },
                   child: Padding(
@@ -235,16 +235,16 @@ class _DashatarTimerState extends State<DashatarTimer>
                       child: IconButton(
                         onPressed: () {
                           if (context.read<TimerBloc>().state.isRunning) {
-                            _animationController!.forward();
+                            _animationController.forward();
                             context.read<TimerBloc>().add(const TimerStopped());
                           } else {
                             context.read<TimerBloc>().add(const TimerResumed());
-                            _animationController!.reverse();
+                            _animationController.reverse();
                           }
                         },
                         icon: AnimatedIcon(
                           icon: AnimatedIcons.pause_play,
-                          progress: _animationController!,
+                          progress: _animationController,
                           color: theme.defaultColor,
                           size: 24.0,
                         ),

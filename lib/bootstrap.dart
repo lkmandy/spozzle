@@ -15,13 +15,13 @@ import 'package:flutter/widgets.dart';
 /// any state changes and errors.
 class AppBlocObserver extends BlocObserver {
   @override
-  void onChange(BlocBase bloc, Change change) {
+  void onChange(BlocBase<dynamic> bloc, Change<dynamic> change) {
     super.onChange(bloc, change);
     log('onChange(${bloc.runtimeType}, $change)');
   }
 
   @override
-  void onError(BlocBase bloc, Object error, StackTrace stackTrace) {
+  void onError(BlocBase<dynamic> bloc, Object error, StackTrace stackTrace) {
     log('onError(${bloc.runtimeType}, $error, $stackTrace)');
     super.onError(bloc, error, stackTrace);
   }
@@ -34,11 +34,10 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
     log(details.exceptionAsString(), stackTrace: details.stack);
   };
 
-  await BlocOverrides.runZoned(
-    () async => await runZonedGuarded(
-      () async => runApp(await builder()),
-      (Object error, StackTrace stackTrace) => log(error.toString(), stackTrace: stackTrace),
-    ),
-    blocObserver: AppBlocObserver(),
+  Bloc.observer = AppBlocObserver();
+
+  await runZonedGuarded(
+    () async => runApp(await builder()),
+    (Object error, StackTrace stackTrace) => log(error.toString(), stackTrace: stackTrace),
   );
 }

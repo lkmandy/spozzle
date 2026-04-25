@@ -13,6 +13,7 @@ import '../../timer/timer.dart';
 import '../dashatar.dart';
 
 abstract class _BoardSize {
+  _BoardSize._();
   static double small = 312;
   static double medium = 424;
   static double large = 472;
@@ -63,13 +64,7 @@ class _DashatarPuzzleBoardState extends State<DashatarPuzzleBoard> {
 
   @override
   Widget build(BuildContext context) {
-    final DashatarPuzzleStatus status =
-        context.select((DashatarPuzzleBloc bloc) => bloc.state.status);
-    final bool hasStarted = status == DashatarPuzzleStatus.started;
-    final bool puzzleIncomplete =
-        context.select((PuzzleBloc bloc) => bloc.state.puzzleStatus) ==
-            PuzzleStatus.incomplete;
-    final bool canSlide = hasStarted && puzzleIncomplete;
+
     return BlocListener<PuzzleBloc, PuzzleState>(
       listener: (BuildContext context, PuzzleState state) async {
         if (state.puzzleStatus == PuzzleStatus.complete) {

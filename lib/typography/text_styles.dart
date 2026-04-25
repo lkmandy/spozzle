@@ -5,6 +5,7 @@ import 'typography.dart';
 
 /// Defines text styles for the puzzle UI.
 class PuzzleTextStyle {
+  PuzzleTextStyle._();
   /// Headline 1 text style
   static TextStyle get headline1 {
     return _baseTextStyle.copyWith(

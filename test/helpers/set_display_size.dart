@@ -4,11 +4,11 @@ import 'package:spozzle/layout/layout.dart';
 
 extension PuzzleWidgetTester on WidgetTester {
   void setDisplaySize(Size size) {
-    binding.window.physicalSizeTestValue = size;
-    binding.window.devicePixelRatioTestValue = 1.0;
+    view.physicalSize = size;
+    view.devicePixelRatio = 1.0;
     addTearDown(() {
-      binding.window.clearPhysicalSizeTestValue();
-      binding.window.clearDevicePixelRatioTestValue();
+      view.resetPhysicalSize();
+      view.resetDevicePixelRatio();
     });
   }
 

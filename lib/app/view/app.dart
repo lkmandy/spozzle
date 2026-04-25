@@ -13,7 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:http/http.dart' as http;
-import 'package:provider/src/provider.dart';
+import 'package:provider/provider.dart';
 
 import '../../helpers/helpers.dart';
 import '../../l10n/arb/app_localizations.dart';
@@ -177,9 +177,7 @@ class _AppState extends State<App> {
         );
       }
 
-      for (final String audioAsset in audioAssets) {
-        prefetchToMemory(audioAsset);
-      }
+      audioAssets.forEach(prefetchToMemory);
     });
   }
 
@@ -209,7 +207,7 @@ class _AppState extends State<App> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        appBarTheme: const AppBarTheme(color: Colors.blueGrey),
+        appBarTheme: const AppBarTheme(backgroundColor: Colors.blueGrey),
         colorScheme: ColorScheme.fromSwatch(
           accentColor: const Color(0xFF37474F),
         ),
@@ -219,7 +217,7 @@ class _AppState extends State<App> {
           (LanguageControlBloc bloc) => bloc.state.language.languageCode,
         ),
       ),
-      localizationsDelegates: const <LocalizationsDelegate>[
+      localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
       ],

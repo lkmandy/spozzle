@@ -15,6 +15,7 @@ import '../../timer/bloc/timer_bloc.dart';
 import '../dashatar.dart';
 
 abstract class _TileSize {
+  _TileSize._();
   static double small = 75;
   static double medium = 100;
   static double large = 112;
@@ -118,7 +119,9 @@ class DashatarPuzzleTileState extends State<DashatarPuzzleTile>
         context.read<PuzzleBloc>().state.puzzle.isTileMovable(widget.tile);
 
     void swipeTile() {
-      if (canMove) unawaited(_audioPlayer?.replay());
+      if (canMove) {
+        unawaited(_audioPlayer?.replay());
+      }
       if (!context.read<TimerBloc>().state.isRunning) {
         context.read<TimerBloc>().add(const TimerResumed());
       }
